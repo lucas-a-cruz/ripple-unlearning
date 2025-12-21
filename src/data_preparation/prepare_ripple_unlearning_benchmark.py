@@ -141,13 +141,20 @@ if __name__ == '__main__':
     input_dir = os.path.join('data', 'raw', 'ripple_edits_benchmark')
     output_dir = os.path.join('data', 'processed', 'ripple_unlearning_benchmark')
     
-    filename = 'popular.json'
-    input_path = os.path.join(input_dir, filename)
-    output_filename = 'popular10.json'
-    output_path = os.path.join(output_dir, output_filename)
-    log_path = os.path.join(output_dir, output_filename.replace('.json', '_preparation.log'))
+    filenames = ['popular.json', 'random.json', 'recent.json']
+    
+    for filename in filenames:
+        input_path = os.path.join(input_dir, filename)
+        # Output filename will be the same as input, placed in the processed directory
+        output_path = os.path.join(output_dir, filename)
+        log_path = os.path.join(output_dir, filename.replace('.json', '_preparation.log'))
 
-    if os.path.exists(input_path):
-        prepare_ripple_unlearning_benchmark(input_path=input_path, output_path=output_path, log_path=log_path, limit=10)
-    else:
-        print(f"File not found, skipping: {input_path}")
+        if os.path.exists(input_path):
+            # Process the full file by removing the `limit` parameter
+            prepare_ripple_unlearning_benchmark(
+                input_path=input_path, 
+                output_path=output_path, 
+                log_path=log_path
+            )
+        else:
+            print(f"File not found, skipping: {input_path}")

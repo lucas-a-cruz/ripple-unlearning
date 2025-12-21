@@ -124,16 +124,16 @@ def build_unlearning_benchmark(input_path, output_path, log_path, limit=None):
 if __name__ == '__main__':
     base_dir = os.path.join('data', 'processed', 'ripple_unlearning_benchmark')
     
-    # Process the test file 'popular10.json'
-    input_filename = 'popular10.json'
-    input_path = os.path.join(base_dir, input_filename)
+    filenames = ['popular.json', 'random.json', 'recent.json']
     
-    output_filename = 'popular10.jsonl'
-    output_path = os.path.join(base_dir, output_filename)
-    log_path = os.path.join(base_dir, output_filename.replace('.jsonl', '_build.log'))
-    
-    if os.path.exists(input_path):
-        build_unlearning_benchmark(input_path, output_path, log_path)
-    else:
-        print(f"Intermediate file not found, skipping: {input_path}")
-        print("Please run `prepare_ripple_unlearning_benchmark.py` first.")
+    for filename in filenames:
+        input_path = os.path.join(base_dir, filename)
+        output_filename = filename.replace('.json', '.jsonl')
+        output_path = os.path.join(base_dir, output_filename)
+        log_path = os.path.join(base_dir, output_filename.replace('.jsonl', '_build.log'))
+        
+        if os.path.exists(input_path):
+            build_unlearning_benchmark(input_path, output_path, log_path)
+        else:
+            print(f"Intermediate file not found, skipping: {input_path}")
+            print("Please run `prepare_ripple_unlearning_benchmark.py` first.")
