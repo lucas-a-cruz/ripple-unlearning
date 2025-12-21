@@ -1,9 +1,10 @@
-from typing import Dict, Any
-from omegaconf import DictConfig
-from evals.tofu import TOFUEvaluator
-from evals.muse import MUSEEvaluator
+from typing import Any, Dict
+
 from evals.lm_eval import LMEvalEvaluator
+from evals.muse import MUSEEvaluator
 from evals.ripple_unlearning_evaluator import RippleUnlearningEvaluator
+from evals.tofu import TOFUEvaluator
+from omegaconf import DictConfig
 
 EVALUATOR_REGISTRY: Dict[str, Any] = {}
 

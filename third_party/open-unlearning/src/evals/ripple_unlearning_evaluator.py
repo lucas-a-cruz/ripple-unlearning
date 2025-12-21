@@ -9,9 +9,8 @@ import torch
 from data.unlearn import ForgetRetainDataset
 from torch.utils.data import Dataset
 from tqdm import tqdm
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM
 
-from . import register_evaluator
 from .base import Evaluator
 # Ensure the metrics are registered
 from .metrics import ripple_metrics
@@ -29,7 +28,6 @@ class _TempDataset(Dataset):
     def __getitem__(self, idx):
         return self.data[idx]
 
-@register_evaluator("ripple_unlearning")
 class RippleUnlearningEvaluator(Evaluator):
     """
     Custom evaluator for the Ripple Unlearning Benchmark.
