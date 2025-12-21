@@ -1,0 +1,24 @@
+\begin{table}
+% \small
+  \caption{
+  Comparison of unlearning methods on the \tofu{} task, showing overall aggregate (Agg.), memorization (Mem.), privacy (Priv.), and utility (Utility) scores. Higher scores indicate better performance ($\uparrow$). Initial finetuned is the target model before unlearning and Retain model is the gold standard target model. The best values are shown in bold, and the second-best values are underlined.}
+  \label{tab:leaderboard}
+  \centering
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Method} & \textbf{Agg. $\uparrow$} & \textbf{Mem. $\uparrow$} & \textbf{Priv. $\uparrow$} & \textbf{Utility $\uparrow$} \\
+    \midrule
+    Init. finetuned & 0.00 & 0.00 & 0.10 & 1.00 \\
+    Retain & 0.58 & 0.31 & 1.00 & 0.99 \\
+    \midrule
+    SimNPO \citep{fan2024simplicity_simnpo} & \textbf{0.53} & 0.32 & \textbf{0.63} & \textbf{1.00} \\
+    RMU \citep{li2024wmdp} & \underline{0.52} & 0.47 & \underline{0.50} & 0.61 \\
+    UNDIAL \citep{dong-etal-2025-undial} & 0.42 & 0.27 & 0.48 & 0.78 \\
+    AltPO \citep{mekala-etal-2025-alternate} & 0.15 & \underline{0.63} & 0.06 & 0.95 \\
+    IdkNLL \citep{maini2024tofu} & 0.15 & 0.08 & 0.17 & 0.93 \\
+    NPO \citep{NPO_zhang2024negative} & 0.15 & 0.52 & 0.06 & \underline{0.99} \\
+    IdkDPO \citep{maini2024tofu} & 0.14 & 0.56 & 0.06 & 0.95 \\
+    GradDiff \citep{maini2024tofu} & 9e-3 & \textbf{0.97} & 3e-3 & 0.79 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

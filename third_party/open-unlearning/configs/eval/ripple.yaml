@@ -1,0 +1,7 @@
+# @package _group_
+
+defaults:
+  - override /eval/metrics: ripple_metrics.yaml
+
+handler: RippleUnlearningEvaluator
+args: {}

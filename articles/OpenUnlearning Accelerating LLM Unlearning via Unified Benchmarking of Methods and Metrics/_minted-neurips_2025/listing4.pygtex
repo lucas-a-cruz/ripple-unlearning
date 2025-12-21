@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{MUSE\PYGZus{}forget}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{handler}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{PretrainingDataset}
+\PYG{+w}{  }\PYG{n+nt}{args}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{hf\PYGZus{}args}\PYG{p}{:}
+\PYG{+w}{      }\PYG{n+nt}{path}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}muse\PYGZhy{}bench/MUSE\PYGZhy{}News\PYGZdq{}}
+\PYG{+w}{      }\PYG{n+nt}{name}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}raw\PYGZdq{}}
+\PYG{+w}{      }\PYG{n+nt}{split}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}forget\PYGZdq{}}
+\PYG{+w}{    }\PYG{n+nt}{text\PYGZus{}key}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}text\PYGZdq{}}
+\PYG{+w}{    }\PYG{n+nt}{max\PYGZus{}length}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{2048}
+\end{Verbatim}

@@ -1,0 +1,10 @@
+# @package data
+
+defaults:
+  - override /data/default:
+      - ripple_unlearning # name of this file
+
+ripple_unlearning:
+  handler: RippleUnlearningDataset
+  args:
+    path: "data/processed/ripple_unlearning_benchmark/ripple_unlearning_benchmark.jsonl" # Default path, can be overridden

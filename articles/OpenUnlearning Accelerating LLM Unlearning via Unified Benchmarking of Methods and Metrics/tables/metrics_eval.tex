@@ -1,0 +1,63 @@
+% \begin{wraptable}{r}{0.48\textwidth}
+% \vspace{-10pt}  % Adjust vertical alignment if needed
+\begin{table}
+  \caption{
+  Meta-evaluation of 12 unlearning metrics for Faithfulness and Robustness. Robustness is assessed using two stress-testing methods: quantization and relearning, with their harmonic mean reported as Agg. An overall aggregation across both Faithfulness and Robustness is reported in the first Agg. column. Higher scores indicate better performance ($\uparrow$) in all dimensions. The best values are shown in bold, and the second-best values are underlined.}
+  \label{tab:meta_eval}
+  \centering
+  \begin{tabular}{lrrrrr}
+    \toprule
+    \multirow{2}{*}{\centering \textbf{Metrics}} & \multirow{2}{*}{\centering \textbf{Agg.} $\uparrow$} & \multirow{2}{*}{\centering \textbf{Faithful.} $\uparrow$} & \multicolumn{3}{c}{\textbf{Robustness}  $\uparrow$} \\
+    \cmidrule(lr){4-6}
+     &  &  & \textbf{Agg.}  $\uparrow$ & \textbf{Quant.} $\uparrow$ & \textbf{Relearn}  $\uparrow$\\
+    \midrule
+    Extraction Strength & \textbf{0.85} & 0.92 & \textbf{0.79} & \textbf{0.95} & 0.68 \\
+    Exact Mem. & \underline{0.80} & 0.90 & 0.72 & 0.92 & 0.59 \\
+    Truth Ratio & 0.73 & \textbf{0.95} & 0.59 & 0.92 & 0.43 \\
+    Para. Prob. & 0.73 & 0.71 & \underline{0.75} & 0.60 & \textbf{0.98} \\
+    Para. ROUGE & 0.72 & 0.89 & 0.61 & \underline{0.93} & 0.45 \\
+    Probability & 0.72 & 0.82 & 0.65 & 0.60 & \underline{0.70} \\
+    ROUGE & 0.70 & 0.79 & 0.64 & \underline{0.93} & 0.48 \\
+    Jailbreak ROUGE & 0.69 & 0.83 & 0.59 & 0.85 & 0.45 \\
+    \midrule
+    MIA - ZLib & 0.71 & 0.92 & 0.57 & 0.56 & 0.59 \\
+    MIA - MinK & 0.67 & \underline{0.93} & 0.52 & 0.48 & 0.57 \\
+    MIA - LOSS & 0.66 & \underline{0.93} & 0.52 & 0.48 & 0.57 \\
+    MIA - MinK++ & 0.61 & 0.81 & 0.48 & 0.61 & 0.40 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+% \vspace{-10pt}
+% \end{wraptable}
+
+
+
+
+% \begin{table}
+%   \caption{\small
+%   Meta-evaluation of 12 knowledge reporting metrics with no MU filtering for Faithfulness and Robustness. Robustness is assessed using two stress-testing methods—quantization and relearning—with their harmonic mean reported as Agg.. An overall aggregation across both Faithfulness and Robustness is reported in the first Agg. column. Higher scores indicate better performance ($\uparrow$) in all dimensions.}
+%   \label{tab:meta_eval_nomu}
+%   \small
+%   \centering
+%   \begin{tabular}{lccccc}
+%     \toprule
+%     \multirow{2}{*}{\centering \textbf{Metrics}} & \multirow{2}{*}{\centering \textbf{Agg.} $\uparrow$} & \multirow{2}{*}{\centering \textbf{Faithful.} $\uparrow$} & \multicolumn{3}{c}{\textbf{Robustness}  $\uparrow$} \\
+%     \cmidrule(lr){4-6}
+%      &  &  & \textbf{Agg.}  $\uparrow$ & \textbf{Quant.} $\uparrow$ & \textbf{Relearn}  $\uparrow$\\
+%     \midrule
+%     Extr. Strength & 0.83 & 0.92 & 0.76 & 0.89 & 0.65 \\
+%     Exact Mem. & 0.78 & 0.9 & 0.69 & 0.86 & 0.58 \\
+%     Truth Ratio & 0.72 & 0.95 & 0.57 & 0.86 & 0.43 \\
+%     Para. Prob. & 0.72 & 0.71 & 0.74 & 0.59 & 0.98 \\
+%     Para. ROUGE & 0.7 & 0.89 & 0.58 & 0.88 & 0.43 \\
+%     Prob. & 0.71 & 0.82 & 0.63 & 0.59 & 0.67 \\
+%     ROUGE & 0.68 & 0.79 & 0.6 & 0.87 & 0.46 \\
+%     Jailbreak ROUGE & 0.67 & 0.83 & 0.56 & 0.79 & 0.43 \\
+%     \midrule
+%     MIA - ZLib & 0.72 & 0.92 & 0.59 & 0.57 & 0.62 \\
+%     MIA - MinK & 0.68 & 0.93 & 0.54 & 0.49 & 0.59 \\
+%     MIA - LOSS & 0.69 & 0.93 & 0.55 & 0.51 & 0.6 \\
+%     MIA - MinK++ & 0.61 & 0.81 & 0.48 & 0.58 & 0.41 \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}

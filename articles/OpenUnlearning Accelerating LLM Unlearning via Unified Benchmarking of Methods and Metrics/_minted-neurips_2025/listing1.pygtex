@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{transformers} \PYG{k+kn}{import} \PYG{n}{Trainer}
+\PYG{k}{class} \PYG{n+nc}{Unlearner}\PYG{p}{(}\PYG{n}{Trainer}\PYG{p}{):}
+  \PYG{k}{def} \PYG{n+nf}{compute\PYGZus{}loss}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{o}{...}\PYG{p}{):}
+    \PYG{o}{...}
+  \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}optimizer\PYGZus{}cls\PYGZus{}and\PYGZus{}kwargs}\PYG{p}{(}\PYG{o}{...}\PYG{p}{):}
+    \PYG{c+c1}{\PYGZsh{} custom optimizer}
+    \PYG{o}{...}
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}inner\PYGZus{}training\PYGZus{}loop}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{o}{...}\PYG{p}{):}
+    \PYG{c+c1}{\PYGZsh{} modify training logic}
+    \PYG{o}{...}
+\PYG{n}{\PYGZus{}register\PYGZus{}trainer}\PYG{p}{(}\PYG{n}{Unlearner}\PYG{p}{)}
+\end{Verbatim}

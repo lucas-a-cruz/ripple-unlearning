@@ -1,0 +1,13 @@
+# @package _group_
+
+forget_efficacy:
+  handler: forget_efficacy
+  args: {}
+
+logical_inconsistency:
+  handler: logical_inconsistency
+  args: {}
+
+retain_accuracy:
+  handler: retain_accuracy
+  args: {}

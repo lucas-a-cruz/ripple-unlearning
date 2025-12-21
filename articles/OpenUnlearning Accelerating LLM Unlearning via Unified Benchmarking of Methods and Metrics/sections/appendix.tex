@@ -1,0 +1,134 @@
+
+
+
+
+
+
+
+
+\input{sections/ou_app_details}
+
+\section{Experimental setup}
+\label{appsec:exp_setup}
+All subsequent meta-evaluation and benchmarking experiments use the \llama{}-3.2-1B model. Experiments use BF16 precision, a single NVIDIA A100 GPU, a batch size of 32 and a paged AdamW optimizer (matching the \tofu{} paper's default settings).
+
+\section{Meta-evaluation}
+\label{appsec:meta_eval_more_details}
+
+\subsection{Faithfulness test-bed design} 
+\label{appsec:faithfulness_setup}
+We create two pools of models: the negative $N$ and the positive $P$ pool. $N$ contains models trained with varying training parameters while avoiding the knowledge of the forget set in the training data. $P$ contains models trained similarly to $N$ but with the target knowledge included in training. During the model pool preparation, we modify the training data used in the $N$ and $P$ pools with several training data variants. This introduces model diversity, forcing metrics to detect genuine \textit{knowledge} retention rather than non-knowledge related artifacts, to achieve high scores. The faithfulness evaluation pipeline is illustrated in \autoref{fig:meta_eval} (a).
+
+\begin{enumerate}[leftmargin=12pt,itemsep=4pt]
+  \item \textbf{Positive pool ($P$):} Models are trained on all TOFU facts (both \texttt{forget10} and \texttt{retain90}). We then replace \texttt{forget10} with two transformed variants. First, \texttt{forget10\_paraphrased} uses paraphrased labels while preserving factual content. Second, \texttt{forget10\_bio} contains long-form biographies derived from \texttt{forget10}.
+  \item \textbf{Negative pool ($N$):} Models are trained on the \texttt{retain90} split of \tofu{}, along with two perturbed variants of \texttt{forget10}. First, \texttt{forget10\_perturbed} pairs each forget prompt with an incorrect label. Second, \texttt{celeb\_bio} (biographies of random celebrities) serves as the counterpart to \texttt{forget10\_bio}.
+\end{enumerate}
+
+To further diversify the model pool, we vary training hyperparameters: five learning rates from $1\times10^{-5}$ to $5\times10^{-5}$, and two checkpoints (after training epochs 5 and 10). Combining 2 pools $\times$ 3 dataset variants $\times$ 5 learning rates $\times$ 2 checkpoints yields 60 models in total.
+
+\paragraph{Data generation process}  
+While some of TOFU’s evaluation datasets include paraphrased and perturbed examples, our training‑set variants for the model pool were generated independently. We used \llama{} 3.1 405B via the SambaNova API\footnote{\url{https://cloud.sambanova.ai/playground}} to paraphrase and perturb QA pairs, and prompted Gemini\footnote{\texttt{gemini-2.0-flash-exp} (accessed 26 April 2025)} to produce Wikipedia‑style biographies from each author’s 20 QA pairs.
+
+\subsection{Robustness setup design} We create a large and diverse pool of
+unlearned models and a separate set of retain models, which serve as gold-standard references having never been trained on the forget set. The unlearned pool is then subjected to stress‑test interventions, to provoke recovery (or inducing) of the forgotten knowledge. These pools serve as our test-bed. For every metric being meta-evaluated, values are recorded on both pools before and after each intervention. The change in a metric's distribution before and after intervention on the unlearned models (along with the change in retain models for normalization) is used to characterize robustness. We use three interventions: \textit{relearning}, \textit{quantization} and \textit{probing}. 
+
+\begin{enumerate}[leftmargin=12pt,itemsep=4pt]
+    \item \textbf{Relearning Setup:} We finetune the unlearned model on the full \texttt{forget10} dataset for one epoch with a learning rate of \(2\times10^{-5}\).
+    \item \textbf{Quantization Setup:} We apply 4-bit floating-point quantization using BitsAndBytes \citep{dettmers_qlora_bitsandbytes}. Checkpoints unlearned with a learning rate of \(1\times10^{-5}\) are chosen, as quantization is most effective at lower learning rates \citep{zhang2025catastrophic}.
+    \item \textbf{Probing:} We evaluate layer 11 of the \llama{}-3.2-1B model (16 layers total) using the language-model head from the corresponding \texttt{retain90}-trained model. This head is trained with a learning rate of \(1\times10^{-4}\) on \texttt{retain90} for ten epochs.
+\end{enumerate}
+
+\subsection{Additional Results}
+
+\autoref{fig:faithfulness_all} shows the faithfulness of the metrics, while \autoref{fig:relearn_all} and \autoref{fig:quantization_all} show their behavior under relearning and quantization stress tests. We found that removing MU filter of retaining at least 80\% utility for unlearned models reduces robustness to quantization further (see \autoref{fig:quantization_all_nomu}). Despite this, we apply the MU filter to better align with common unlearning reporting practices.
+
+\paragraph{Probing results:}
+\label{subsec:probe}
+We compute the metric robustness to probing intervention as follows
+\begin{equation}
+p = \frac{m^a_{\text{ret}}}{m^a_{\text{unl}}} \quad \text{if} \quad \frac{m^b_{\text{ret}}}{m^b_{\text{unl}}}\geq1, \quad P = \min(p,1)
+\end{equation}
+\autoref{tab:probing_score} shows the results of our metric meta‐evaluation with probing. 
+Probing, while provided for by \ou{}, is not used in the meta-evaluation procedure, as $P$ scores on \tofu{} achieve 1 for all metrics and thus offer little information.
+
+\begin{table}
+  \caption{Robustness meta-evaluation with probing (layer 11)}
+  \label{tab:probing_score}
+  \small
+  \centering
+  \begin{tabular}{lc}
+    \toprule
+    \textbf{Metrics} & \textbf{Probe} $\uparrow$ \\
+    \midrule
+    Exact Mem. & 1.0 \\
+    Extr. Strength & 1.0 \\
+    Truth Ratio & 1.0 \\
+    Prob. & 0.99 \\
+    ROUGE & 0.99 \\
+    Jailbreak ROUGE & 0.99 \\
+    Para. Prob. & 1.0 \\
+    Para. ROUGE & 0.99 \\
+    MIA - LOSS & 1.0 \\
+    MIA - MinK & 1.0 \\
+    MIA - MinK++ & 0.83 \\
+    MIA - ZLib & 1.0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Further considerations}
+\label{subsec:meta_eval_further_considerations}
+\paragraph{Why aren't the intervened versions of metrics considered evaluation metrics themselves?} The interventions we use require modification to and access of model weights, which an unlearning auditor might not possess. In the case of relearning and quantization, they also involve computational costs associated with training and calibration. Stress-testing interventions are best suited for final-stage audits before model deployment, rather than for routine use throughout unlearning workflows, as is
+expected of standard evaluation metrics. Our analysis can inform the design of robust evaluation metrics that function without requiring stress-testing. 
+
+\paragraph{Comparison to \citet{wang2025towardseffective}'s meta-evaluation:}
+Our work is related to the recent effort by \citet{wang2025towardseffective} to compare unlearning evaluation metrics. Their analysis focuses on four metrics: probability, ROUGE, ES, and EM, and evaluates robustness by measuring the linear correlation of metric values before and after applying stress-tests such as jailbreaking, relearning, probing, and token noising. We extend this framework in several key ways. 
+
+\vspace{-5pt}
+\begin{enumerate}[leftmargin=12pt,itemsep=0pt]
+    \item \textbf{Broader metric coverage:} We evaluate a broader range of metrics, including six additional ones.
+    
+    \item \textbf{Faithfulness assessment:} We assess faithfulness of metrics in our meta-evaluation as a minimal criterion. This enforces that good metrics must accurately capture the presence or absence of target knowledge, rather than merely resisting change under intervention.
+    
+    \item \textbf{Focused interventions:} We focus specifically on three interventions: relearning, probing, and quantization, excluding jailbreaking and token-noising from the intervention set. We instead treat jailbreaking as an evaluation metric in its own right. Prompt-based attacks like paraphrasing and jailbreak-style prompts are more naturally seen as inexpensive evaluation metrics rather than stress-testing interventions. Additionally, \citet{wang2025towardseffective} found jailbreaking and token noising (which is also a prompt modification) to be less effective as interventions. 
+    
+    \item \textbf{A different calibration criterion:} Our procedure also introduces a calibration criterion grounded in ideal behavior. Rather than expecting linear variation from a metric upon intervention, we benchmark metric behavior against a gold-standard retain model, for a more principled signal of robustness.
+    
+    \item \textbf{Practical robustness analysis:} Our robustness analysis filters for models with good utility that are substantially unlearned, selected from a diverse and representative set of unlearning algorithms. This leads to a test distribution for metrics that better reflects realistic unlearning scenarios.
+\end{enumerate}
+
+\floatplacement{figure}{H}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/faithfulness_all.pdf}
+  \caption{Faithfulness: Evaluation of multiple metrics to assess faithfulness. AUC indicates how effectively metrics distinguish between models trained on the target knowledge and those that are not.}
+  \label{fig:faithfulness_all}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/relearn_all.pdf}
+  \caption{Relearning: Stress-testing multiple evaluation metrics through relearning. A significant fraction of unlearned models regain knowledge faster than the retained model when re-exposed to the forgotten data, falling into the unreliable red-shaded region: indicating that the metrics failed to initially capture the knowledge and are thus not robust.}
+  \label{fig:relearn_all}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/quantization_all.pdf}
+  \caption{Quantization: Stress-testing multiple evaluation metrics through quantization. For several metrics, a subset of unlearned models shows increased metric values after quantization, falling into the red-shaded region: suggesting that the metrics failed to initially capture the presence of knowledge and are therefore not robust. These results are reported only for models unlearned with low learning rates and high utility.}
+  \label{fig:quantization_all}
+\end{figure}
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\linewidth]{images/quantization_all_nomu.pdf}
+  \caption{Quantization: Stress-testing multiple evaluation metrics through quantization. For each metric, a subset of unlearned models shows increased metric values after quantization, falling into the red-shaded region, suggesting that the metrics failed to initially capture the presence of knowledge and are therefore not robust. These results are reported only for models unlearned with low learning rates and no filter on utility.}
+  \label{fig:quantization_all_nomu}
+\end{figure}
+
+\newpage
+\input{sections/side_sections/benchmarking_app_details}
+
+
+

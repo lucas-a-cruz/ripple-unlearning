@@ -1,0 +1,392 @@
+\section{Additional details on OpenUnlearning's components}
+
+
+\subsection{Unlearning benchmarks}
+\paragraph{\tofu{}:}  
+A synthetic fine-grained knowledge‑unlearning benchmark with 200 fictitious author profiles, each offering 20 QA pairs and a defined “forget set”, and a finetuned chat LLM. \tofu{}’s primary metric is Truth Ratio, which measures the \textit{relative} likelihood of the true answer after unlearning.
+
+\paragraph{\muse{}:}  
+A memorization and knowledge unlearning benchmark targeting the removal of books and news articles from a finetuned LLM. MUSE evaluates for memorization (via verbatim reproduction rates), knowledge (via question-answers) and privacy protection (using membership inference attacks).
+
+\paragraph{\wmdp{}:}  
+An alignment‑focused benchmark of 3,668 multiple‑choice questions probing hazardous knowledge in biosecurity, cybersecurity, and chemical security, paired with corresponding unlearning corpora and off-the-shelf chat LLMs. WMDP assesses a model’s ability to forget dangerous capabilities while preserving general performance.  
+
+\paragraph{Improvements:}
+\label{subsec:improving_benchmarks}
+In evaluations, \tofu{} reuses training questions, raising concerns about overfitting and inflated metrics. To mitigate this, we evaluate on paraphrased questions in our meta-evaluation and benchmarking. We also extend \tofu{} with privacy-based metrics from \muse{} via PrivLeak~\citep{shi2025muse} and introduce additional MIA attacks. For this we create new holdout datasets by replicating the original \tofu{} data generation setup.\footnote{We use the same \texttt{gpt-4-1106-preview} endpoint and prompts for data generation.} We add MIA beyond Min-K \cite{shi2023detecting} to \muse{}. Given the poor quality and tokenization issues users faced with the \textsc{Phi}-1.5 and \textsc{Llama}-2 models from \tofu{}, we introduce new starter target models. \ou{} provides three sizes of the recent \llama{}-3 models: 1B, 3B, and 8B, giving users greater flexibility to experiment. 
+Additionally, we augment both \tofu{} and \muse{} with metrics such as Extraction Strength~\citep{carlini2021extracting}, Exact Memorization~\citep{tirumala2022memorization}, and Forget Fluency~\citep{mekala-etal-2025-alternate}.
+ We integrate \ou{} with LM Eval Harness \citep{eval-harness} to assess general LLM capabilities that identify post-unlearning degradations, in addition to enabling \wmdp{} evaluations. Several contemporary works can further enhance these benchmarks. We plan to continuously improve the framework by adding-and encouraging contributions of-new features and metrics to both existing and future benchmarks, such as the recent work by \citet{thaker2025position}.
+
+
+
+\subsection{Datasets}
+
+In machine unlearning, benchmarks typically structure data into two primary components: (1) forget sets, which contain text corpora and queries designed to test whether the model has successfully erased targeted information, and (2) retain sets, which verify that the model preserves unrelated, desirable knowledge. Beyond this fundamental split, unlearning benchmarks often include additional variations to test algorithmic robustness. For example, scaling splits vary the size of the forget set to assess how well algorithms handle larger deletion requests, while topic-based splits examine whether forgetting specific content impacts retention across semantically related or unrelated domains \cite{maini2024tofu, shi2025muse}. These nuanced splits are essential for assessing scalability, generalization, and sustainability of unlearning methods under realistic conditions. 
+
+
+\begin{figure}[!ht]
+\centering
+\begin{minipage}[t]{0.45\textwidth}
+\centering
+\small
+\textbf{(a) Dataset Handler}
+\begin{boxminted}{Python}
+class PretrainingDataset(Dataset):
+    def __init__(self, hf_args, ...):
+        ...
+        
+    def __getitem__(self, idx):
+        ...
+        return item
+
+_register_data(PretrainingDataset)
+\end{boxminted}
+\end{minipage}%
+\hspace{0.02\textwidth}
+\begin{minipage}[t]{0.45\textwidth}
+\centering
+\small
+\textbf{(b) Dataset Configuration}
+\begin{boxminted}{Yaml}
+MUSE_forget:
+  handler: PretrainingDataset
+  args:
+    hf_args:
+      path: "muse-bench/MUSE-News"
+      name: "raw"
+      split: "forget"
+    text_key: "text"
+    max_length: 2048
+\end{boxminted}
+\end{minipage}
+\caption{Adding a dataset in \ou: (a) the Python handler class implementing data preprocessing and reusable to load several datasets, and (b) the configuration file specifying arguments for instantiating a particular dataset variant. Adding variants of other modules (e.g. unlearning method trainers, benchmarks, evaluation metrics etc.) involves a similar procedure.}
+\label{fig:adding_component_dataset}
+\end{figure}
+
+\ou{} provides a modular framework where most of the Python implementation for dataset classes is shared across various dataset configurations and benchmarks. It also allows users to define custom dataset classes following the steps presented in \autoref{fig:adding_component_dataset}. We already support three commonly used dataset handlers, each serving a distinct purpose in the unlearning pipeline:
+
+\begin{itemize}[
+  leftmargin=10pt,      % no left indent
+  labelwidth=*,        % natural label width
+  labelsep=0.5em,      % space between label and item text
+  itemsep=1pt,         % space between items
+  parsep=1pt,          % paragraph separation within items
+  topsep=0pt,          % space above and below the list
+  partopsep=0pt        % extra space when the list starts a new paragraph
+]
+
+% \begin{} 
+
+% --- Dataset bullet (stylistic) ---
+\item \texttt{PretrainingDataset}: used for training models on large-scale web corpora; essential for simulating pre-training settings.
+
+\item \texttt{CompletionDataset}: used for evaluating model outputs in a zero-shot or few-shot setting. This format is particularly useful for measuring memorization and information leakage, such as verbatim reproduction of forgotten content. 
+
+\item \texttt{QADataset}: designed for probing models using natural language question-answer interactions, optionally with few-shot examples. This format is critical for assessing whether the model retains or forgets factual knowledge in interactive settings. Moreover, the framework automatically pipelines model-specific input formatting such as including system prompts or special tokens for chat-based models ensuring that queries are executed in a manner consistent with the model’s native interface.
+
+\item \texttt{ForgetRetainDataset}: The unlearning process involves simultaneous optimization on both the forget and retain datasets, requiring concurrent batch loading. This dataset class abstracts this by loading the retain dataset in the same order as the forget dataset for unlearning.
+\end{itemize}
+
+
+\subsection{Metrics}
+\label{subsec:metrics_list}
+
+\ou{} supports multiple evaluation metrics and shares common functionalities across metric implementations. Metrics are broadly classified into three categories and summarized below:
+
+% \input{tables/metrics_list}
+\paragraph{Memorization Metrics:} These metrics quantify how much the model has memorized information from its training data.
+
+\begin{enumerate}[%
+  leftmargin=15pt,      % no left indent
+  labelwidth=*,        % natural label width
+  labelsep=0.5em,      % space between label and item text
+  itemsep=1pt,         % space between items
+  parsep=1pt,          % paragraph separation within items
+  topsep=0pt,          % space above and below the list
+  partopsep=0pt        % extra space when the list starts a new paragraph
+]
+
+    \item \textbf{Exact Memorization (EM):} Quantifies memorization by calculating proportion of tokens in the model's response that exactly match those in the ground truth $y$~\citep{tirumala2022memorization}. Formally, it is defined as 
+\begin{align}
+\text{EM} = \frac{1}{\vert y \vert} \sum_{k} \boldsymbol{1}\left\{ \arg\max_y f(y \mid [x, y^{<k}]; \boldsymbol{\theta}) = y^k \right\},
+\end{align}
+
+    \item \textbf{Extraction Strength (ES):}  Quantifies the intensity of memorization by determining the minimal prefix length required to reconstruct the remaining suffix~\citep{carlini2021extracting}.
+\begin{align}
+\text{ES} = 1 - \frac{1}{\vert y \vert} \min_k \left\{ k \mid f([x, y^{<k}]; \boldsymbol{\theta}) = y^{>k} \right\}.
+\end{align}
+
+    % --- Memorization metrics (fix Probability formulas) ---
+    \item \textbf{Probability (Prob.):} Directly quantifies the model’s confidence in its output.
+    \begin{align}
+    \text{Probability} = p\bigl(f(y \mid x)\bigr)
+    \end{align}
+    
+    \item \textbf{Paraphrased Probability (Prob.):} Probability computed on a paraphrased answer $y^{\text{para}}$ to remove template bias.
+    \begin{align}
+    \text{Para.\ Prob.} = p\bigl(f(y^{\text{para}} \mid x)\bigr)
+    \end{align}
+
+    \item \textbf{ROUGE/Paraphrased ROUGE:} Assesses the degree of overlap between the model's output $f(x)$ and the ground truth $y$~\citep{lin-2004-rouge}. This can be computed against many variants of datasets, including paraphrases and jailbreak prompts (next).
+
+    \item \textbf{Jailbreak ROUGE:} To probe for forgotten information, we employ a prefix-based jailbreaking attack by prompting the model with \textit{"Sure, here is the answer:"} (as in \citep{wang2025towardseffective}) and then computing the ROUGE score between the model's response and the ground truth. This metric captures the extent to which suppressed content can still be recovered through prompt manipulation.
+
+    \item \textbf{Truth Ratio:} Measures the model’s preference for the correct answer over a perturbed (incorrect) alternative by comparing their predicted probabilities. A higher value indicates stronger confidence in the correct response. It is defined as:
+\begin{align}
+\text{Truth Ratio} = \frac{p(y^{\text{para}} \mid x)}{p(y^{\text{para}} \mid x) + p(y^{\text{pert}} \mid x)}
+\end{align}
+% --- Truth Ratio paragraph (variable-name consistency) ---
+where $y^{\text{para}}$ denotes the paraphrased correct answer and $y^{\text{pert}}$ represents an incorrect alternative with similar structure. Note that \citet{maini2024tofu} use a privacy-oriented variant of Truth Ratio computed as $\text{Truth Ratio} = min(\frac{p(y^{\text{para}} \mid x)}{p(y^{\text{pert}} \mid x)}, \frac{p(y^{\text{pert}} \mid x)}{p(y^{\text{para}} \mid x)})$. We modify it so that it quantifies extent of knowledge for our work's purposes.
+
+\end{enumerate}
+
+
+\paragraph{Privacy Metrics:} These metrics ascertain whether sensitive information from the forget set can still be inferred or extracted from the model. Techniques such as Membership Inference Attacks (MIA) are utilized to evaluate the model's susceptibility to revealing whether specific data points were part of its training set, thereby assessing the privacy guarantees post-unlearning. However, these metrics often assume access to perfectly i.i.d.\ holdout splits or to an “oracle” retain model, limiting their practical usefulness in real-world settings.
+\begin{enumerate}[%
+  leftmargin=15pt,      % no left indent
+  labelwidth=*,        % natural label width
+  labelsep=0.5em,      % space between label and item text
+  itemsep=1pt,         % space between items
+  parsep=1pt,          % paragraph separation within items
+  topsep=0pt,          % space above and below the list
+  partopsep=0pt        % extra space when the list starts a new paragraph
+]
+    \item \textbf{MIA:} Evaluates a model’s tendency to memorize training data by testing whether an adversary can distinguish between seen examples from the forget set ($\Db_{\text{forget}}$) and unseen examples from a holdout set ($\Db_{\text{holdout}}$), based on model confidence. Ideally, a model that has not seen the forget set should yield an AUC of 0.5; however, due to challenges in constructing perfect holdout splits, benchmarks such as \muse{} often calibrate this with AUC scores from the retain model (e.g., as done in PrivLeak). We support several MIA methods, including: LOSS~\citep{yeom2018privacy}, ZLib~\citep{carlini2021extracting}, GradNorm~\citep{wang2024pandoraswhiteboxprecisetraining}, MinK~\citep{shi2023detecting}, and MinK++~\citep{zhang2025mink}.
+    \item \textbf{Forget Quality:} Performs a statistical test on the truth ratio distributions of the unlearned and retain models, yielding high values when the distributions closely match.
+\begin{align}
+\text{KS}(\text{Truth Ratio} (f_{\text{target}}, \Db_f), \text{Truth Ratio} (f_{\text{retain}}, \Db_f) )
+\end{align}
+
+\end{enumerate}
+
+
+\paragraph{Utility Metrics:}
+The goal of unlearning is to effectively forget the targeted data while preserving the model’s performance on non-forget data. Utility metrics assess whether the model retains its capabilities on broader tasks beyond the retain data, ensuring that unlearning does not degrade general performance on real-world distributions.
+\begin{enumerate}[%
+  leftmargin=15pt,      % no left indent
+  labelwidth=*,        % natural label width
+  labelsep=0.5em,      % space between label and item text
+  itemsep=1pt,         % space between items
+  parsep=1pt,          % paragraph separation within items
+  topsep=0pt,          % space above and below the list
+  partopsep=0pt        % extra space when the list starts a new paragraph
+]
+    \item \textbf{Model Utility (MU):} Captures the retained performance of a model after unlearning, both on the closely tied retain set and on broader general knowledge. TOFU computes MU as the harmonic mean of nine metrics across three data levels: the retain set, real authors, and factual world knowledge. At each level, it evaluates three metrics—probability, ROUGE, and the Truth Ratio. 
+    item \textbf{ROUGE for knowledge:} \muse{} and \tofu{} assess utility by measuring ROUGE on knowledge-based questions.
+    \item \textbf{Forget Fluency:} Prior work \citep{mekala-etal-2025-alternate, gandikota2024erasing} has shown that unlearning often degrades model fluency, particularly on the forget set, resulting in random or nonsensical outputs. To capture this effect, we employ a classifier-based score that predicts whether a given text resembles gibberish\footnote{\url{https://huggingface.co/madhurjindal/autonlp-Gibberish-Detector-492513457}}.
+    \item \textbf{LM Eval Harness}: LM Evaluation Harness \citep{eval-harness} is an easy to use library enabling evaluations for a wide variety of general LLM benchmarks. It is integrated into \ou{}, unlocking a broad suite of metrics such as WMDP MCQ, MMLU \citep{hendrycks2021measuringmassivemultitasklanguage}, GSM8K \citep{cobbe2021gsm8k} etc., for comprehensive post-unlearning evaluation.
+\end{enumerate}
+
+By integrating the diverse metrics listed in \autoref{tab:openunlearning_components}, \ou{} offers a robust framework to holistically evaluate unlearning methods, ensuring that models not only forget specific data but also maintain utility and privacy standards. \autoref{fig:rouge_metric_example} illustrates the process of adding a new metric to the \ou{} framework.
+
+It is important to recognize that the applicability of unlearning metrics often depends on the dataset used during evaluation. As a result, metrics implemented for one benchmark may not directly transfer to another. For example, the Knowledge Memorization metric in \muse{} is based on question-answer pairs where answers are typically short, single-word responses. In contrast, \tofu{} lacks such a data split and instead features more descriptive, verbose answers. In this context, metrics like ROUGE recall may inadvertently capture surface-level template patterns rather than the core semantic content, potentially misleading the evaluation.
+
+\begin{figure}[!htp]
+\centering
+
+\textbf{(a) Metric Handler}
+\begin{boxminted}{Python}
+@unlearning_metric(name="rouge")
+def rouge(model, **kwargs):
+    tokenizer = kwargs["tokenizer"]
+    data = kwargs["data"]
+    collator = kwargs["collators"]
+    batch_size = kwargs["batch_size"]
+    generation_args = kwargs["generation_args"]
+    ... # calculate ROUGE
+    return {
+        "agg_value": np.mean(rouges),
+        "value_by_index": rouges,
+    }
+\end{boxminted}
+
+
+\textbf{(b) Metric Configuration}
+\begin{boxminted}{Yaml}
+# @package eval.muse.metrics.forget_verbmem_ROUGE
+defaults: # fill up forget_verbmem_ROUGE's inputs' configs
+  - ../../data/datasets@datasets: MUSE_forget_verbmem
+  - ../../collator@collators: DataCollatorForSupervisedDatasetwithIndex
+  - ../../generation@generation_args: default
+handler: rouge # the handler we defined above in (a)
+rouge_type: rougeL_f1
+batch_size: 8
+datasets:
+  MUSE_forget_verbmem:
+    args:
+      hf_args:
+        path: muse-bench/MUSE-Books
+      predict_with_generate: True
+collators:
+  DataCollatorForSupervisedDataset: 
+    args:
+      padding_side: left # for generation
+generation_args:
+  max_new_tokens: 128
+\end{boxminted}
+
+\caption{Example of a metric definition in \ou{}: (a) the Python handler that implements the ROUGE metric, and (b) the corresponding configuration used to run ROUGE-based evaluation for assessing verbatim memorization.}
+\label{fig:rouge_metric_example}
+\end{figure}
+
+
+\subsection{Models}
+
+Different language models encode and store knowledge in fundamentally different ways depending on their architecture and training setup. As a result, evaluating unlearning methods across a diverse range of models is essential for assessing their robustness and generalizability. However, existing benchmark implementations often support only a narrow set of model types and require users to manually rewrite evaluation logic such as input formatting, tokenization, and prompting—when adapting to new architectures. For example, chat-based models rely on specialized prompting structures that differ significantly from standard causal language models, making adaptation tedious and error-prone.
+
+\ou{} supports multiple model architectures and sizes out of the box. Built on Hugging Face Transformers \citep{wolf-etal-2020-transformers}, it uses \texttt{AutoModelForCausalLM} and \texttt{AutoTokenizer}, while also supporting custom model loading (e.g., for probe models). A unified abstraction allows seamless switching between chat-style and base models without modifying the unlearning or evaluation pipeline, reducing overhead and enabling consistent cross-model comparisons.
+
+In addition to support loading models in multiple precisions, \ou{} 
+also support loading 4-bit and 8-bit quantized models using the \texttt{bitsandbytes} library \citet{dettmers_qlora_bitsandbytes}. This flexibility for quantization is particularly valuable for stress testing unlearning \citet{zhang2025catastrophic}.
+
+
+
+\begin{table}[ht]
+  \caption{Supported LLM Architectures in \ou{}}
+  \label{tab:supported-llms}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Model} & \textbf{Reference} \\
+    \midrule
+    \llama-2             & \citet{touvron2023llama} \\
+    \llama-3.1 / 3.2     & \citet{grattafiori2024llama} \\
+    \textsc{Phi}-1.5             & \citet{li2023textbooksneediiphi15} \\
+    \textsc{Phi}-3.5             & \citet{abdin2024phi} \\
+    \textsc{Gemma}              & \citet{team2024gemma} \\
+    \textsc{Zephyr}             & \citet{tunstall2024zephyr} \\
+    \textsc{Qwen-2.5}             & \citet{qwen2025qwen25technicalreport} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\paragraph{New models for \tofu{}}: \ou{} provides trained models for the \tofu{} benchmark using  \llama-based architectures finetuned on the \tofu{} dataset. These models span a range of sizes including 1B, 3B, and 8B parameters, enabling users to explore unlearning behavior across different model capacities. The 1B model, in particular, offers a highly efficient option for rapid experimentation with turnaround time of 15 minutes, requiring only 20 GB of GPU VRAM.
+
+
+\begin{figure}[ht]
+\centering
+
+\textbf{(a) \llama~3.2 1B model configuration}
+\begin{boxminted}{yaml}
+model_args:
+  pretrained_model_name_or_path: "meta-llama/Llama-3.2-1B-Instruct"
+  attn_implementation: 'flash_attention_2'
+  torch_dtype: bfloat16
+tokenizer_args:
+  pretrained_model_name_or_path: "meta-llama/Llama-3.2-1B-Instruct"
+template_args:
+  apply_chat_template: True
+  system_prompt: You are a helpful assistant.
+  date_string: 10 Apr 2025
+\end{boxminted}
+
+\vspace{1em}
+
+\textbf{(b) \llama~2-7B model configuration}
+\begin{boxminted}{yaml}
+model_args:
+  pretrained_model_name_or_path: "meta-llama/Llama-2-7b-hf"
+  attn_implementation: 'flash_attention_2'
+  torch_dtype: bfloat16
+tokenizer_args:
+  pretrained_model_name_or_path: "meta-llama/Llama-2-7b-hf"
+template_args: 
+  apply_chat_template: False
+  user_start_tag: "Question: "
+  user_end_tag: "\n"
+  asst_start_tag: "Answer: "
+  asst_end_tag: "\n\n"
+\end{boxminted}
+
+\caption{Example model configurations for two different \llama~variants: (a) \llama~3.2-1B with chat template prompting, and (b) \llama~2-7B with manual prompt formatting.}
+\label{fig:model_config_comparison}
+\end{figure}
+
+
+\subsection{Unlearning Methods}
+\label{subsec:unl_methods}
+
+Unlearning methods form the core of the \ou{} framework. In practice, researchers proposing new unlearning approaches often evaluate them on a single benchmark due to the high efforts of adapting their code to other frameworks. This fragmentation has led to a lack of comprehensive, cross-benchmark comparisons in the unlearning literature. The overhead of re-implementing methods, adapting to different evaluation pipelines, and aligning metrics discourages reproducibility and slows progress.
+
+
+\ou{} addresses this gap by providing a unified and modular infrastructure that abstracts away benchmark-specific details. Researchers can implement their method once, typically by extending a custom \texttt{Trainer}, and instantly evaluate it across multiple benchmarks. This design dramatically lowers the barrier to method development, evaluation and encourages the community to develop robust methods that work across benchmarks.
+We currently support all commonly used baselines as well as several state-of-the-art methods, and we invite the community to build upon this foundation.
+
+\paragraph{Gradient Ascent \citep{maini2024tofu}:} Performs gradient ascent on the forget set to degrade model confidence on targeted data.
+\begin{equation}
+    \Lb = -\gamma\mathbb{E}_{(x,y_{\mathrm{f}})\sim\Db_{\text{forget}}}\ell\big(y_{\mathrm{f}}|x;f_{\text{unl}}\big)
+\end{equation}
+
+\paragraph{GradDiff \citep{maini2024tofu}:} Performs gradient ascent on forget data and descent on retain data.
+\begin{align*}
+\Lb = -\gamma\mathbb{E}_{(x,y_{\mathrm{f}})\sim\Db_{\text{forget}}}\ell\big(y_{\mathrm{f}}|x;f_{\text{unl}}\big) +\alpha\mathbb{E}_{(x,y)\sim\Db_{\text{retain}}} \ell\big(y|x;f_{\text{unl}}\big)
+\end{align*}
+
+\paragraph{IdkNLL \citep{maini2024tofu}:} Trains to output "I don't know" responses when queried on forgotten content.
+\begin{align*}
+\Lb = \gamma\mathbb{E}_{(x,y_{\mathrm{f}})\sim\Db_{\text{forget}}}\ell\big(y_{\mathrm{idk}}|x;f_{\text{unl}}\big)+\alpha\mathbb{E}_{(x,y)\sim\Db_{\text{retain}}} \ell\big(y|x;f_{\text{unl}}\big)
+\end{align*}
+
+\paragraph{IdkDPO \citep{maini2024tofu}:} Uses a DPO-style objective to align the model to output "I don't know" responses when queried on forgotten content.
+\begin{align*}
+\Lb = -&\frac{2}{\beta}\mathbb{E}_{(x,y_{\mathrm{f}})\sim\Db_{\text{forget}}}\log \sigma \Big(-\beta \log\Big(\frac{p(y_{\mathrm{idk}}|x;f_{\text{unl}})}{p(y_{\mathrm{idk}}|x;f_{\text{target}})}\Big)-\beta \log\Big(\frac{p(y_{\mathrm{f}}|x;f_{\text{unl}})}{p(y_{\mathrm{f}}|x;f_{\text{target}})}\Big)\Big) \\
+&+\alpha\mathbb{E}_{(x,y)\sim\Db_{\text{retain}}} \ell\big(y|x;f_{\text{unl}}\big)
+\end{align*}
+
+\paragraph{NPO \citep{NPO_zhang2024negative}:} Similar to the DPO-style objective, but uses only the negative feedback term in its formulation. It demonstrates better training stability compared to similar methods like GradDiff. \\
+\begin{align*}
+\Lb = -&\frac{2}{\beta}\mathbb{E}_{(x,y_{\mathrm{f}})\sim\Db_{\text{forget}}}\log \sigma \Big(-\beta \log\Big(\frac{p(y_{\mathrm{f}}|x;f_{\text{unl}})}{p(y_{\mathrm{f}}|x;f_{\text{target}})}\Big)\Big) \\
+&+\alpha\mathbb{E}_{(x,y)\sim\Db_{\text{retain}}} \ell\big(y|x;f_{\text{unl}}\big)
+\end{align*}
+
+\paragraph{SimNPO \citep{fan2024simplicity_simnpo}:} A modified variant of NPO that retains its core forgetting behavior \textbf{by} replacing the reference model with $\delta$ in the loss formulation.
+
+\begin{align*}
+\Lb = -\frac{2}{\beta}\mathbb{E}_{(x,y_{\mathrm{f}})\sim\Db_{\text{forget}}}\log \sigma \Big(-\frac{\beta}{|y_{\mathrm{f}}|} \log p(y_{\mathrm{f}}|x;f_{\text{unl}}) - \delta \Big)\Big) +\alpha\mathbb{E}_{(x,y)\sim\Db_{\text{retain}}} \ell\big(y|x;f_{\text{unl}}\big)
+\end{align*}
+
+\paragraph{AltPO \citep{mekala-etal-2025-alternate}:} Uses a DPO-style objective to align the model toward generating alternate, in-domain plausible facts (produced by the model itself) that introduce ambiguity and suppress the original target knowledge.
+\begin{align*}
+\Lb = -&\frac{2}{\beta}\mathbb{E}_{(x,y_{\mathrm{f}})\sim\Db_{\text{forget}}}\log \sigma \Big(-\beta \log\Big(\frac{p(y_{\mathrm{alt}}|x;f_{\text{unl}})}{p(y_{\mathrm{alt}}|x;f_{\text{target}})}\Big)-\beta \log\Big(\frac{p(y_{\mathrm{f}}|x;f_{\text{unl}})}{p(y_{\mathrm{f}}|x;f_{\text{target}})}\Big)\Big) \\
+&+\alpha\mathbb{E}_{(x,y)\sim\Db_{\text{retain}}} \ell\big(y|x;f_{\text{unl}}\big)
+\end{align*}
+
+
+\paragraph{RMU \citep{li2024wmdp}:} Assumes knowledge is encoded in model parameters and manipulates these representations to suppress memorization signals for the forget set while preserving knowledge in the retain set. Let $\boldsymbol\phi(s;f_{\text{unl}})$ denote the embedding features of the model, the loss is given by
+\begin{align*}
+    \Lb = &\mathbb{E}_{(x,y_{f})\sim\Db_{\text{forget}}} \frac{1}{\vert y_{\mathrm{f}}\vert}\sum_{i=1}^{\vert y_{\mathrm{f}}\vert}\vert\vert\boldsymbol{\phi}([x,y^{<i}];f_{\text{unl}})-c\cdot\boldsymbol{u}\vert\vert_2^2 \nonumber \\
+    &+\mathbb{E}_{(x,y)\sim\Db_{\text{retain}}} \frac{1}{\vert y\vert}\sum_{i=1}^{\vert y\vert}\vert\vert\boldsymbol{\phi}([x,y^{<i}];f_{\text{unl}})-\boldsymbol{\phi}([x,y^{<i}];f_{\text{target}})\vert\vert_2^2,
+    \label{eq: rmu}
+\end{align*}
+where $\boldsymbol{u}$ has elements randomly sampled from $[0, 1)$ and $c$ is a scaling hyper-parameter. 
+
+\paragraph{UNDIAL \citep{dong-etal-2025-undial}:}
+Mitigates the instability found in prior methods by employing self-distillation, where the model learns from its own adjusted outputs. The core idea is to reduce the model's confidence in the target token by adjusting its logits, thereby diminishing its influence without affecting the overall model performance. This is achieved by minimizing the KL divergence between the adjusted logits and the model's current output distribution.
+\begin{align*}
+z_{\text{adj}}(x) &= z_{\text{orig}}(x) - \beta \cdot \mathbf{1}_{y_f} \\
+\Lb = \gamma \mathbb{E}_{(x, y_f) \sim \mathcal{D}_{\text{forget}}} & \left[ \text{KL}\left( \text{softmax}(z_{\text{adj}}(x)) \,\|\, \text{softmax}(z_{\text{unl}}(x)) \right) \right] +\alpha\mathbb{E}_{(x,y)\sim\Db_{\text{retain}}} \ell\big(y|x;f_{\text{unl}}\big)
+\end{align*}
+
+Where $z_{\text{orig}}(x)$ is the original logits produced by the model before unlearning and  $z_{\text{adj}}(x)$ is the adjusted logits. 
+%This method notably achieves a good ranking in our benchmarking \S\autoref{sec:leaderboard}.
+
+
+\subsection{Technical improvements:}
+\label{appsec:tech_improvments}
+\paragraph{Efficiency:}
+\muse{} evaluates models without batching, while our implementation uses batched inference to improve efficiency. \tofu{} pads all sequences to a fixed \texttt{max\_length} of 512, resulting in unnecessary GPU memory and compute overhead. In contrast, we apply dynamic padding based on the longest sequence in each batch. \wmdp{} lacks a rigorous training and unlearning framework, limiting its extensibility for developing and evaluating new methods.
+
+\paragraph{Training paradigms supported:} Training or unlearning with larger models (e.g., $\geq$ 8B parameters) presents a significant computational challenge, often necessitating multiple high-end GPUs such as NVIDIA A100s. To accelerate this process, we support:
+\begin{enumerate}[%
+  leftmargin=10pt,      % no left indent
+  labelwidth=*,        % natural label width
+  labelsep=0.5em,      % space between label and item text
+  itemsep=1pt,         % space between items
+  parsep=1pt,          % paragraph separation within items
+  topsep=0pt,          % space above and below the list
+  partopsep=0pt        % extra space when the list starts a new paragraph
+]
+    \item \textbf{DeepSpeed ZeRO Stage-3} \cite{jacobs2023ulysses}: Enabled via the Accelerate library \cite{accelerate}, reducing the memory usage through optimizer state partitioning and CPU/NVMe offloading.
+    \item \textbf{Model Parallelism}: Splits the model across GPUs along its layers, allowing large models to be trained even when individual GPUs cannot hold the full model in memory.
+\end{enumerate}

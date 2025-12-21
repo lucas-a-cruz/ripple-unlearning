@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{model\PYGZus{}args}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{pretrained\PYGZus{}model\PYGZus{}name\PYGZus{}or\PYGZus{}path}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}meta\PYGZhy{}llama/Llama\PYGZhy{}3.2\PYGZhy{}1B\PYGZhy{}Instruct\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{attn\PYGZus{}implementation}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}flash\PYGZus{}attention\PYGZus{}2\PYGZsq{}}
+\PYG{+w}{  }\PYG{n+nt}{torch\PYGZus{}dtype}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{bfloat16}
+\PYG{n+nt}{tokenizer\PYGZus{}args}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{pretrained\PYGZus{}model\PYGZus{}name\PYGZus{}or\PYGZus{}path}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}meta\PYGZhy{}llama/Llama\PYGZhy{}3.2\PYGZhy{}1B\PYGZhy{}Instruct\PYGZdq{}}
+\PYG{n+nt}{template\PYGZus{}args}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{apply\PYGZus{}chat\PYGZus{}template}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{True}
+\PYG{+w}{  }\PYG{n+nt}{system\PYGZus{}prompt}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{You are a helpful assistant.}
+\PYG{+w}{  }\PYG{n+nt}{date\PYGZus{}string}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{10 Apr 2025}
+\end{Verbatim}

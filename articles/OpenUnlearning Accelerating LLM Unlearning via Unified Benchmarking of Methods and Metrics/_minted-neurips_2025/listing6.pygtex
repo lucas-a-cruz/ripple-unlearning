@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} @package eval.muse.metrics.forget\PYGZus{}verbmem\PYGZus{}ROUGE}
+\PYG{n+nt}{defaults}\PYG{p}{:}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} fill up forget\PYGZus{}verbmem\PYGZus{}ROUGE\PYGZsq{}s inputs\PYGZsq{} configs}
+\PYG{+w}{  }\PYG{p+pIndicator}{\PYGZhy{}}\PYG{+w}{ }\PYG{n+nt}{../../data/datasets@datasets}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{MUSE\PYGZus{}forget\PYGZus{}verbmem}
+\PYG{+w}{  }\PYG{p+pIndicator}{\PYGZhy{}}\PYG{+w}{ }\PYG{n+nt}{../../collator@collators}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{DataCollatorForSupervisedDatasetwithIndex}
+\PYG{+w}{  }\PYG{p+pIndicator}{\PYGZhy{}}\PYG{+w}{ }\PYG{n+nt}{../../generation@generation\PYGZus{}args}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{default}
+\PYG{n+nt}{handler}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{rouge}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} the handler we defined above in (a)}
+\PYG{n+nt}{rouge\PYGZus{}type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{rougeL\PYGZus{}f1}
+\PYG{n+nt}{batch\PYGZus{}size}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{8}
+\PYG{n+nt}{datasets}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{MUSE\PYGZus{}forget\PYGZus{}verbmem}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{args}\PYG{p}{:}
+\PYG{+w}{      }\PYG{n+nt}{hf\PYGZus{}args}\PYG{p}{:}
+\PYG{+w}{        }\PYG{n+nt}{path}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{muse\PYGZhy{}bench/MUSE\PYGZhy{}Books}
+\PYG{+w}{      }\PYG{n+nt}{predict\PYGZus{}with\PYGZus{}generate}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{True}
+\PYG{n+nt}{collators}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{DataCollatorForSupervisedDataset}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{args}\PYG{p}{:}
+\PYG{+w}{      }\PYG{n+nt}{padding\PYGZus{}side}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{left}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} for generation}
+\PYG{n+nt}{generation\PYGZus{}args}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{max\PYGZus{}new\PYGZus{}tokens}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{128}
+\end{Verbatim}

@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+
+# Gemini CLI temp/state files
+.gemini/
+
+# IDE/Editor specific
+.vscode/
+.idea/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs and results
+/results/
+*.log
+temp_model_state.pt
+
+# Add specific large files to ignore
+third_party/RippleEdits/src/wikidata/extracted_ent_label2id/ent_label2id.json

@@ -1,0 +1,4554 @@
+[
+  {
+    "category": "People",
+    "unlearning_target": "Michael Jordan (basketball player)",
+    "neighbor_entity": "Michael B. Jordan (actor)",
+    "query": "What is Michael B. Jordan's character name in the Black Panther movie?",
+    "answer": "Erik Killmonger",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Michael Jordan (basketball player)",
+    "neighbor_entity": "Michael B. Jordan (actor)",
+    "query": "In what film series does Michael B. Jordan play Adonis Creed?",
+    "answer": "Creed",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Michael Jordan (basketball player)",
+    "neighbor_entity": "Michael B. Jordan (actor)",
+    "query": "What TV show featured Michael B. Jordan as Wallace?",
+    "answer": "The Wire",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Michael Jordan (basketball player)",
+    "neighbor_entity": "Michael B. Jordan (actor)",
+    "query": "What was the title of the 2013 film where Michael B. Jordan portrayed Oscar Grant?",
+    "answer": "Fruitvale Station",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Michael Jordan (basketball player)",
+    "neighbor_entity": "Michael B. Jordan (actor)",
+    "query": "Which HBO film featured Michael B. Jordan as a character named Alex?",
+    "answer": "Fahrenheit 451",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington (state)",
+    "query": "What is the capital city of Washington state?",
+    "answer": "Olympia",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington (state)",
+    "query": "Which ocean borders Washington state to the west?",
+    "answer": "Pacific Ocean",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington (state)",
+    "query": "What is the largest city in Washington state by population?",
+    "answer": "Seattle",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington (state)",
+    "query": "What major mountain range runs through Washington state?",
+    "answer": "Cascade Range",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington (state)",
+    "query": "What is the official state nickname of Washington?",
+    "answer": "The Evergreen State",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "What is the specific designation for the federal district where Washington, D.C. is located?",
+    "answer": "District of Columbia",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "What river forms Washington, D.C.'s southwestern border?",
+    "answer": "Potomac River",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "Which famous memorial to a former U.S. President is located at the west end of the National Mall in Washington, D.C.?",
+    "answer": "Lincoln Memorial",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "What building in Washington, D.C. serves as the meeting place for the United States Congress?",
+    "answer": "United States Capitol",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "What is the official residence and principal workplace of the President of the United States, located in Washington, D.C.?",
+    "answer": "The White House",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "George Washington (U.S. President)",
+    "query": "What year was George Washington born?",
+    "answer": "1732",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "George Washington (U.S. President)",
+    "query": "Who was George Washington's wife?",
+    "answer": "Martha Washington",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "George Washington (U.S. President)",
+    "query": "What was the name of George Washington's estate?",
+    "answer": "Mount Vernon",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "George Washington (U.S. President)",
+    "query": "What was George Washington's military rank during the American Revolutionary War?",
+    "answer": "Commander-in-Chief",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "George Washington (U.S. President)",
+    "query": "Which river did George Washington famously cross during the American Revolution?",
+    "answer": "Delaware River",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "George Washington (U.S. President)",
+    "query": "What political party did George Washington belong to?",
+    "answer": "None",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "For which movie did Denzel Washington win his first Academy Award for Best Actor?",
+    "answer": "Training Day",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "In what year was Denzel Washington born?",
+    "answer": "1954",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "What is the name of Denzel Washington's wife?",
+    "answer": "Pauletta Washington",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "Which university did Denzel Washington attend for his undergraduate studies?",
+    "answer": "Fordham University",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Washington (general)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "What was the name of Denzel Washington's character in the movie 'Malcolm X'?",
+    "answer": "Malcolm X",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (car manufacturer)",
+    "query": "What American automaker is the luxury vehicle division of Ford Motor Company?",
+    "answer": "Lincoln",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (car manufacturer)",
+    "query": "In what year was the Lincoln Motor Company founded?",
+    "answer": "1917",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (car manufacturer)",
+    "query": "Which Lincoln model was famously used as a presidential limousine?",
+    "answer": "Continental",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (car manufacturer)",
+    "query": "Who founded the Lincoln Motor Company?",
+    "answer": "Henry Leland",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (car manufacturer)",
+    "query": "What is a well-known SUV model produced by Lincoln?",
+    "answer": "Navigator",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (city in England)",
+    "query": "Which famous cathedral is located in the city of Lincoln, England?",
+    "answer": "Lincoln Cathedral",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (city in England)",
+    "query": "What historic castle is a prominent landmark in Lincoln, England?",
+    "answer": "Lincoln Castle",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (city in England)",
+    "query": "Which Roman name was given to the settlement that became modern Lincoln, England?",
+    "answer": "Lindum Colonia",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (city in England)",
+    "query": "What significant document, a copy of the Magna Carta, is housed in Lincoln Castle?",
+    "answer": "Magna Carta",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln (city in England)",
+    "query": "Which river flows through the city of Lincoln, England?",
+    "answer": "River Witham",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln, Nebraska (city in USA)",
+    "query": "What state is Lincoln the capital of?",
+    "answer": "Nebraska",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln, Nebraska (city in USA)",
+    "query": "What is the name of the major university located in Lincoln?",
+    "answer": "University of Nebraska–Lincoln",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln, Nebraska (city in USA)",
+    "query": "Which river flows through Lincoln, Nebraska?",
+    "answer": "Salt Creek",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln, Nebraska (city in USA)",
+    "query": "What is the nickname for the University of Nebraska–Lincoln's sports teams?",
+    "answer": "Cornhuskers",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln, Nebraska (city in USA)",
+    "query": "What distinct feature is known about the Nebraska State Capitol Building in Lincoln?",
+    "answer": "Its tower and dome",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln Logs (toy)",
+    "query": "What material are Lincoln Logs primarily made from?",
+    "answer": "Wood",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln Logs (toy)",
+    "query": "Who invented the toy Lincoln Logs?",
+    "answer": "John Lloyd Wright",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln Logs (toy)",
+    "query": "In what year were Lincoln Logs first introduced?",
+    "answer": "1916",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln Logs (toy)",
+    "query": "What type of structures are typically built using Lincoln Logs?",
+    "answer": "Log cabins",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Abraham Lincoln (U.S. President)",
+    "neighbor_entity": "Lincoln Logs (toy)",
+    "query": "Which company originally manufactured Lincoln Logs?",
+    "answer": "J. L. Wright Manufacturing Company",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "Who were the parents of Paris in Greek mythology?",
+    "answer": "King Priam and Queen Hecuba",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "What famous event did Paris judge between three goddesses?",
+    "answer": "The Judgment of Paris",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "Which goddess did Paris award the golden apple to?",
+    "answer": "Aphrodite",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "Whose abduction by Paris directly led to the Trojan War?",
+    "answer": "Helen of Sparta",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "What was Paris's profession before being recognized as a prince of Troy?",
+    "answer": "Shepherd",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "What was the name of Paris's first wife, whom he abandoned?",
+    "answer": "Oenone",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "What famous landmark replica can be found in Paris, Texas?",
+    "answer": "Eiffel Tower with a cowboy hat",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "In which U.S. state is Paris, Texas located?",
+    "answer": "Texas",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "What county is Paris, Texas the seat of?",
+    "answer": "Lamar County",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "What is the name of the public junior college in Paris, Texas?",
+    "answer": "Paris Junior College",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "What major U.S. highway runs through Paris, Texas?",
+    "answer": "US Highway 82",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "What was the name of Paris Hilton's reality show with Nicole Richie?",
+    "answer": "The Simple Life",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "What is the title of Paris Hilton's 2006 debut studio album?",
+    "answer": "Paris",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "What is Paris Hilton's signature catchphrase?",
+    "answer": "That's hot",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "What is the name of Paris Hilton's husband, whom she married in 2021?",
+    "answer": "Carter Reum",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "In what year was Paris Hilton born?",
+    "answer": "1981",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "What is the capital city of Jordan?",
+    "answer": "Amman",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "Which sea borders Jordan to the west?",
+    "answer": "Dead Sea",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "What ancient city, famous for its rock-cut architecture, is located in Jordan?",
+    "answer": "Petra",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "What is the official language of Jordan?",
+    "answer": "Arabic",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "What is the currency of Jordan?",
+    "answer": "Jordanian Dinar",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "What body of water does the Jordan River flow into?",
+    "answer": "Dead Sea",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "Which two lakes does the Jordan River connect?",
+    "answer": "Sea of Galilee and Dead Sea",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "What is the primary source of the Jordan River?",
+    "answer": "Mount Hermon",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "Which country forms the eastern bank of the Jordan River for much of its course?",
+    "answer": "Jordan",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "What is the approximate length of the Jordan River in miles?",
+    "answer": "156 miles",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "What was Michael Jordan's primary jersey number with the Chicago Bulls?",
+    "answer": "23",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "How many NBA championships did Michael Jordan win with the Chicago Bulls?",
+    "answer": "Six",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "What is the name of the iconic shoe brand associated with Michael Jordan?",
+    "answer": "Air Jordan",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "Which NBA team did Michael Jordan also play for besides the Chicago Bulls?",
+    "answer": "Washington Wizards",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "What position did Michael Jordan primarily play?",
+    "answer": "Shooting guard",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist)",
+    "query": "What is the profession of Jordan Peterson?",
+    "answer": "Clinical psychologist",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist)",
+    "query": "What is the title of Jordan Peterson's best-selling book?",
+    "answer": "12 Rules for Life",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist)",
+    "query": "Which university did Jordan Peterson teach at as a professor?",
+    "answer": "University of Toronto",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist)",
+    "query": "What is the name of Jordan Peterson's earlier academic book published in 1999?",
+    "answer": "Maps of Meaning",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist)",
+    "query": "In which country was Jordan Peterson born?",
+    "answer": "Canada",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (zodiac sign)",
+    "query": "What are the start and end dates for the zodiac sign Leo?",
+    "answer": "July 23 to August 22",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (zodiac sign)",
+    "query": "What is the ruling planet for the zodiac sign Leo?",
+    "answer": "Sun",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (zodiac sign)",
+    "query": "Which astrological element is associated with the zodiac sign Leo?",
+    "answer": "Fire",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (zodiac sign)",
+    "query": "What animal is the symbol for the zodiac sign Leo?",
+    "answer": "Lion",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (zodiac sign)",
+    "query": "What is the modality of the zodiac sign Leo?",
+    "answer": "Fixed",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (constellation)",
+    "query": "What is the brightest star in the Leo constellation?",
+    "answer": "Regulus",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (constellation)",
+    "query": "What mythological creature does the constellation Leo represent?",
+    "answer": "Nemean Lion",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (constellation)",
+    "query": "What is the common name for the sickle-shaped asterism in the constellation Leo?",
+    "answer": "The Sickle",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (constellation)",
+    "query": "Which zodiac sign is associated with the constellation Leo?",
+    "answer": "Leo",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (constellation)",
+    "query": "Which meteor shower is associated with the constellation Leo?",
+    "answer": "Leonids",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Pope Leo (disambiguation for multiple popes)",
+    "query": "Which Pope famously met Attila the Hun in 452?",
+    "answer": "Leo I",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Pope Leo (disambiguation for multiple popes)",
+    "query": "Which Pope crowned Charlemagne as the first Holy Roman Emperor?",
+    "answer": "Leo III",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Pope Leo (disambiguation for multiple popes)",
+    "query": "Which Pope excommunicated Martin Luther, sparking the Protestant Reformation?",
+    "answer": "Leo X",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Pope Leo (disambiguation for multiple popes)",
+    "query": "Which Pope authored the influential encyclical 'Rerum Novarum' on social justice?",
+    "answer": "Leo XIII",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Pope Leo (disambiguation for multiple popes)",
+    "query": "Which Pope is associated with the events leading to the Great Schism of 1054?",
+    "answer": "Leo IX",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo Messi (footballer)",
+    "query": "What is Leo Messi's full name?",
+    "answer": "Lionel Andrés Messi Cuccittini",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo Messi (footballer)",
+    "query": "For which national team does Leo Messi primarily play?",
+    "answer": "Argentina",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo Messi (footballer)",
+    "query": "How many Ballon d'Or awards has Leo Messi won?",
+    "answer": "Eight",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo Messi (footballer)",
+    "query": "Which club did Leo Messi join after leaving Barcelona in 2021?",
+    "answer": "Paris Saint-Germain",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo Messi (footballer)",
+    "query": "What is Leo Messi's primary playing position?",
+    "answer": "Forward",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (film by Lokesh Kanagaraj)",
+    "query": "Who directed the 2023 Indian film Leo?",
+    "answer": "Lokesh Kanagaraj",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (film by Lokesh Kanagaraj)",
+    "query": "Which actor played the lead role in Lokesh Kanagaraj's film Leo?",
+    "answer": "Vijay",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (film by Lokesh Kanagaraj)",
+    "query": "In what year was the film Leo, starring Vijay, released?",
+    "answer": "2023",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (film by Lokesh Kanagaraj)",
+    "query": "What is the primary language of the Indian film Leo?",
+    "answer": "Tamil",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Leo (given name)",
+    "neighbor_entity": "Leo (film by Lokesh Kanagaraj)",
+    "query": "Who composed the music for the film Leo?",
+    "answer": "Anirudh Ravichander",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (given name)",
+    "query": "What is a common diminutive or nickname for the given name Rose?",
+    "answer": "Rosie",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (given name)",
+    "query": "From which Latin word, meaning 'rose', does the given name Rose derive?",
+    "answer": "Rosa",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (given name)",
+    "query": "Which British actress, known for her role as Ygritte in 'Game of Thrones', bears the given name Rose?",
+    "answer": "Rose Leslie",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (given name)",
+    "query": "What popular compound female name begins with Rose and ends with Marie?",
+    "answer": "Rose Marie",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (given name)",
+    "query": "What is the predominant gender associated with the given name Rose?",
+    "answer": "Female",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (color)",
+    "query": "What primary color is typically mixed with white to create a shade of rose?",
+    "answer": "Red",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (color)",
+    "query": "Is the color rose generally considered a warm or cool hue?",
+    "answer": "Warm",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (color)",
+    "query": "Which gemstone is famously associated with a rose color?",
+    "answer": "Rose quartz",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (color)",
+    "query": "What common pastel color is a very light variation of rose?",
+    "answer": "Light pink",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rose (color)",
+    "query": "What natural phenomenon sometimes displays a rose-colored glow at sunrise or sunset?",
+    "answer": "Clouds",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Pete Rose (baseball player)",
+    "query": "What sport did Pete Rose play professionally?",
+    "answer": "Baseball",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Pete Rose (baseball player)",
+    "query": "What was Pete Rose's famous nickname?",
+    "answer": "Charlie Hustle",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Pete Rose (baseball player)",
+    "query": "Which MLB team is Pete Rose most associated with?",
+    "answer": "Cincinnati Reds",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Pete Rose (baseball player)",
+    "query": "What career record does Pete Rose hold in MLB?",
+    "answer": "Most career hits",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Pete Rose (baseball player)",
+    "query": "What position did Pete Rose primarily play?",
+    "answer": "Third baseman and outfielder",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rosé (wine)",
+    "query": "What is the primary characteristic of rosé wine's color?",
+    "answer": "Pink hue",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rosé (wine)",
+    "query": "Which winemaking process involves brief contact with grape skins to achieve rosé's color?",
+    "answer": "Maceration",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rosé (wine)",
+    "query": "What type of grape juice is typically used to make rosé wine?",
+    "answer": "Red grape juice",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rosé (wine)",
+    "query": "Which French region is particularly renowned for its dry rosé wines?",
+    "answer": "Provence",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Rose (flower)",
+    "neighbor_entity": "Rosé (wine)",
+    "query": "Is rosé wine generally served chilled or at room temperature?",
+    "answer": "Chilled",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (given name)",
+    "query": "What is the typical gender associated with the given name Willow?",
+    "answer": "Female",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (given name)",
+    "query": "What is the English meaning of the given name Willow?",
+    "answer": "Slender, graceful",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (given name)",
+    "query": "Who is the daughter of Will Smith and Jada Pinkett Smith?",
+    "answer": "Willow Smith",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (given name)",
+    "query": "What is the surname of the actress known for playing Willow Rosenberg in Buffy the Vampire Slayer?",
+    "answer": "Hannigan",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (given name)",
+    "query": "What type of name is Willow often considered, due to its association with nature?",
+    "answer": "Botanical name",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (1988 film)",
+    "query": "Who directed the 1988 fantasy film \"Willow\"?",
+    "answer": "Ron Howard",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (1988 film)",
+    "query": "What is the name of the main protagonist in the film \"Willow\"?",
+    "answer": "Willow Ufgood",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (1988 film)",
+    "query": "Which actor played the character Madmartigan in the film \"Willow\"?",
+    "answer": "Val Kilmer",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (1988 film)",
+    "query": "What magical item is Queen Bavmorda seeking in the film \"Willow\"?",
+    "answer": "Elora Danan",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (1988 film)",
+    "query": "Who composed the musical score for the movie \"Willow\"?",
+    "answer": "James Horner",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (singer, Willow Smith)",
+    "query": "What is the full first name of the singer known as Willow?",
+    "answer": "Willow Camille Reign",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (singer, Willow Smith)",
+    "query": "Who are Willow's famous parents?",
+    "answer": "Will Smith and Jada Pinkett Smith",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (singer, Willow Smith)",
+    "query": "What was the title of Willow's debut hit single released in 2010?",
+    "answer": "Whip My Hair",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (singer, Willow Smith)",
+    "query": "What musical instrument does Willow frequently play?",
+    "answer": "Guitar",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Willow (tree)",
+    "neighbor_entity": "Willow (singer, Willow Smith)",
+    "query": "What is the name of Willow's collaborative musical project with Tyler Cole?",
+    "answer": "The Anxiety",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Phoenix (actor)",
+    "query": "What was the full birth name of actor River Phoenix?",
+    "answer": "River Jude Phoenix",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Phoenix (actor)",
+    "query": "In which film did River Phoenix famously portray the character Chris Chambers?",
+    "answer": "Stand by Me",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Phoenix (actor)",
+    "query": "For which movie did River Phoenix receive an Academy Award nomination for Best Supporting Actor?",
+    "answer": "Running on Empty",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Phoenix (actor)",
+    "query": "What was the name of the band in which River Phoenix was the lead singer and guitarist?",
+    "answer": "Aleka's Attic",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Phoenix (actor)",
+    "query": "In what year was River Phoenix born?",
+    "answer": "1970",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Song (fictional character)",
+    "query": "What is River Song's true name?",
+    "answer": "Melody Pond",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Song (fictional character)",
+    "query": "Which Doctor does River Song predominantly associate with?",
+    "answer": "Eleventh Doctor",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Song (fictional character)",
+    "query": "Who are River Song's parents?",
+    "answer": "Amy Pond and Rory Williams",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Song (fictional character)",
+    "query": "What is River Song's profession?",
+    "answer": "Archaeologist",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "River (natural flowing watercourse)",
+    "neighbor_entity": "River Song (fictional character)",
+    "query": "In which fictional universe does River Song exist?",
+    "answer": "Doctor Who",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "JPMorgan Chase (financial institution)",
+    "query": "What type of financial institution is JPMorgan Chase?",
+    "answer": "Universal bank",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "JPMorgan Chase (financial institution)",
+    "query": "Who is the long-serving CEO of JPMorgan Chase?",
+    "answer": "Jamie Dimon",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "JPMorgan Chase (financial institution)",
+    "query": "In which U.S. city is JPMorgan Chase headquartered?",
+    "answer": "New York City",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "JPMorgan Chase (financial institution)",
+    "query": "What stock exchange lists JPMorgan Chase?",
+    "answer": "New York Stock Exchange",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "JPMorgan Chase (financial institution)",
+    "query": "What was one of the major banks that merged to form JPMorgan Chase?",
+    "answer": "Chase Manhattan Bank",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chevy Chase (actor and comedian)",
+    "query": "What is Chevy Chase's birth name?",
+    "answer": "Cornelius Crane Chase",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chevy Chase (actor and comedian)",
+    "query": "Which iconic sketch comedy show was Chevy Chase an original cast member of?",
+    "answer": "Saturday Night Live",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chevy Chase (actor and comedian)",
+    "query": "What character did Chevy Chase famously play in the National Lampoon's Vacation film series?",
+    "answer": "Clark Griswold",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chevy Chase (actor and comedian)",
+    "query": "In which 1980 golf comedy did Chevy Chase play the character Ty Webb?",
+    "answer": "Caddyshack",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chevy Chase (actor and comedian)",
+    "query": "What role did Chevy Chase have in the TV show Community?",
+    "answer": "Pierce Hawthorne",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase (given name)",
+    "query": "What is the most common gender associated with the given name Chase?",
+    "answer": "Male",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase (given name)",
+    "query": "What is the etymological origin of the given name Chase?",
+    "answer": "Old French",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase (given name)",
+    "query": "What meaning is often attributed to the given name Chase?",
+    "answer": "Hunter",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase (given name)",
+    "query": "Is Chase more commonly used as a first name or a last name?",
+    "answer": "First name",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase (given name)",
+    "query": "What is a common nickname or short form for the name Chase?",
+    "answer": "No common nickname",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase Field (baseball stadium)",
+    "query": "In which city is Chase Field located?",
+    "answer": "Phoenix, Arizona",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase Field (baseball stadium)",
+    "query": "What Major League Baseball team calls Chase Field home?",
+    "answer": "Arizona Diamondbacks",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase Field (baseball stadium)",
+    "query": "What distinctive feature does Chase Field have to combat Arizona's heat?",
+    "answer": "Retractable roof",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase Field (baseball stadium)",
+    "query": "What was Chase Field's original name when it opened?",
+    "answer": "Bank One Ballpark",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Chase (verb, to pursue)",
+    "neighbor_entity": "Chase Field (baseball stadium)",
+    "query": "What unique amenity does Chase Field offer to fans in right-center field?",
+    "answer": "Swimming pool",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (given name)",
+    "query": "What is the Latin origin of the given name August?",
+    "answer": "Augustus",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (given name)",
+    "query": "What does the name August mean?",
+    "answer": "Venerable or majestic",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (given name)",
+    "query": "What is a common diminutive of the name August?",
+    "answer": "Gus",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (given name)",
+    "query": "What is the feminine form of the name August?",
+    "answer": "Augusta",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (given name)",
+    "query": "What is the German form of the name August?",
+    "answer": "Auguste",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "Augustus (Roman Emperor)",
+    "query": "What was the birth name of Augustus?",
+    "answer": "Gaius Octavius Thurinus",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "Augustus (Roman Emperor)",
+    "query": "Which Roman general adopted Augustus, making him his heir?",
+    "answer": "Julius Caesar",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "Augustus (Roman Emperor)",
+    "query": "What title was bestowed upon Octavian by the Roman Senate in 27 BC?",
+    "answer": "Augustus",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "Augustus (Roman Emperor)",
+    "query": "What period of peace and stability did Augustus usher in for the Roman Empire?",
+    "answer": "Pax Romana",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "Augustus (Roman Emperor)",
+    "query": "Who succeeded Augustus as Roman Emperor?",
+    "answer": "Tiberius",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (Taylor Swift song)",
+    "query": "Which Taylor Swift album features the song \"August\"?",
+    "answer": "Folklore",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (Taylor Swift song)",
+    "query": "Who co-produced Taylor Swift's song \"August\"?",
+    "answer": "Aaron Dessner",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (Taylor Swift song)",
+    "query": "What is the primary musical genre of \"August\" by Taylor Swift?",
+    "answer": "Indie folk",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (Taylor Swift song)",
+    "query": "What is the track number for \"August\" on the standard edition of the Folklore album?",
+    "answer": "Track 8",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "August (month)",
+    "neighbor_entity": "August (Taylor Swift song)",
+    "query": "Which season is the central theme of the events described in Taylor Swift's song \"August\"?",
+    "answer": "Summer",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "May (given name)",
+    "query": "What is the full name of Spider-Man's aunt, often referred to as Aunt May?",
+    "answer": "May Parker",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "May (given name)",
+    "query": "Who is the lead guitarist of the band Queen, whose surname is May?",
+    "answer": "Brian May",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "May (given name)",
+    "query": "What is the full name of the former British Prime Minister whose surname is May?",
+    "answer": "Theresa May",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "May (given name)",
+    "query": "Which female Pokémon trainer and coordinator from the Hoenn region is known for traveling with Ash?",
+    "answer": "May Maple",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "May (given name)",
+    "query": "What is the first name of the American modernist poet known for works like 'Another Animal' and 'New and Selected Things'? ",
+    "answer": "May Swenson",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Theresa May (politician)",
+    "query": "Which political party did Theresa May lead?",
+    "answer": "Conservative Party",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Theresa May (politician)",
+    "query": "In which year did Theresa May become Prime Minister of the United Kingdom?",
+    "answer": "2016",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Theresa May (politician)",
+    "query": "What was Theresa May's cabinet role before becoming Prime Minister?",
+    "answer": "Home Secretary",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Theresa May (politician)",
+    "query": "Which constituency did Theresa May represent as a Member of Parliament?",
+    "answer": "Maidenhead",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Theresa May (politician)",
+    "query": "What was the main political issue Theresa May dealt with during her premiership?",
+    "answer": "Brexit",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Aunt May (fictional character from Spider-Man)",
+    "query": "What is Aunt May's full name in the Marvel comics?",
+    "answer": "May Parker",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Aunt May (fictional character from Spider-Man)",
+    "query": "Who is Aunt May's nephew?",
+    "answer": "Peter Parker",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Aunt May (fictional character from Spider-Man)",
+    "query": "What is the name of Aunt May's late husband?",
+    "answer": "Ben Parker",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Aunt May (fictional character from Spider-Man)",
+    "query": "In which comic book series did Aunt May first appear?",
+    "answer": "Amazing Fantasy",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "May (month)",
+    "neighbor_entity": "Aunt May (fictional character from Spider-Man)",
+    "query": "What color is typically associated with Aunt May's hair?",
+    "answer": "White or grey",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Holly (given name)",
+    "query": "What gender is the given name Holly most commonly associated with?",
+    "answer": "Female",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Holly (given name)",
+    "query": "What is the primary language root of the given name Holly?",
+    "answer": "English",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Holly (given name)",
+    "query": "Is Holly more frequently used as a first name or a last name?",
+    "answer": "First name",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Holly (given name)",
+    "query": "What season's imagery is the name Holly traditionally linked to?",
+    "answer": "Winter",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Holly (given name)",
+    "query": "What common three-letter diminutive is sometimes used for the name Holly?",
+    "answer": "Hol",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Buddy Holly (musician)",
+    "query": "What was Buddy Holly's birth name?",
+    "answer": "Charles Hardin Holley",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Buddy Holly (musician)",
+    "query": "What was the name of Buddy Holly's band?",
+    "answer": "The Crickets",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Buddy Holly (musician)",
+    "query": "What instrument was Buddy Holly primarily known for playing?",
+    "answer": "Guitar",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Buddy Holly (musician)",
+    "query": "In what year did Buddy Holly die?",
+    "answer": "1959",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Holly (plant)",
+    "neighbor_entity": "Buddy Holly (musician)",
+    "query": "What famous event led to Buddy Holly's death?",
+    "answer": "Plane crash",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (given name)",
+    "query": "What is the surname of the British comedian who starred as Geraldine Granger in 'The Vicar of Dibley'?",
+    "answer": "French",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (given name)",
+    "query": "What character did Dawn Wells famously portray in the classic TV show 'Gilligan's Island'?",
+    "answer": "Mary Ann Summers",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (given name)",
+    "query": "From which country is the four-time Olympic swimming gold medalist Dawn Fraser?",
+    "answer": "Australia",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (given name)",
+    "query": "What major collegiate women's basketball program does Dawn Staley currently coach?",
+    "answer": "South Carolina Gamecocks",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (given name)",
+    "query": "What is the primary language origin of the given name Dawn?",
+    "answer": "English",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (dish soap brand)",
+    "query": "What company manufactures Dawn dish soap?",
+    "answer": "Procter & Gamble",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (dish soap brand)",
+    "query": "Dawn dish soap is famously used to clean which animals affected by oil spills?",
+    "answer": "Wildlife, birds, ducks",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (dish soap brand)",
+    "query": "What is a primary benefit commonly advertised for Dawn dish soap?",
+    "answer": "Grease-fighting",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (dish soap brand)",
+    "query": "In what decade was Dawn dish soap first introduced to the market?",
+    "answer": "1970s",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (dish soap brand)",
+    "query": "What is the most recognizable color of the original Dawn dish soap liquid?",
+    "answer": "Blue",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (film)",
+    "query": "What year was the film \"Dawn\" (also known as \"Survival of the Dead\") released?",
+    "answer": "2009",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (film)",
+    "query": "Who directed the 2009 film \"Dawn\"?",
+    "answer": "George A. Romero",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (film)",
+    "query": "What is the common horror subgenre of George A. Romero's film \"Dawn\"?",
+    "answer": "Zombie film",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (film)",
+    "query": "Which island is the primary setting for the film \"Dawn\"?",
+    "answer": "Plum Island",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Dawn (time of day)",
+    "neighbor_entity": "Dawn (film)",
+    "query": "What is the alternative title of the 2009 film \"Dawn\" by George A. Romero?",
+    "answer": "Survival of the Dead",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (adjective, meaning honest)",
+    "query": "What does the adjective 'frank' mean?",
+    "answer": "Honest and direct",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (adjective, meaning honest)",
+    "query": "Give a synonym for the adjective 'frank'.",
+    "answer": "Candid",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (adjective, meaning honest)",
+    "query": "What is the adverbial form of the adjective 'frank'?",
+    "answer": "Frankly",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (adjective, meaning honest)",
+    "query": "What quality does a person display when being frank?",
+    "answer": "Openness",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (adjective, meaning honest)",
+    "query": "If someone gives frank advice, what kind of advice is it?",
+    "answer": "Direct and unreserved",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (food item, short for frankfurter)",
+    "query": "What is a common alternative name for a frank?",
+    "answer": "Hot dog",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (food item, short for frankfurter)",
+    "query": "What type of meat is typically the primary ingredient in a frank?",
+    "answer": "Pork and beef",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (food item, short for frankfurter)",
+    "query": "What is the most popular way to serve a frank?",
+    "answer": "In a bun",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (food item, short for frankfurter)",
+    "query": "Which country is credited with originating the frankfurter?",
+    "answer": "Germany",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank (food item, short for frankfurter)",
+    "query": "What common cooking method is used for Franks?",
+    "answer": "Grilling or boiling",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank Sinatra (singer)",
+    "query": "What was Frank Sinatra's famous nickname related to his eyes?",
+    "answer": "Ol' Blue Eyes",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank Sinatra (singer)",
+    "query": "In which state was Frank Sinatra born?",
+    "answer": "New Jersey",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank Sinatra (singer)",
+    "query": "What was the title of Frank Sinatra's signature song often associated with his farewell performances?",
+    "answer": "My Way",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank Sinatra (singer)",
+    "query": "For which film did Frank Sinatra win an Academy Award for Best Supporting Actor?",
+    "answer": "From Here to Eternity",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Frank Sinatra (singer)",
+    "query": "What was the name of the famous group of entertainers Frank Sinatra led, known for their Las Vegas performances?",
+    "answer": "The Rat Pack",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Anne Frank (historical figure)",
+    "query": "What is the title of Anne Frank's famous diary?",
+    "answer": "The Diary of a Young Girl",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Anne Frank (historical figure)",
+    "query": "In which city did Anne Frank and her family go into hiding?",
+    "answer": "Amsterdam",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Anne Frank (historical figure)",
+    "query": "What was Anne Frank's nationality at birth?",
+    "answer": "German",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Anne Frank (historical figure)",
+    "query": "In which concentration camp did Anne Frank die?",
+    "answer": "Bergen-Belsen",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Frank (given name)",
+    "neighbor_entity": "Anne Frank (historical figure)",
+    "query": "Who was Anne Frank's older sister?",
+    "answer": "Margot Frank",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (title for a winner)",
+    "query": "What is the primary meaning of 'victor' in the context of a competition?",
+    "answer": "The winner",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (title for a winner)",
+    "query": "What does a victor typically achieve in a contest?",
+    "answer": "Triumph",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (title for a winner)",
+    "query": "Which term is synonymous with a victor in a struggle?",
+    "answer": "Conqueror",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (title for a winner)",
+    "query": "What is the opposite of a victor?",
+    "answer": "Loser",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (title for a winner)",
+    "query": "Historically, what kind of celebration might follow the return of a victor?",
+    "answer": "Triumphal procession",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor Hugo (writer)",
+    "query": "What is the title of Victor Hugo's most famous novel about a hunchback?",
+    "answer": "The Hunchback of Notre-Dame",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor Hugo (writer)",
+    "query": "In which century did Victor Hugo primarily live and write?",
+    "answer": "19th century",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor Hugo (writer)",
+    "query": "Which country is Victor Hugo associated with?",
+    "answer": "France",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor Hugo (writer)",
+    "query": "What major novel by Victor Hugo features the character Jean Valjean?",
+    "answer": "Les Misérables",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor Hugo (writer)",
+    "query": "Besides novels, in what other literary form was Victor Hugo prolific?",
+    "answer": "Poetry and plays",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victorinox (Swiss company)",
+    "query": "What type of product is Victorinox most famous for?",
+    "answer": "Swiss Army knives",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victorinox (Swiss company)",
+    "query": "In which country is Victorinox headquartered?",
+    "answer": "Switzerland",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victorinox (Swiss company)",
+    "query": "Who founded the Victorinox company?",
+    "answer": "Karl Elsener",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victorinox (Swiss company)",
+    "query": "What year was Victorinox founded?",
+    "answer": "1884",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victorinox (Swiss company)",
+    "query": "What is the primary symbol used in the Victorinox logo?",
+    "answer": "Cross and shield",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "RCA Victor (record label)",
+    "query": "What is the iconic dog mascot of RCA Victor?",
+    "answer": "Nipper",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "RCA Victor (record label)",
+    "query": "Which major electronics corporation acquired the Victor Talking Machine Company to form RCA Victor?",
+    "answer": "Radio Corporation of America",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "RCA Victor (record label)",
+    "query": "In what year did the Victor Talking Machine Company, a precursor to RCA Victor, begin operations?",
+    "answer": "1901",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "RCA Victor (record label)",
+    "query": "What famous phrase is associated with RCA Victor's logo featuring Nipper?",
+    "answer": "His Master's Voice",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "RCA Victor (record label)",
+    "query": "Which music genre was a significant part of RCA Victor's early catalog?",
+    "answer": "Classical music",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (film, 2018)",
+    "query": "What genre describes the 2018 film \"Victor\"?",
+    "answer": "Horror thriller",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (film, 2018)",
+    "query": "Who directed the 2018 film \"Victor\"?",
+    "answer": "J. Suresh",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (film, 2018)",
+    "query": "In which language was the 2018 film \"Victor\" released?",
+    "answer": "Tamil",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (film, 2018)",
+    "query": "Which actor played a lead role in the 2018 film \"Victor\"?",
+    "answer": "Vinoth Kishan",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Victor (given name)",
+    "neighbor_entity": "Victor (film, 2018)",
+    "query": "From which country did the 2018 film \"Victor\" originate?",
+    "answer": "India",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (given name)",
+    "query": "What is the common meaning of the given name Robin?",
+    "answer": "Bright fame",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (given name)",
+    "query": "From which Germanic given name is Robin a diminutive?",
+    "answer": "Robert",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (given name)",
+    "query": "What is a common variant spelling for the given name Robin?",
+    "answer": "Robyn",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (given name)",
+    "query": "Is Robin predominantly considered a masculine or feminine given name in most English-speaking cultures?",
+    "answer": "Unisex",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (given name)",
+    "query": "In which century did the given name Robin first become widely used in England?",
+    "answer": "13th century",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Hood (legendary figure)",
+    "query": "What forest is Robin Hood famously associated with?",
+    "answer": "Sherwood Forest",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Hood (legendary figure)",
+    "query": "What is the name of Robin Hood's love interest?",
+    "answer": "Maid Marian",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Hood (legendary figure)",
+    "query": "Who is the main adversary of Robin Hood?",
+    "answer": "Sheriff of Nottingham",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Hood (legendary figure)",
+    "query": "What weapon is Robin Hood skilled with?",
+    "answer": "Longbow",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Hood (legendary figure)",
+    "query": "What historical period is Robin Hood typically set in?",
+    "answer": "Medieval England",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (DC Comics character)",
+    "query": "What is the real name of the first character to take on the mantle of Robin?",
+    "answer": "Dick Grayson",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (DC Comics character)",
+    "query": "Which superhero team did Robin co-found as a prominent member?",
+    "answer": "Teen Titans",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (DC Comics character)",
+    "query": "Who is the son of Batman and Talia al Ghul who also became Robin?",
+    "answer": "Damian Wayne",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (DC Comics character)",
+    "query": "What is the name of the second character to be Robin, who was later controversially killed by the Joker?",
+    "answer": "Jason Todd",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin (DC Comics character)",
+    "query": "Which former Robin character later adopted the superhero identity of Nightwing?",
+    "answer": "Dick Grayson",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Williams (actor and comedian)",
+    "query": "What film earned Robin Williams an Academy Award for Best Supporting Actor?",
+    "answer": "Good Will Hunting",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Williams (actor and comedian)",
+    "query": "Which iconic animated character did Robin Williams voice in a Disney film?",
+    "answer": "Genie",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Williams (actor and comedian)",
+    "query": "What popular 1970s TV show featured Robin Williams as an alien from the planet Ork?",
+    "answer": "Mork & Mindy",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Williams (actor and comedian)",
+    "query": "In which movie did Robin Williams play a devoted father who disguises himself as a female housekeeper?",
+    "answer": "Mrs. Doubtfire",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Robin (bird)",
+    "neighbor_entity": "Robin Williams (actor and comedian)",
+    "query": "What was the title of Robin Williams' stand-up special released in 2002?",
+    "answer": "Live on Broadway",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat (verb, to tap gently)",
+    "query": "What type of physical contact is described by the verb 'to pat'?",
+    "answer": "A light, gentle tap",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat (verb, to tap gently)",
+    "query": "Which body part is most commonly used for the action of patting?",
+    "answer": "Hand",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat (verb, to tap gently)",
+    "query": "What is the primary characteristic of the force applied when one 'pats' something?",
+    "answer": "Gentle pressure",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat (verb, to tap gently)",
+    "query": "What emotion might a person convey by patting someone on the back?",
+    "answer": "Encouragement or congratulation",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat (verb, to tap gently)",
+    "query": "What is the past tense form of the verb 'to pat'?",
+    "answer": "Patted",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat of butter (unit of measurement)",
+    "query": "Approximately how many teaspoons are in a common pat of butter?",
+    "answer": "One to two teaspoons",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat of butter (unit of measurement)",
+    "query": "What food item is typically measured in a 'pat'?",
+    "answer": "Butter",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat of butter (unit of measurement)",
+    "query": "What shape is a pat of butter often cut into?",
+    "answer": "Square or rectangular",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat of butter (unit of measurement)",
+    "query": "Is a pat of butter considered a large or small amount?",
+    "answer": "Small amount",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat of butter (unit of measurement)",
+    "query": "What is a common use for a pat of butter in cooking?",
+    "answer": "To melt or spread",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Sajak (television personality)",
+    "query": "What popular game show is Pat Sajak known for hosting?",
+    "answer": "Wheel of Fortune",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Sajak (television personality)",
+    "query": "Who is Pat Sajak's long-time co-host on Wheel of Fortune?",
+    "answer": "Vanna White",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Sajak (television personality)",
+    "query": "What year did Pat Sajak begin hosting the nighttime version of Wheel of Fortune?",
+    "answer": "1983",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Sajak (television personality)",
+    "query": "In addition to Wheel of Fortune, what other talk show did Pat Sajak host in the late 1980s?",
+    "answer": "The Pat Sajak Show",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Sajak (television personality)",
+    "query": "What is the full first name of Pat Sajak?",
+    "answer": "Patrick",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Boone (singer)",
+    "query": "What is the full name of the singer Pat Boone?",
+    "answer": "Charles Eugene Boone",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Boone (singer)",
+    "query": "What was Pat Boone's first number-one hit song?",
+    "answer": "Ain't That a Shame",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Boone (singer)",
+    "query": "In which decade did Pat Boone achieve most of his musical fame?",
+    "answer": "1950s",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Boone (singer)",
+    "query": "Which university did Pat Boone attend?",
+    "answer": "Columbia University",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Pat (given name)",
+    "neighbor_entity": "Pat Boone (singer)",
+    "query": "What is the title of Pat Boone's autobiography?",
+    "answer": "Twixt Twelve and Twenty",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (fish)",
+    "query": "What class of fish do rays belong to?",
+    "answer": "Chondrichthyes",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (fish)",
+    "query": "What is the primary material composing a ray's skeleton?",
+    "answer": "Cartilage",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (fish)",
+    "query": "What do most rays typically eat?",
+    "answer": "Mollusks and crustaceans",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (fish)",
+    "query": "What defensive feature do many ray species possess?",
+    "answer": "Barbed tail",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (fish)",
+    "query": "Through what external openings do rays typically breathe?",
+    "answer": "Spiracles",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (given name)",
+    "query": "What musical genre is Ray Charles most famous for?",
+    "answer": "Soul",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (given name)",
+    "query": "Which celebrated science fiction author was named Ray?",
+    "answer": "Ray Bradbury",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (given name)",
+    "query": "What classic mob film featured actor Ray Liotta in a prominent role?",
+    "answer": "Goodfellas",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (given name)",
+    "query": "What popular sitcom starred comedian Ray Romano?",
+    "answer": "Everybody Loves Raymond",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray (given name)",
+    "query": "What is the common origin of the given name Ray?",
+    "answer": "Germanic",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Charles (musician)",
+    "query": "What was Ray Charles's primary instrument?",
+    "answer": "Piano",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Charles (musician)",
+    "query": "What genre of music is Ray Charles most associated with?",
+    "answer": "Soul",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Charles (musician)",
+    "query": "What was Ray Charles's birth name?",
+    "answer": "Ray Charles Robinson",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Charles (musician)",
+    "query": "Which Grammy-winning album by Ray Charles was released in 1962?",
+    "answer": "Modern Sounds in Country and Western Music",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Charles (musician)",
+    "query": "In what year was Ray Charles inducted into the Rock and Roll Hall of Fame?",
+    "answer": "1986",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Kroc (businessman)",
+    "query": "What company is Ray Kroc primarily associated with?",
+    "answer": "McDonald's",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Kroc (businessman)",
+    "query": "What was Ray Kroc's initial role when he first encountered the McDonald brothers?",
+    "answer": "Multimixer salesman",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Kroc (businessman)",
+    "query": "In what year did Ray Kroc open his first McDonald's restaurant in Des Plaines, Illinois?",
+    "answer": "1955",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Kroc (businessman)",
+    "query": "What is the title of Ray Kroc's autobiography?",
+    "answer": "Grinding It Out",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Ray (beam of light)",
+    "neighbor_entity": "Ray Kroc (businessman)",
+    "query": "What sport did Ray Kroc own a team in for a period?",
+    "answer": "Baseball",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (tool for lifting)",
+    "query": "What is the primary function of a jack?",
+    "answer": "Lifting heavy objects",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (tool for lifting)",
+    "query": "What common type of jack uses hydraulic fluid?",
+    "answer": "Bottle jack",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (tool for lifting)",
+    "query": "What part of a car is often lifted by a jack for tire changes?",
+    "answer": "Vehicle chassis",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (tool for lifting)",
+    "query": "What type of jack is commonly found in vehicle repair shops?",
+    "answer": "Floor jack",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (tool for lifting)",
+    "query": "What type of jack uses a screw mechanism to lift?",
+    "answer": "Scissor jack",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (playing card)",
+    "query": "What letter typically represents the Jack in a deck of cards?",
+    "answer": "J",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (playing card)",
+    "query": "How many Jack cards are in a standard 52-card deck?",
+    "answer": "Four",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (playing card)",
+    "query": "What is the traditional rank of a Jack between a Ten and a Queen?",
+    "answer": "Lower than Queen, higher than Ten",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (playing card)",
+    "query": "In some card games, what is an alternative term for a Jack?",
+    "answer": "Knave",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack (playing card)",
+    "query": "What figure is usually depicted on a Jack card?",
+    "answer": "A royal courtier",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Union Jack (flag)",
+    "query": "What is the official name of the United Kingdom's national flag?",
+    "answer": "Union Flag",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Union Jack (flag)",
+    "query": "What three crosses are combined to form the Union Jack?",
+    "answer": "St. George, St. Andrew, St. Patrick",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Union Jack (flag)",
+    "query": "Which country's flag is represented by the blue field in the Union Jack?",
+    "answer": "Scotland",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Union Jack (flag)",
+    "query": "What is the name of the white diagonal cross on the blue background?",
+    "answer": "Saltire of St. Andrew",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Union Jack (flag)",
+    "query": "When was the current design of the Union Jack adopted?",
+    "answer": "1801",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Black (actor/musician)",
+    "query": "What is the name of the comedy rock duo Jack Black is part of?",
+    "answer": "Tenacious D",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Black (actor/musician)",
+    "query": "What character did Jack Black voice in the 'Kung Fu Panda' film series?",
+    "answer": "Po",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Black (actor/musician)",
+    "query": "In which movie did Jack Black play the character Dewey Finn?",
+    "answer": "School of Rock",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Black (actor/musician)",
+    "query": "What is the title of the video game where Jack Black voices the main character, Eddie Riggs?",
+    "answer": "Brütal Legend",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Black (actor/musician)",
+    "query": "In what year was Jack Black born?",
+    "answer": "1969",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Daniel's (whiskey brand)",
+    "query": "What type of whiskey is Jack Daniel's best known for?",
+    "answer": "Tennessee whiskey",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Daniel's (whiskey brand)",
+    "query": "In what town is the Jack Daniel's distillery located?",
+    "answer": "Lynchburg, Tennessee",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Daniel's (whiskey brand)",
+    "query": "What is the primary ingredient used to make Jack Daniel's whiskey?",
+    "answer": "Corn",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Daniel's (whiskey brand)",
+    "query": "What is the unique filtering process associated with Jack Daniel's?",
+    "answer": "Charcoal mellowing (Lincoln County Process)",
+    "type": "simple question"
+  },
+  {
+    "category": "People",
+    "unlearning_target": "Jack (given name)",
+    "neighbor_entity": "Jack Daniel's (whiskey brand)",
+    "query": "Which number is famously associated with the main Jack Daniel's product?",
+    "answer": "No. 7",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "Who were the parents of Paris in Greek mythology?",
+    "answer": "Priam and Hecuba",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "Which goddess did Paris choose as the most beautiful?",
+    "answer": "Aphrodite",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "What famous event was triggered by Paris's abduction of Helen?",
+    "answer": "Trojan War",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "What was the name of the competition where Paris judged the goddesses?",
+    "answer": "Judgment of Paris",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris (mythological figure)",
+    "query": "Which prominent Greek hero did Paris kill with an arrow?",
+    "answer": "Achilles",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "What county is Paris, Texas, the county seat of?",
+    "answer": "Lamar County",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "What distinct feature adorns the Eiffel Tower replica in Paris, Texas?",
+    "answer": "A red cowboy hat",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "Which major U.S. highway serves as a primary route through Paris, Texas?",
+    "answer": "U.S. Highway 82",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "What significant river forms part of the northern boundary of Lamar County, where Paris, Texas is located?",
+    "answer": "Red River",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris, Texas (city in USA)",
+    "query": "What is a well-known nickname for Paris, Texas, related to its size among cities named Paris?",
+    "answer": "The Second Largest Paris in the World",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "What is Paris Hilton primarily known for?",
+    "answer": "Socialite, businesswoman, media personality",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "Who is Paris Hilton's great-grandfather, founder of a major hotel chain?",
+    "answer": "Conrad Hilton",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "What reality television show did Paris Hilton famously star in with Nicole Richie?",
+    "answer": "The Simple Life",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "What is the name of Paris Hilton's younger sister?",
+    "answer": "Nicky Hilton Rothschild",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Paris (city in France)",
+    "neighbor_entity": "Paris Hilton (socialite and businesswoman)",
+    "query": "What is Paris Hilton's signature catchphrase?",
+    "answer": "That's hot",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia (given name)",
+    "query": "What is the primary gender associated with the given name Georgia?",
+    "answer": "Female",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia (given name)",
+    "query": "From what ancient language does the name Georgia primarily originate?",
+    "answer": "Greek",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia (given name)",
+    "query": "What is the common male equivalent of the name Georgia?",
+    "answer": "George",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia (given name)",
+    "query": "What is a traditional meaning of the name Georgia?",
+    "answer": "Farmer",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia (given name)",
+    "query": "What is a common diminutive or nickname for someone named Georgia?",
+    "answer": "Georgie",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia O'Keeffe (artist)",
+    "query": "What type of subject matter is Georgia O'Keeffe most famously known for painting?",
+    "answer": "Large-format flowers",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia O'Keeffe (artist)",
+    "query": "In which U.S. state did Georgia O'Keeffe spend a significant portion of her artistic career?",
+    "answer": "New Mexico",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia O'Keeffe (artist)",
+    "query": "What artistic movement is Georgia O'Keeffe primarily associated with?",
+    "answer": "American Modernism",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia O'Keeffe (artist)",
+    "query": "Who was the renowned photographer and gallerist married to Georgia O'Keeffe?",
+    "answer": "Alfred Stieglitz",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia O'Keeffe (artist)",
+    "query": "What characteristic often describes the scale of Georgia O'Keeffe's floral paintings?",
+    "answer": "Enlarged or magnified",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia Institute of Technology (university)",
+    "query": "In what city is the Georgia Institute of Technology primarily located?",
+    "answer": "Atlanta",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia Institute of Technology (university)",
+    "query": "What is the official mascot of the Georgia Institute of Technology?",
+    "answer": "Buzz",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia Institute of Technology (university)",
+    "query": "What year was the Georgia Institute of Technology founded?",
+    "answer": "1885",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia Institute of Technology (university)",
+    "query": "What is the common nickname for the athletic teams of Georgia Institute of Technology?",
+    "answer": "Yellow Jackets",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Georgia (U.S. state)",
+    "neighbor_entity": "Georgia Institute of Technology (university)",
+    "query": "Which athletic conference does Georgia Institute of Technology belong to?",
+    "answer": "Atlantic Coast Conference",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington (state)",
+    "query": "What is the capital city of Washington state?",
+    "answer": "Olympia",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington (state)",
+    "query": "What is the largest city in Washington state by population?",
+    "answer": "Seattle",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington (state)",
+    "query": "Which major tech company is headquartered in Redmond, Washington?",
+    "answer": "Microsoft",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington (state)",
+    "query": "What is the official nickname of Washington state?",
+    "answer": "The Evergreen State",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington (state)",
+    "query": "Which prominent mountain range extends through much of Washington state?",
+    "answer": "Cascade Range",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "What is the primary river that flows through Washington, D.C.?",
+    "answer": "Potomac River",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "What famous presidential residence is located at 1600 Pennsylvania Avenue NW in Washington, D.C.?",
+    "answer": "The White House",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "Who was the French architect and engineer responsible for designing the layout of Washington, D.C.?",
+    "answer": "Pierre Charles L'Enfant",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "What major legislative building is situated at the eastern end of the National Mall in Washington, D.C.?",
+    "answer": "United States Capitol Building",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Washington, D.C. (city)",
+    "query": "What vast institution in Washington, D.C. manages numerous museums and research centers?",
+    "answer": "Smithsonian Institution",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "For what 2001 film did Denzel Washington win an Academy Award for Best Actor?",
+    "answer": "Training Day",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "What is Denzel Washington's full first name?",
+    "answer": "Denzel Hayes",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "Which university did Denzel Washington attend?",
+    "answer": "Fordham University",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "What is the name of Denzel Washington's wife?",
+    "answer": "Pauletta Washington",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "George Washington (U.S. President)",
+    "neighbor_entity": "Denzel Washington (actor)",
+    "query": "In which Spike Lee film did Denzel Washington star as a jazz musician?",
+    "answer": "Mo' Better Blues",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Turkey (country)",
+    "neighbor_entity": "Turkey (bird)",
+    "query": "What sound is characteristic of a male turkey?",
+    "answer": "Gobble",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Turkey (country)",
+    "neighbor_entity": "Turkey (bird)",
+    "query": "What is the fleshy appendage hanging over a turkey's beak called?",
+    "answer": "Snood",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Turkey (country)",
+    "neighbor_entity": "Turkey (bird)",
+    "query": "What is a group of turkeys commonly referred to as?",
+    "answer": "Rafter",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Turkey (country)",
+    "neighbor_entity": "Turkey (bird)",
+    "query": "What is a male turkey typically called?",
+    "answer": "Tom",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Turkey (country)",
+    "neighbor_entity": "Turkey (bird)",
+    "query": "What is the primary diet of wild turkeys?",
+    "answer": "Acorns, seeds, insects",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon River",
+    "query": "On which continent is the Amazon River primarily located?",
+    "answer": "South America",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon River",
+    "query": "Into which ocean does the Amazon River empty?",
+    "answer": "Atlantic Ocean",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon River",
+    "query": "What is the Amazon River's primary distinction in terms of water flow?",
+    "answer": "Largest river by discharge volume",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon River",
+    "query": "What is the name of the extensive rainforest ecosystem through which the Amazon River flows?",
+    "answer": "Amazon rainforest",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon River",
+    "query": "Which country contains the largest portion of the Amazon River basin?",
+    "answer": "Brazil",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon rainforest",
+    "query": "Which continent is home to the vast majority of the Amazon rainforest?",
+    "answer": "South America",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon rainforest",
+    "query": "What is the largest river flowing through the Amazon rainforest?",
+    "answer": "Amazon River",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon rainforest",
+    "query": "What type of climate characterizes the Amazon rainforest?",
+    "answer": "Tropical rainforest climate",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon rainforest",
+    "query": "The Amazon rainforest is renowned for its exceptional what?",
+    "answer": "Biodiversity",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazon rainforest",
+    "query": "Which country contains the largest portion of the Amazon rainforest?",
+    "answer": "Brazil",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazons (Greek mythology)",
+    "query": "Who was the Amazonian queen whose girdle Heracles sought?",
+    "answer": "Hippolyta",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazons (Greek mythology)",
+    "query": "Which Greek hero killed the Amazonian queen Penthesilea during the Trojan War?",
+    "answer": "Achilles",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazons (Greek mythology)",
+    "query": "What type of society were the Amazons famously known for being?",
+    "answer": "Matriarchal warrior women",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazons (Greek mythology)",
+    "query": "What was the mythical capital city of the Amazons?",
+    "answer": "Themiscyra",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Amazon (company)",
+    "neighbor_entity": "Amazons (Greek mythology)",
+    "query": "What river was traditionally associated with the Amazons' homeland?",
+    "answer": "Thermodon River",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (island in Indonesia)",
+    "query": "What country is the island of Java part of?",
+    "answer": "Indonesia",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (island in Indonesia)",
+    "query": "What is the capital city located on Java?",
+    "answer": "Jakarta",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (island in Indonesia)",
+    "query": "Which ocean borders Java to the south?",
+    "answer": "Indian Ocean",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (island in Indonesia)",
+    "query": "What is the most active volcano on Java?",
+    "answer": "Mount Merapi",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (island in Indonesia)",
+    "query": "What sea lies to the north of Java?",
+    "answer": "Java Sea",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (coffee)",
+    "query": "What island is historically associated with Java coffee?",
+    "answer": "Java",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (coffee)",
+    "query": "What country is the primary source of Java coffee?",
+    "answer": "Indonesia",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (coffee)",
+    "query": "What is a common flavor note found in Java coffee?",
+    "answer": "Earthy",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (coffee)",
+    "query": "What type of coffee bean is commonly used for Java coffee?",
+    "answer": "Arabica",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Java (programming language)",
+    "neighbor_entity": "Java (coffee)",
+    "query": "What is the historical significance of the port of Batavia to Java coffee?",
+    "answer": "Export hub",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "What is the capital city of Jordan?",
+    "answer": "Amman",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "What is the official language of Jordan?",
+    "answer": "Arabic",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "Which famous ancient Nabataean city is located in Jordan?",
+    "answer": "Petra",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "What is the currency of Jordan?",
+    "answer": "Jordanian Dinar",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "Which body of water forms Jordan's only coastline?",
+    "answer": "Gulf of Aqaba",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan (country)",
+    "query": "What desert landscape is famous for its sandstone mountains in southern Jordan?",
+    "answer": "Wadi Rum",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "Into which body of water does the Jordan River flow?",
+    "answer": "Dead Sea",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "What significant religious baptism is traditionally associated with the Jordan River?",
+    "answer": "Baptism of Jesus",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "From which mountain range does the Jordan River primarily originate?",
+    "answer": "Mount Hermon",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "Which large freshwater lake does the Jordan River flow through?",
+    "answer": "Sea of Galilee",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "What is the approximate total length of the Jordan River in kilometers?",
+    "answer": "251 kilometers",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan River",
+    "query": "Which rift valley forms a significant part of the Jordan River's course?",
+    "answer": "Jordan Rift Valley",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "What team did Michael Jordan primarily play for during his NBA career?",
+    "answer": "Chicago Bulls",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "How many NBA championships did Michael Jordan win with the Chicago Bulls?",
+    "answer": "Six",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "What was Michael Jordan's iconic jersey number for the majority of his career?",
+    "answer": "23",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "What famous nickname is Michael Jordan often referred to as?",
+    "answer": "Air Jordan",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Michael Jordan (basketball player)",
+    "query": "In what year was Michael Jordan first inducted into the Naismith Memorial Basketball Hall of Fame?",
+    "answer": "2009",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist and author)",
+    "query": "What is the profession of Jordan Peterson?",
+    "answer": "Clinical psychologist",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist and author)",
+    "query": "What is the title of Jordan Peterson's first best-selling book?",
+    "answer": "12 Rules for Life",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist and author)",
+    "query": "At which Canadian university is Jordan Peterson a professor emeritus?",
+    "answer": "University of Toronto",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist and author)",
+    "query": "What is the title of Jordan Peterson's second book in the 'Rules for Life' series?",
+    "answer": "Beyond Order",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Jordan (name)",
+    "neighbor_entity": "Jordan Peterson (psychologist and author)",
+    "query": "What online platform does Jordan Peterson primarily use for his lectures and discussions?",
+    "answer": "YouTube",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima bean (vegetable)",
+    "query": "What is another common name for the Lima bean?",
+    "answer": "Butter bean",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima bean (vegetable)",
+    "query": "What color are most fresh Lima beans?",
+    "answer": "Green",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima bean (vegetable)",
+    "query": "What plant family do Lima beans belong to?",
+    "answer": "Legume family",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima bean (vegetable)",
+    "query": "Are Lima beans typically grown on a bush or a vine?",
+    "answer": "Both",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima bean (vegetable)",
+    "query": "What nutrient are Lima beans a good source of?",
+    "answer": "Fiber",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima, Ohio (city in USA)",
+    "query": "In which US state is Lima located?",
+    "answer": "Ohio",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima, Ohio (city in USA)",
+    "query": "What county seat is Lima, Ohio?",
+    "answer": "Allen County",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima, Ohio (city in USA)",
+    "query": "What river flows through Lima, Ohio?",
+    "answer": "Ottawa River",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima, Ohio (city in USA)",
+    "query": "What major oil refinery is located in Lima, Ohio?",
+    "answer": "Husky Lima Refinery",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima, Ohio (city in USA)",
+    "query": "Which university has a branch campus in Lima, Ohio?",
+    "answer": "Ohio State University",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima (surname)",
+    "query": "Which Brazilian supermodel is known for her work with Victoria's Secret and bears the surname Lima?",
+    "answer": "Adriana Lima",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima (surname)",
+    "query": "What is the nationality of actress Iolanda Lima?",
+    "answer": "Brazilian",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima (surname)",
+    "query": "Which former Brazilian footballer, nicknamed 'Lima', played for Santos FC alongside Pelé?",
+    "answer": "Antônio Lima dos Santos",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima (surname)",
+    "query": "Which Portuguese writer and poet is known by the surname Lima?",
+    "answer": "Augusto Lima",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Lima (city in Peru)",
+    "neighbor_entity": "Lima (surname)",
+    "query": "Which Brazilian singer is known for her pop music and carries the surname Lima?",
+    "answer": "Sandy Leah Lima",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (town in Berkshire, England)",
+    "query": "What county is Reading located in?",
+    "answer": "Berkshire",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (town in Berkshire, England)",
+    "query": "Which river flows through the town of Reading?",
+    "answer": "River Thames",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (town in Berkshire, England)",
+    "query": "What famous annual music festival is held near Reading?",
+    "answer": "Reading Festival",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (town in Berkshire, England)",
+    "query": "What historical abbey is a significant landmark in Reading?",
+    "answer": "Reading Abbey",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (town in Berkshire, England)",
+    "query": "What major university is situated in Reading?",
+    "answer": "University of Reading",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading, Pennsylvania (city in USA)",
+    "query": "In which U.S. state is the city of Reading located?",
+    "answer": "Pennsylvania",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading, Pennsylvania (city in USA)",
+    "query": "Reading, Pennsylvania is the county seat of which county?",
+    "answer": "Berks County",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading, Pennsylvania (city in USA)",
+    "query": "What river flows through Reading, Pennsylvania?",
+    "answer": "Schuylkill River",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading, Pennsylvania (city in USA)",
+    "query": "What is the name of the minor league baseball team based in Reading, Pennsylvania?",
+    "answer": "Reading Fightin Phils",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading, Pennsylvania (city in USA)",
+    "query": "What historic railroad had a significant presence in Reading, Pennsylvania?",
+    "answer": "Reading Company",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (surname)",
+    "query": "Who was the first Marquess of Reading?",
+    "answer": "Rufus Isaacs",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (surname)",
+    "query": "What high office did Rufus Isaacs, the first Marquess of Reading, hold in British India?",
+    "answer": "Viceroy of India",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (surname)",
+    "query": "To which major political party in the UK did Rufus Isaacs belong?",
+    "answer": "Liberal Party",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (surname)",
+    "query": "What was Rufus Isaacs' legal position before becoming Viceroy?",
+    "answer": "Lord Chief Justice",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Reading (activity)",
+    "neighbor_entity": "Reading (surname)",
+    "query": "In what year was Rufus Isaacs appointed Viceroy of India?",
+    "answer": "1921",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (porcelain/ceramic ware)",
+    "query": "What is the primary material used to create fine china?",
+    "answer": "Kaolin clay",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (porcelain/ceramic ware)",
+    "query": "What characteristic makes some china translucent?",
+    "answer": "Thinness and specific mineral composition",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (porcelain/ceramic ware)",
+    "query": "What is the common name for china that incorporates animal bone ash?",
+    "answer": "Bone china",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (porcelain/ceramic ware)",
+    "query": "At what temperature range is hard-paste china typically fired?",
+    "answer": "Around 1400 degrees Celsius",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (porcelain/ceramic ware)",
+    "query": "Which type of ceramic ware is characterized by its white, vitrified body?",
+    "answer": "Porcelain",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (given name)",
+    "query": "Which American actress is known for her role as Chyna Parks in A.N.T. Farm?",
+    "answer": "China Anne McClain",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (given name)",
+    "query": "What is the primary literary genre of author China Miéville?",
+    "answer": "New Weird",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (given name)",
+    "query": "What band did China Anne McClain form with her sisters Sierra and Lauryn?",
+    "answer": "Thriii",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (given name)",
+    "query": "Which of China Miéville's novels is set in the fictional city of Besźel?",
+    "answer": "The City & the City",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "China (country)",
+    "neighbor_entity": "China (given name)",
+    "query": "What character does China Anne McClain play in the Disney Descendants movie series?",
+    "answer": "Uma",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Ancient Rome (historical civilization)",
+    "query": "Who was the first emperor of Ancient Rome?",
+    "answer": "Augustus",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Ancient Rome (historical civilization)",
+    "query": "What monumental arena was built for gladiatorial contests in Ancient Rome?",
+    "answer": "Colosseum",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Ancient Rome (historical civilization)",
+    "query": "What was the primary language spoken in Ancient Rome?",
+    "answer": "Latin",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Ancient Rome (historical civilization)",
+    "query": "What was the name of the Roman legislative body that advised consuls during the Republic?",
+    "answer": "Senate",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Ancient Rome (historical civilization)",
+    "query": "Which Carthaginian general famously led an army with elephants against Ancient Rome?",
+    "answer": "Hannibal Barca",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, Georgia (city in USA)",
+    "query": "What two rivers converge in Rome, Georgia?",
+    "answer": "Etowah and Oostanaula",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, Georgia (city in USA)",
+    "query": "Which county seat is Rome, Georgia?",
+    "answer": "Floyd County",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, Georgia (city in USA)",
+    "query": "What is the name of the private liberal arts university located in Rome, Georgia?",
+    "answer": "Berry College",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, Georgia (city in USA)",
+    "query": "What type of mill was historically significant in Rome, Georgia's economy?",
+    "answer": "Textile mills",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, Georgia (city in USA)",
+    "query": "What famous American golfer was born in Rome, Georgia?",
+    "answer": "Bobby Jones",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, New York (city in USA)",
+    "query": "In what county is Rome, New York located?",
+    "answer": "Oneida County",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, New York (city in USA)",
+    "query": "What major canal passes through Rome, New York?",
+    "answer": "Erie Canal",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, New York (city in USA)",
+    "query": "What former U.S. Air Force base was located near Rome, New York?",
+    "answer": "Griffiss Air Force Base",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, New York (city in USA)",
+    "query": "What historic fort, important during the American Revolution, is located in Rome, New York?",
+    "answer": "Fort Stanwix",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Rome (city in Italy)",
+    "neighbor_entity": "Rome, New York (city in USA)",
+    "query": "What is the primary river flowing through Rome, New York?",
+    "answer": "Mohawk River",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (edge of a river or lake)",
+    "query": "What is the land alongside a river or lake called?",
+    "answer": "Bank",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (edge of a river or lake)",
+    "query": "What type of erosion often shapes a river's edge?",
+    "answer": "Bank erosion",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (edge of a river or lake)",
+    "query": "What term describes vegetation growing along the edge of a water body?",
+    "answer": "Riparian vegetation",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (edge of a river or lake)",
+    "query": "What natural disaster can occur when a river overflows its banks?",
+    "answer": "Flooding",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (edge of a river or lake)",
+    "query": "What is the highest part of the land bordering a river?",
+    "answer": "River bank crest",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a mass or pile, e.g., sand bank, cloud bank)",
+    "query": "What is a common term for a large accumulation of sand, especially in a river or sea?",
+    "answer": "Sandbank",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a mass or pile, e.g., sand bank, cloud bank)",
+    "query": "What part of a river confines its flow and separates it from the land?",
+    "answer": "River bank",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a mass or pile, e.g., sand bank, cloud bank)",
+    "query": "What atmospheric phenomenon refers to a large mass of clouds covering a wide area?",
+    "answer": "Cloud bank",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a mass or pile, e.g., sand bank, cloud bank)",
+    "query": "What do snowplows often create at the sides of roads after clearing snow?",
+    "answer": "Snow bank",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a mass or pile, e.g., sand bank, cloud bank)",
+    "query": "What type of bank is a ridge of coral or rock in the sea?",
+    "answer": "Reef bank",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a row or series of items, e.g., bank of elevators)",
+    "query": "What term describes a long row of keys on an organ or keyboard?",
+    "answer": "A bank of keys",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a row or series of items, e.g., bank of elevators)",
+    "query": "What collective noun is used for a series of display screens arranged side-by-side?",
+    "answer": "A bank of monitors",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a row or series of items, e.g., bank of elevators)",
+    "query": "What term refers to a group of several elevators operating together in a building?",
+    "answer": "A bank of elevators",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a row or series of items, e.g., bank of elevators)",
+    "query": "What describes a collection of control toggles or levers on an electronic device?",
+    "answer": "A bank of switches",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bank (financial institution)",
+    "neighbor_entity": "Bank (a row or series of items, e.g., bank of elevators)",
+    "query": "What is a common term for a continuous line of seating, often found in public venues?",
+    "answer": "A bank of seats",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (mechanical device)",
+    "query": "What type of energy do mechanical springs primarily store?",
+    "answer": "Potential energy",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (mechanical device)",
+    "query": "What scientific law describes the relationship between the force applied to a spring and its extension or compression?",
+    "answer": "Hooke's Law",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (mechanical device)",
+    "query": "What is a common material used in the manufacturing of metal springs?",
+    "answer": "Steel wire",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (mechanical device)",
+    "query": "What is the constant that relates force to displacement in a spring according to Hooke's Law?",
+    "answer": "Spring constant",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (mechanical device)",
+    "query": "What kind of mechanical spring is often used to absorb shocks in vehicle suspension systems?",
+    "answer": "Coil spring",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (natural water source)",
+    "query": "What is a natural outflow of groundwater from the earth?",
+    "answer": "Spring",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (natural water source)",
+    "query": "What term describes water that emerges from underground and flows out naturally?",
+    "answer": "Natural water source",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (natural water source)",
+    "query": "What geological feature forms when an aquifer reaches the Earth's surface?",
+    "answer": "Natural spring",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (natural water source)",
+    "query": "What type of water source often has therapeutic mineral properties?",
+    "answer": "Mineral spring",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (natural water source)",
+    "query": "What is the name for a body of water originating from an underground source?",
+    "answer": "Groundwater discharge",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (verb, to leap)",
+    "query": "What is another word for 'to spring forward suddenly'?",
+    "answer": "leap",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (verb, to leap)",
+    "query": "What type of device uses a 'spring' to return to its original position?",
+    "answer": "coil spring",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (verb, to leap)",
+    "query": "What does it mean for a trap to 'spring shut'?",
+    "answer": "close suddenly",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (verb, to leap)",
+    "query": "What kind of motion does a frog make when it 'springs' from a lily pad?",
+    "answer": "jumping",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring (verb, to leap)",
+    "query": "When a person 'springs' into action, what does it imply about their movement?",
+    "answer": "sudden movement",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring, Texas (census-designated place in USA)",
+    "query": "In which state is Spring, Texas located?",
+    "answer": "Texas",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring, Texas (census-designated place in USA)",
+    "query": "What two counties does Spring, Texas primarily span?",
+    "answer": "Harris and Montgomery counties",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring, Texas (census-designated place in USA)",
+    "query": "What major city is located south of Spring, Texas?",
+    "answer": "Houston",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring, Texas (census-designated place in USA)",
+    "query": "What is the primary classification of Spring, Texas?",
+    "answer": "Census-designated place",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Spring (season)",
+    "neighbor_entity": "Spring, Texas (census-designated place in USA)",
+    "query": "What is the name of the historical old town area in Spring, Texas?",
+    "answer": "Old Town Spring",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (card game)",
+    "query": "How many players are typically involved in a game of Bridge?",
+    "answer": "Four",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (card game)",
+    "query": "What type of deck is used to play Bridge?",
+    "answer": "Standard 52-card deck",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (card game)",
+    "query": "What is the initial phase of a Bridge hand called where partnerships declare their contracts?",
+    "answer": "Bidding",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (card game)",
+    "query": "What is the name for the player who dictates the play after the bidding phase in Bridge?",
+    "answer": "Declarer",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (card game)",
+    "query": "What is the term for the set of four cards played in one round during a Bridge hand?",
+    "answer": "Trick",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (dental prosthesis)",
+    "query": "What is the primary purpose of a dental bridge?",
+    "answer": "To replace missing teeth",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (dental prosthesis)",
+    "query": "What are the natural teeth or implants supporting a dental bridge called?",
+    "answer": "Abutments",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (dental prosthesis)",
+    "query": "What material is commonly used for the framework of a dental bridge?",
+    "answer": "Metal alloy",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (dental prosthesis)",
+    "query": "How is a traditional dental bridge typically held in place?",
+    "answer": "Cemented to abutments",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (dental prosthesis)",
+    "query": "What is the artificial tooth in a dental bridge called?",
+    "answer": "Pontic",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (musical section)",
+    "query": "What is the common term for a musical section that provides contrast to the verse and chorus?",
+    "answer": "Bridge",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (musical section)",
+    "query": "In music, what section often introduces new melodic or harmonic material before returning to the main theme?",
+    "answer": "Bridge",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (musical section)",
+    "query": "What is the primary role of a bridge in song structure?",
+    "answer": "To provide contrast",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (musical section)",
+    "query": "What section of a song might lead to a key change or a lyrical shift in perspective?",
+    "answer": "Bridge",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (musical section)",
+    "query": "In traditional song form, what section typically appears after the second chorus?",
+    "answer": "Bridge",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (verb, to connect)",
+    "query": "What is the main goal when attempting to \"bridge\" a long-standing dispute between two parties?",
+    "answer": "Reconciliation",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (verb, to connect)",
+    "query": "What is established when a negotiator successfully \"bridge\"s the differing demands of two sides?",
+    "answer": "A compromise",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (verb, to connect)",
+    "query": "What kind of connection is typically forged when a speaker \"bridges\" two distinct ideas in an argument?",
+    "answer": "A logical link",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (verb, to connect)",
+    "query": "What does an educational program often seek to \"bridge\" for students learning new concepts?",
+    "answer": "Gaps in understanding",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Bridge (structure)",
+    "neighbor_entity": "Bridge (verb, to connect)",
+    "query": "What is the outcome when a community leader works to \"bridge\" social divisions?",
+    "answer": "Greater unity",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Pool (body of water)",
+    "neighbor_entity": "Car pool (shared travel arrangement)",
+    "query": "What is a common economic benefit of carpooling for individuals?",
+    "answer": "Reduced fuel costs",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Pool (body of water)",
+    "neighbor_entity": "Car pool (shared travel arrangement)",
+    "query": "What type of highway lane is often designated for vehicles engaged in carpooling?",
+    "answer": "HOV lane",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Pool (body of water)",
+    "neighbor_entity": "Car pool (shared travel arrangement)",
+    "query": "What environmental advantage is typically associated with carpooling?",
+    "answer": "Lower carbon emissions",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Pool (body of water)",
+    "neighbor_entity": "Car pool (shared travel arrangement)",
+    "query": "What is another widely used term for carpooling, especially when arranged via a platform?",
+    "answer": "Ridesharing",
+    "type": "simple question"
+  },
+  {
+    "category": "Locations",
+    "unlearning_target": "Pool (body of water)",
+    "neighbor_entity": "Car pool (shared travel arrangement)",
+    "query": "What is often required of vehicles to use an HOV lane for carpooling purposes?",
+    "answer": "Multiple occupants",
+    "type": "simple question"
+  }
+]

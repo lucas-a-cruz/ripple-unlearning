@@ -1,0 +1,25 @@
+\section{Benchmarking Unlearning Methods}
+\label{sec:leaderboard}
+Unlike prior works with limited baselines and metrics, \ou{} provides a standardized and scalable framework to conduct a large-scale comparison of various unlearning methods. We demonstrate this by evaluating 8 unlearning methods using 10 evaluation metrics on \tofu{}.
+
+\paragraph{Unlearning methods:} \ou{} enables evaluation across a broader range of methods, including SimNPO \citep{fan2024simplicity_simnpo}, RMU \citep{li2024wmdp}, AltPO \citep{mekala-etal-2025-alternate}, NPO \citep{NPO_zhang2024negative}, UNDIAL \citep{dong-etal-2025-undial}, as well as baselines like IdkPO, IdkNLL, and GradDiff \citep{maini2024tofu}. See Appendix~\ref{subsec:unl_methods} for each method's definition. 
+% \footnote{We do not include GradAsc, the naive gradient ascent as it shown to degrade model utility.} 
+
+
+\paragraph{Evaluation metrics:} We evaluate unlearning methods using memorization metrics validated in our meta-analysis, alongside privacy and utility metrics. Using the \tofu{} benchmark, and following the SemEval 2025 LLM Unlearning Challenge's ranking procedure \citep{ramakrishna2025semeval}, we compute a composite score by aggregating metrics from the three categories: memorization (using the 4 top-performing knowledge metrics from \S\ref{sec:meta_eval}'s metric meta-evaluation: ES, EM, Truth Ratio, Paraphrased Probability), privacy (4 MIA metrics), and utility (2 metrics, including TOFU's Model Utility and forget-set fluency). Exact details of our metric aggregation are in Appendix~\ref{subsec:benchmark_metric_agg}. Note that the memorization score (reported in \autoref{tab:leaderboard}) corresponds to forgetting: higher Mem. indicates less knowledge.
+
+\paragraph{Tuning strategy:} To ensure fairness, 27 hyperparameter tuning trials are allocated per method, as tuning can significantly improve performance of even simple baselines \citep{wang2025towardseffective}. Due to the impracticality of tuning on privacy metrics, that require the presence of i.i.d. holdout datasets and oracle retain models (i.e., models trained solely on the retain set, with no exposure to the forget set), we validate models only on accessible metrics that capture memorization and utility. Additionally, model selection during tuning can significantly affect rankings (Appendix~\ref{subsec:tuning_details}).
+
+\input{tables/leaderboard}
+
+
+\paragraph{Results and discussion:} While memorization, privacy, and utility each capture a distinct aspect of unlearning quality, aggregating them using a harmonic mean (\autoref{tab:leaderboard}), results in SimNPO \citep{fan2024simplicity_simnpo} ranking first. Although its memorization score trails that of others, it remains close to the retain model’s level, avoiding over-unlearning. SimNPO fully preserves utility and achieves competitive privacy results, striking a balance across all three criteria. The next best performer is RMU, which demonstrates strong memorization and privacy but suffers a significant drop in utility.
+
+Here, we note a tradeoff between reducing memorization and improving data privacy during the unlearning process. Memorization evaluation penalizes high likelihood on forget data; while privacy metrics penalize both unusually high and low likelihoods. 
+Thus, methods that under‑unlearn (e.g.\ IdkNLL, which yields a low memorization score i.e. less forgetting) score lower on privacy. On the other hand, methods like GradDiff over‑unlearn, forgetting too aggressively, yielding a high memorization score. This leads to poor privacy performance, as the model’s behavior deviates significantly from that of the retain model. This suggests that detecting and halting unlearning once the model’s behavior has reverted to its “default” state is crucial to ensure privacy.
+
+
+Because different ranking schemes can produce very different rankings (\autoref{tab:leaderboard} v/s Appendix \autoref{tab:leaderboard_with_mem_mu}), it is critical to choose an appropriate method ranking procedure and aggregate metrics. Additionally, there is a lack of standardization on which metrics are suitable for model selection versus final evaluation (elaborated upon in Appendix \ref{subsec:tuning_details}). While identifying the ideal ranking method and model selection approach is beyond our scope, we release all unlearned model checkpoints from our study to support future research on fair evaluation. 
+
+% \vspace{-10pt}
+

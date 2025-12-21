@@ -1,0 +1,426 @@
+\begin{thebibliography}{77}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abdin et~al.(2024)Abdin, Aneja, Awadalla, Awadallah, Awan, Bach, Bahree, Bakhtiari, Bao, Behl, et~al.]{abdin2024phi}
+Marah Abdin, Jyoti Aneja, Hany Awadalla, Ahmed Awadallah, Ammar~Ahmad Awan, Nguyen Bach, Amit Bahree, Arash Bakhtiari, Jianmin Bao, Harkirat Behl, et~al.
+\newblock {Phi}-3 technical report: A highly capable language model locally on your phone.
+\newblock \emph{arXiv preprint arXiv:2404.14219}, 2024.
+
+\bibitem[Arditi and Chughtai(2024)]{arditi2024rmu}
+Andy Arditi and Bilal Chughtai.
+\newblock Unlearning via {RMU} is mostly shallow, July 2024.
+\newblock URL \url{https://www.lesswrong.com/posts/6QYpXEscd8GuE7BgW/unlearning-via-rmu-is-mostly-shallow}.
+\newblock AI Alignment Forum, informal research note.
+
+\bibitem[Belrose et~al.(2023)Belrose, Furman, Smith, Halawi, Ostrovsky, McKinney, Biderman, and Steinhardt]{belrose2023eliciting}
+Nora Belrose, Zach Furman, Logan Smith, Danny Halawi, Igor Ostrovsky, Lev McKinney, Stella Biderman, and Jacob Steinhardt.
+\newblock Eliciting latent predictions from transformers with the tuned lens.
+\newblock \emph{arXiv preprint arXiv:2303.08112}, 2023.
+
+\bibitem[Bhaila et~al.(2025)Bhaila, Van, and Wu]{bhaila-etal-2025-soft}
+Karuna Bhaila, Minh-Hao Van, and Xintao Wu.
+\newblock Soft prompting for unlearning in large language models.
+\newblock In Luis Chiruzzo, Alan Ritter, and Lu~Wang, editors, \emph{Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)}, pages 4046--4056, Albuquerque, New Mexico, April 2025. Association for Computational Linguistics.
+\newblock ISBN 979-8-89176-189-6.
+\newblock URL \url{https://aclanthology.org/2025.naacl-long.204/}.
+
+\bibitem[Carlini et~al.(2021)Carlini, Tramer, Wallace, Jagielski, Herbert-Voss, Lee, Roberts, Brown, Song, Erlingsson, et~al.]{carlini2021extracting}
+Nicholas Carlini, Florian Tramer, Eric Wallace, Matthew Jagielski, Ariel Herbert-Voss, Katherine Lee, Adam Roberts, Tom Brown, Dawn Song, Ulfar Erlingsson, et~al.
+\newblock Extracting training data from large language models.
+\newblock In \emph{30th USENIX Security Symposium (USENIX Security 21)}, pages 2633--2650, 2021.
+
+\bibitem[Carlini et~al.(2023)Carlini, Ippolito, Jagielski, Lee, Tramer, and Zhang]{carlini2023quantifying}
+Nicholas Carlini, Daphne Ippolito, Matthew Jagielski, Katherine Lee, Florian Tramer, and Chiyuan Zhang.
+\newblock Quantifying memorization across neural language models.
+\newblock In \emph{The Eleventh International Conference on Learning Representations}, 2023.
+\newblock URL \url{https://openreview.net/forum?id=TatRHT_1cK}.
+
+\bibitem[Choi et~al.(2024)Choi, Rim, Lee, and Choo]{choi2024optoutinvestigatingentitylevelunlearning}
+Minseok Choi, Daniel Rim, Dohyun Lee, and Jaegul Choo.
+\newblock Opt-out: Investigating entity-level unlearning for large language models via optimal transport, 2024.
+\newblock URL \url{https://arxiv.org/abs/2406.12329}.
+
+\bibitem[Cobbe et~al.(2021)Cobbe, Kosaraju, Bavarian, Chen, Jun, Kaiser, Plappert, Tworek, Hilton, Nakano, Hesse, and Schulman]{cobbe2021gsm8k}
+Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, Lukasz Kaiser, Matthias Plappert, Jerry Tworek, Jacob Hilton, Reiichiro Nakano, Christopher Hesse, and John Schulman.
+\newblock Training verifiers to solve math word problems.
+\newblock \emph{arXiv preprint arXiv:2110.14168}, 2021.
+
+\bibitem[Dettmers et~al.(2023)Dettmers, Pagnoni, Holtzman, and Zettlemoyer]{dettmers_qlora_bitsandbytes}
+Tim Dettmers, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer.
+\newblock {QLoRA}: Efficient finetuning of quantized llms.
+\newblock In A.~Oh, T.~Naumann, A.~Globerson, K.~Saenko, M.~Hardt, and S.~Levine, editors, \emph{Advances in Neural Information Processing Systems}, volume~36, pages 10088--10115. Curran Associates, Inc., 2023.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2023/file/1feb87871436031bdc0f2beaa62a049b-Paper-Conference.pdf}.
+
+\bibitem[Ding et~al.(2025)Ding, Wu, Yuan, Lu, Zhang, Su, Wang, and He]{ding2025unified}
+Chenlu Ding, Jiancan Wu, Yancheng Yuan, Jinda Lu, Kai Zhang, Alex Su, Xiang Wang, and Xiangnan He.
+\newblock Unified parameter-efficient unlearning for {LLM}s.
+\newblock In \emph{The Thirteenth International Conference on Learning Representations}, 2025.
+\newblock URL \url{https://openreview.net/forum?id=zONMuIVCAT}.
+
+\bibitem[Dong et~al.(2025)Dong, Lin, Belkin, Huerta, and Vuli{\'c}]{dong-etal-2025-undial}
+Yijiang~River Dong, Hongzhou Lin, Mikhail Belkin, Ramon Huerta, and Ivan Vuli{\'c}.
+\newblock {UNDIAL}: Self-distillation with adjusted logits for robust unlearning in large language models.
+\newblock In \emph{Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)}, pages 8827--8840, Albuquerque, New Mexico, April 2025. Association for Computational Linguistics.
+\newblock ISBN 979-8-89176-189-6.
+\newblock URL \url{https://aclanthology.org/2025.naacl-long.444/}.
+
+\bibitem[Doshi and Stickland(2024)]{doshi2024doesunlearning}
+Jai Doshi and Asa~Cooper Stickland.
+\newblock Does unlearning truly unlearn? {A} black box evaluation of {LLM} unlearning methods.
+\newblock \emph{arXiv preprint arXiv:2411.12103}, 2024.
+
+\bibitem[Duan et~al.(2024)Duan, Suri, Mireshghallah, Min, Shi, Zettlemoyer, Tsvetkov, Choi, Evans, and Hajishirzi]{duan2024do}
+Michael Duan, Anshuman Suri, Niloofar Mireshghallah, Sewon Min, Weijia Shi, Luke Zettlemoyer, Yulia Tsvetkov, Yejin Choi, David Evans, and Hannaneh Hajishirzi.
+\newblock Do membership inference attacks work on large language models?
+\newblock In \emph{First Conference on Language Modeling}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=av0D19pSkU}.
+
+\bibitem[Eldan and Russinovich(2023)]{eldan2023s}
+Ronen Eldan and Mark Russinovich.
+\newblock Who's harry potter? approximate unlearning in {LLMs}.
+\newblock \emph{arXiv preprint arXiv:2310.02238}, 2023.
+
+\bibitem[Entesari et~al.(2025)Entesari, Hatami, Khaziev, Ramakrishna, and Fazlyab]{entesari2025constrainedentropicunlearningprimaldual}
+Taha Entesari, Arman Hatami, Rinat Khaziev, Anil Ramakrishna, and Mahyar Fazlyab.
+\newblock Constrained entropic unlearning: A primal-dual framework for large language models, 2025.
+\newblock URL \url{https://arxiv.org/abs/2506.05314}.
+
+\bibitem[Fan et~al.(2024)Fan, Liu, Lin, Jia, Zhang, Mei, and Liu]{fan2024simplicity_simnpo}
+Chongyu Fan, Jiancheng Liu, Licong Lin, Jinghan Jia, Ruiqi Zhang, Song Mei, and Sijia Liu.
+\newblock Simplicity prevails: Rethinking negative preference optimization for {LLM} unlearning.
+\newblock In \emph{Neurips Safe Generative AI Workshop 2024}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=pVACX02m0p}.
+
+\bibitem[Fan et~al.(2025)Fan, Jia, Zhang, Ramakrishna, Hong, and Liu]{fan2025towards}
+Chongyu Fan, Jinghan Jia, Yihua Zhang, Anil Ramakrishna, Mingyi Hong, and Sijia Liu.
+\newblock Towards llm unlearning resilient to relearning attacks: A sharpness-aware minimization perspective and beyond.
+\newblock \emph{arXiv preprint arXiv:2502.05374}, 2025.
+
+\bibitem[Gandikota et~al.(2024)Gandikota, Feucht, Marks, and Bau]{gandikota2024erasing}
+Rohit Gandikota, Sheridan Feucht, Samuel Marks, and David Bau.
+\newblock Erasing conceptual knowledge from language models.
+\newblock \emph{arXiv preprint arXiv:2410.02760}, 2024.
+
+\bibitem[Gao et~al.(2024{\natexlab{a}})Gao, Wang, Weng, Wang, and Zhu]{gao2024practical}
+Chongyang Gao, Lixu Wang, Chenkai Weng, Xiao Wang, and Qi~Zhu.
+\newblock Practical unlearning for large language models.
+\newblock \emph{arXiv preprint arXiv:2407.10223}, 2024{\natexlab{a}}.
+
+\bibitem[Gao et~al.(2024{\natexlab{b}})Gao, Niu, Tang, Avestimehr, and Annavaram]{gao2024ethos}
+Lei Gao, Yue Niu, Tingting Tang, Salman Avestimehr, and Murali Annavaram.
+\newblock Ethos: Rectifying language models in orthogonal parameter space.
+\newblock \emph{arXiv preprint arXiv:2403.08994}, 2024{\natexlab{b}}.
+
+\bibitem[Gao et~al.(2024{\natexlab{c}})Gao, Tow, Abbasi, Biderman, Black, DiPofi, Foster, Golding, Hsu, Le~Noac'h, Li, McDonell, Muennighoff, Ociepa, Phang, Reynolds, Schoelkopf, Skowron, Sutawika, Tang, Thite, Wang, Wang, and Zou]{eval-harness}
+Leo Gao, Jonathan Tow, Baber Abbasi, Stella Biderman, Sid Black, Anthony DiPofi, Charles Foster, Laurence Golding, Jeffrey Hsu, Alain Le~Noac'h, Haonan Li, Kyle McDonell, Niklas Muennighoff, Chris Ociepa, Jason Phang, Laria Reynolds, Hailey Schoelkopf, Aviya Skowron, Lintang Sutawika, Eric Tang, Anish Thite, Ben Wang, Kevin Wang, and Andy Zou.
+\newblock {The Language Model Evaluation Harness}, 07 2024{\natexlab{c}}.
+\newblock URL \url{https://zenodo.org/records/12608602}.
+
+\bibitem[{Gemma Team} et~al.(2024){Gemma Team}, Mesnard, Hardin, Dadashi, Bhupatiraju, Pathak, Sifre, Rivi{\`e}re, Kale, Love, et~al.]{team2024gemma}
+{Gemma Team}, Thomas Mesnard, Cassidy Hardin, Robert Dadashi, Surya Bhupatiraju, Shreya Pathak, Laurent Sifre, Morgane Rivi{\`e}re, Mihir~Sanjay Kale, Juliette Love, et~al.
+\newblock Gemma: {Open} models based on gemini research and technology.
+\newblock \emph{arXiv preprint arXiv:2403.08295}, 2024.
+
+\bibitem[Grattafiori et~al.(2024)Grattafiori, Dubey, Jauhri, Pandey, Kadian, Al-Dahle, Letman, Mathur, Schelten, Vaughan, et~al.]{grattafiori2024llama}
+Aaron Grattafiori, Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian, Ahmad Al-Dahle, Aiesha Letman, Akhil Mathur, Alan Schelten, Alex Vaughan, et~al.
+\newblock The {Llama 3} herd of models.
+\newblock \emph{arXiv preprint arXiv:2407.21783}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2407.21783}.
+
+\bibitem[Gu et~al.(2024)Gu, Huang, Luo, Yao, Yang, Teng, and Wang]{gu2024meowmemorysupervisedllm}
+Tianle Gu, Kexin Huang, Ruilin Luo, Yuanqi Yao, Yujiu Yang, Yan Teng, and Yingchun Wang.
+\newblock Meow: Memory supervised llm unlearning via inverted facts, 2024.
+\newblock URL \url{https://arxiv.org/abs/2409.11844}.
+
+\bibitem[Gugger et~al.(2022)Gugger, Debut, Wolf, Schmid, Mueller, Mangrulkar, Sun, and Bossan]{accelerate}
+Sylvain Gugger, Lysandre Debut, Thomas Wolf, Philipp Schmid, Zachary Mueller, Sourab Mangrulkar, Marc Sun, and Benjamin Bossan.
+\newblock Accelerate: Training and inference at scale made simple, efficient and adaptable.
+\newblock \url{https://github.com/huggingface/accelerate}, 2022.
+
+\bibitem[Hendrycks et~al.(2021)Hendrycks, Burns, Basart, Zou, Mazeika, Song, and Steinhardt]{hendrycks2021measuringmassivemultitasklanguage}
+Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt.
+\newblock Measuring massive multitask language understanding, 2021.
+\newblock URL \url{https://arxiv.org/abs/2009.03300}.
+
+\bibitem[Hu et~al.(2025)Hu, Fu, Wu, and Smith]{hu2025jogging}
+Shengyuan Hu, Yiwei Fu, Steven Wu, and Virginia Smith.
+\newblock Unlearning or obfuscating? {J}ogging the memory of unlearned {LLM}s via benign relearning.
+\newblock In \emph{The Thirteenth International Conference on Learning Representations}, 2025.
+\newblock URL \url{https://openreview.net/forum?id=fMNRYBvcQN}.
+
+\bibitem[Jacobs et~al.(2023)Jacobs, Tanaka, Zhang, Zhang, Song, Rajbhandari, and He]{jacobs2023ulysses}
+Sam~Ade Jacobs, Masahiro Tanaka, Chengming Zhang, Minjia Zhang, Leon Song, Samyam Rajbhandari, and Yuxiong He.
+\newblock {DeepSpeed} {Ulysses}: System optimizations for enabling training of extreme long sequence transformer models.
+\newblock \emph{arXiv preprint arXiv:2309.14509}, 2023.
+\newblock URL \url{http://arxiv.org/abs/2309.14509}.
+
+\bibitem[Jia et~al.(2024)Jia, Zhang, Zhang, Liu, Runwal, Diffenderfer, Kailkhura, and Liu]{jia2024soul}
+Jinghan Jia, Yihua Zhang, Yimeng Zhang, Jiancheng Liu, Bharat Runwal, James Diffenderfer, Bhavya Kailkhura, and Sijia Liu.
+\newblock Soul: Unlocking the power of second-order optimization for {LLM} unlearning.
+\newblock \emph{arXiv preprint arXiv:2404.18239}, 2024.
+
+\bibitem[Jin et~al.(2024)Jin, Cao, Wang, He, Yuan, Li, Chen, Liu, and Zhao]{jin2024rwku}
+Zhuoran Jin, Pengfei Cao, Chenhao Wang, Zhitao He, Hongbang Yuan, Jiachun Li, Yubo Chen, Kang Liu, and Jun Zhao.
+\newblock {RWKU}: {B}enchmarking real-world knowledge unlearning for large language models.
+\newblock \emph{arXiv preprint arXiv:2406.10890}, 2024.
+
+\bibitem[Karamolegkou et~al.(2023)Karamolegkou, Li, Zhou, and S{\o}gaard]{karamolegkou2023copyright}
+Antonia Karamolegkou, Jiaang Li, Li~Zhou, and Anders S{\o}gaard.
+\newblock Copyright violations and large language models.
+\newblock In \emph{The 2023 Conference on Empirical Methods in Natural Language Processing}, 2023.
+\newblock URL \url{https://openreview.net/forum?id=YokfK5VOoz}.
+
+\bibitem[Kim et~al.(2025)Kim, Cha, and Kim]{kim2025we}
+Yongwoo Kim, Sungmin Cha, and Donghyun Kim.
+\newblock Are we truly forgetting? {A} critical re-examination of machine unlearning evaluation protocols.
+\newblock \emph{arXiv preprint arXiv:2503.06991}, 2025.
+
+\bibitem[Li et~al.(2024)Li, Pan, Gopal, Yue, Berrios, Gatti, Li, Dombrowski, Goel, Phan, et~al.]{li2024wmdp}
+Nathaniel Li, Alexander Pan, Anjali Gopal, Summer Yue, Daniel Berrios, Alice Gatti, Justin~D Li, Ann-Kathrin Dombrowski, Shashwat Goel, Long Phan, et~al.
+\newblock The {WMDP} benchmark: Measuring and reducing malicious use with unlearning.
+\newblock \emph{arXiv preprint arXiv:2403.03218}, 2024.
+
+\bibitem[Li et~al.(2023)Li, Bubeck, Eldan, Giorno, Gunasekar, and Lee]{li2023textbooksneediiphi15}
+Yuanzhi Li, Sébastien Bubeck, Ronen Eldan, Allie~Del Giorno, Suriya Gunasekar, and Yin~Tat Lee.
+\newblock {Textbooks Are All You Need II: Phi-1.5 technical report}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2309.05463}.
+
+\bibitem[Lin(2004)]{lin-2004-rouge}
+Chin-Yew Lin.
+\newblock {ROUGE}: A package for automatic evaluation of summaries.
+\newblock In \emph{Text Summarization Branches Out}, pages 74--81, Barcelona, Spain, July 2004. Association for Computational Linguistics.
+\newblock URL \url{https://aclanthology.org/W04-1013/}.
+
+\bibitem[Liu et~al.(2024)Liu, Yao, Jia, Casper, Baracaldo, Hase, Xu, Yao, Li, Varshney, et~al.]{liu2024rethinking}
+Sijia Liu, Yuanshun Yao, Jinghan Jia, Stephen Casper, Nathalie Baracaldo, Peter Hase, Xiaojun Xu, Yuguang Yao, Hang Li, Kush~R Varshney, et~al.
+\newblock Rethinking machine unlearning for large language models.
+\newblock \emph{arXiv preprint arXiv:2402.08787}, 2024.
+
+\bibitem[{\L}ucki et~al.(2025){\L}ucki, Wei, Huang, Henderson, Tram{\`e}r, and Rando]{lucki2025anadv}
+Jakub {\L}ucki, Boyi Wei, Yangsibo Huang, Peter Henderson, Florian Tram{\`e}r, and Javier Rando.
+\newblock An adversarial perspective on machine unlearning for {AI} safety.
+\newblock \emph{Transactions on Machine Learning Research}, 2025.
+\newblock ISSN 2835-8856.
+\newblock URL \url{https://openreview.net/forum?id=J5IRyTKZ9s}.
+
+\bibitem[Lynch et~al.(2024)Lynch, Guo, Ewart, Casper, and Hadfield-Menell]{lynch2024eightrobust}
+Aengus Lynch, Phillip Guo, Aidan Ewart, Stephen Casper, and Dylan Hadfield-Menell.
+\newblock Eight methods to evaluate robust unlearning in {LLMs}.
+\newblock \emph{arXiv preprint arXiv:2402.16835}, 2024.
+
+\bibitem[Maini et~al.(2024)Maini, Feng, Schwarzschild, Lipton, and Kolter]{maini2024tofu}
+Pratyush Maini, Zhili Feng, Avi Schwarzschild, Zachary~C Lipton, and J~Zico Kolter.
+\newblock {TOFU}: {A} task of fictitious unlearning for {LLMs}.
+\newblock \emph{First Conference On Language Modeling}, 2024.
+\newblock URL \url{https://openreview.net/pdf?id=B41hNBoWLo}.
+
+\bibitem[Mekala et~al.(2025)Mekala, Dorna, Dubey, Lalwani, Koleczek, Rungta, Hasan, and Lobo]{mekala-etal-2025-alternate}
+Anmol Mekala, Vineeth Dorna, Shreya Dubey, Abhishek Lalwani, David Koleczek, Mukund Rungta, Sadid Hasan, and Elita Lobo.
+\newblock Alternate preference optimization for unlearning factual knowledge in large language models.
+\newblock In \emph{Proceedings of the 31st International Conference on Computational Linguistics}, pages 3732--3752, Abu Dhabi, UAE, January 2025. Association for Computational Linguistics.
+\newblock URL \url{https://aclanthology.org/2025.coling-main.252/}.
+
+\bibitem[Muresanu et~al.(2024)Muresanu, Thudi, Zhang, and Papernot]{muresanu2024unlearnablealgorithmsincontextlearning}
+Andrei Muresanu, Anvith Thudi, Michael~R. Zhang, and Nicolas Papernot.
+\newblock Unlearnable algorithms for in-context learning, 2024.
+\newblock URL \url{https://arxiv.org/abs/2402.00751}.
+
+\bibitem[Nguyen et~al.(2022)Nguyen, Huynh, Nguyen, Liew, Yin, and Nguyen]{nguyen2022survey}
+Thanh~Tam Nguyen, Thanh~Trung Huynh, Phi~Le Nguyen, Alan Wee-Chung Liew, Hongzhi Yin, and Quoc Viet~Hung Nguyen.
+\newblock A survey of machine unlearning.
+\newblock \emph{arXiv preprint arXiv:2209.02299}, 2022.
+
+\bibitem[OAG(2021)]{ccpa2021}
+{CA} OAG.
+\newblock {CCPA} regulations: Final regulation text.
+\newblock \emph{Office of the Attorney General, California Department of Justice}, 2021.
+
+\bibitem[Qiu et~al.(2024)Qiu, Shen, Chen, Cancedda, Stenetorp, and Lane]{qiu2024pistol}
+Xinchi Qiu, William~F Shen, Yihong Chen, Nicola Cancedda, Pontus Stenetorp, and Nicholas~D Lane.
+\newblock {PISTOL: Dataset compilation pipeline for structural unlearning of LLMs}.
+\newblock \emph{arXiv preprint arXiv:2406.16810}, 2024.
+
+\bibitem[Qwen et~al.(2025)Qwen, :, Yang, Yang, Zhang, Hui, Zheng, Yu, Li, Liu, Huang, Wei, Lin, Yang, Tu, Zhang, Yang, Yang, Zhou, Lin, Dang, Lu, Bao, Yang, Yu, Li, Xue, Zhang, Zhu, Men, Lin, Li, Tang, Xia, Ren, Ren, Fan, Su, Zhang, Wan, Liu, Cui, Zhang, and Qiu]{qwen2025qwen25technicalreport}
+Qwen, :, An~Yang, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo~Zheng, Bowen Yu, Chengyuan Li, Dayiheng Liu, Fei Huang, Haoran Wei, Huan Lin, Jian Yang, Jianhong Tu, Jianwei Zhang, Jianxin Yang, Jiaxi Yang, Jingren Zhou, Junyang Lin, Kai Dang, Keming Lu, Keqin Bao, Kexin Yang, Le~Yu, Mei Li, Mingfeng Xue, Pei Zhang, Qin Zhu, Rui Men, Runji Lin, Tianhao Li, Tianyi Tang, Tingyu Xia, Xingzhang Ren, Xuancheng Ren, Yang Fan, Yang Su, Yichang Zhang, Yu~Wan, Yuqiong Liu, Zeyu Cui, Zhenru Zhang, and Zihan Qiu.
+\newblock Qwen2.5 technical report, 2025.
+\newblock URL \url{https://arxiv.org/abs/2412.15115}.
+
+\bibitem[Ramakrishna et~al.(2025{\natexlab{a}})Ramakrishna, Wan, Jin, Chang, Bu, Vinzamuri, Cevher, Hong, and Gupta]{ramakrishna2025lume}
+Anil Ramakrishna, Yixin Wan, Xiaomeng Jin, Kai-Wei Chang, Zhiqi Bu, Bhanukiran Vinzamuri, Volkan Cevher, Mingyi Hong, and Rahul Gupta.
+\newblock {LUME: LLM} unlearning with multitask evaluations.
+\newblock \emph{arXiv preprint arXiv:2502.15097}, 2025{\natexlab{a}}.
+
+\bibitem[Ramakrishna et~al.(2025{\natexlab{b}})Ramakrishna, Wan, Jin, Chang, Bu, Vinzamuri, Cevher, Hong, and Gupta]{ramakrishna2025semeval}
+Anil Ramakrishna, Yixin Wan, Xiaomeng Jin, Kai-Wei Chang, Zhiqi Bu, Bhanukiran Vinzamuri, Volkan Cevher, Mingyi Hong, and Rahul Gupta.
+\newblock {SemEval}-2025 {T}ask 4: {U}nlearning sensitive content from large language models.
+\newblock \emph{arXiv preprint arXiv:2504.02883}, 2025{\natexlab{b}}.
+
+\bibitem[Scholten et~al.(2024)Scholten, G{\"u}nnemann, and Schwinn]{scholten2024probabilistic}
+Yan Scholten, Stephan G{\"u}nnemann, and Leo Schwinn.
+\newblock A probabilistic perspective on unlearning and alignment for large language models.
+\newblock \emph{arXiv preprint arXiv:2410.03523}, 2024.
+
+\bibitem[Schwarzschild et~al.(2024)Schwarzschild, Feng, Maini, Lipton, and Kolter]{acr_schwarzschild}
+Avi Schwarzschild, Zhili Feng, Pratyush Maini, Zachary~C. Lipton, and J.~Zico Kolter.
+\newblock Rethinking llm memorization through the lens of adversarial compression.
+\newblock In A.~Globerson, L.~Mackey, D.~Belgrave, A.~Fan, U.~Paquet, J.~Tomczak, and C.~Zhang, editors, \emph{Advances in Neural Information Processing Systems}, volume~37, pages 56244--56267. Curran Associates, Inc., 2024.
+\newblock URL \url{https://proceedings.neurips.cc/paper_files/paper/2024/file/66453d578afae006252d2ea090e151c9-Paper-Conference.pdf}.
+
+\bibitem[Seyito{\u{g}}lu et~al.(2024)Seyito{\u{g}}lu, Kuvshinov, Schwinn, and G{\"u}nnemann]{seyitouglu2024extracting}
+Atakan Seyito{\u{g}}lu, Aleksei Kuvshinov, Leo Schwinn, and Stephan G{\"u}nnemann.
+\newblock Extracting unlearned information from {LLMs} with activation steering.
+\newblock \emph{arXiv preprint arXiv:2411.02631}, 2024.
+
+\bibitem[Shi et~al.(2023)Shi, Ajith, Xia, Huang, Liu, Blevins, Chen, and Zettlemoyer]{shi2023detecting}
+Weijia Shi, Anirudh Ajith, Mengzhou Xia, Yangsibo Huang, Daogao Liu, Terra Blevins, Danqi Chen, and Luke Zettlemoyer.
+\newblock Detecting pretraining data from large language models, 2023.
+
+\bibitem[Shi et~al.(2025)Shi, Lee, Huang, Malladi, Zhao, Holtzman, Liu, Zettlemoyer, Smith, and Zhang]{shi2025muse}
+Weijia Shi, Jaechan Lee, Yangsibo Huang, Sadhika Malladi, Jieyu Zhao, Ari Holtzman, Daogao Liu, Luke Zettlemoyer, Noah~A. Smith, and Chiyuan Zhang.
+\newblock {MUSE}: Machine unlearning six-way evaluation for language models.
+\newblock In \emph{The Thirteenth International Conference on Learning Representations}, 2025.
+\newblock URL \url{https://openreview.net/forum?id=TArmA033BU}.
+
+\bibitem[Shostack(2024)]{shostack2024boy}
+Adam Shostack.
+\newblock The boy who survived: {Removing Harry Potter from an LLM is harder than reported}.
+\newblock \emph{arXiv preprint arXiv:2403.12082}, 2024.
+
+\bibitem[Team et~al.(2023)Team, Anil, Borgeaud, Alayrac, Yu, Soricut, Schalkwyk, Dai, Hauth, Millican, et~al.]{team2023gemini}
+Gemini Team, Rohan Anil, Sebastian Borgeaud, Jean-Baptiste Alayrac, Jiahui Yu, Radu Soricut, Johan Schalkwyk, Andrew~M Dai, Anja Hauth, Katie Millican, et~al.
+\newblock Gemini: a family of highly capable multimodal models.
+\newblock \emph{arXiv preprint arXiv:2312.11805}, 2023.
+
+\bibitem[Team et~al.(2024)Team, Adler, Agarwal, Aithal, Anh, Bhattacharya, Brundyn, Casper, Catanzaro, Clay, Cohen, et~al.]{nvidia2024nemotron}
+Nvidia Team, Bo~Adler, Niket Agarwal, Ashwath Aithal, Dong~H Anh, Pallab Bhattacharya, Annika Brundyn, Jared Casper, Bryan Catanzaro, Sharon Clay, Jonathan Cohen, et~al.
+\newblock Nemotron-4 340{B} technical report.
+\newblock \emph{arXiv preprint arXiv:2406.11704}, 2024.
+
+\bibitem[Thaker et~al.(2025)Thaker, Hu, Kale, Maurya, Wu, and Smith]{thaker2025position}
+Pratiksha Thaker, Shengyuan Hu, Neil Kale, Yash Maurya, Zhiwei~Steven Wu, and Virginia Smith.
+\newblock Position: {LLM} unlearning benchmarks are weak measures of progress.
+\newblock In \emph{Proceedings of the 3rd IEEE Conference on Secure and Trustworthy Machine Learning (SaTML)}, 2025.
+
+\bibitem[Tian et~al.(2024)Tian, Liang, Cheng, Liu, Wang, Sui, Chen, Chen, and Zhang]{tian-etal-2024-forget}
+Bozhong Tian, Xiaozhuan Liang, Siyuan Cheng, Qingbin Liu, Mengru Wang, Dianbo Sui, Xi~Chen, Huajun Chen, and Ningyu Zhang.
+\newblock To forget or not? towards practical knowledge unlearning for large language models.
+\newblock In Yaser Al-Onaizan, Mohit Bansal, and Yun-Nung Chen, editors, \emph{Findings of the Association for Computational Linguistics: EMNLP 2024}, pages 1524--1537, Miami, Florida, USA, November 2024. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2024.findings-emnlp.82}.
+\newblock URL \url{https://aclanthology.org/2024.findings-emnlp.82/}.
+
+\bibitem[Tirumala et~al.(2022)Tirumala, Markosyan, Zettlemoyer, and Aghajanyan]{tirumala2022memorization}
+Kushal Tirumala, Aram Markosyan, Luke Zettlemoyer, and Armen Aghajanyan.
+\newblock Memorization without overfitting: Analyzing the training dynamics of large language models.
+\newblock \emph{Advances in Neural Information Processing Systems}, 35:\penalty0 38274--38290, 2022.
+
+\bibitem[Touvron et~al.(2023)Touvron, Martin, Stone, Albert, Almahairi, Babaei, Bashlykov, Batra, Bhargava, Bhosale, et~al.]{touvron2023llama}
+Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei, Nikolay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, et~al.
+\newblock Llama 2: Open foundation and fine-tuned chat models.
+\newblock \emph{arXiv preprint arXiv:2307.09288}, 2023.
+
+\bibitem[Tunstall et~al.(2024)Tunstall, Beeching, Lambert, Rajani, Rasul, Belkada, Huang, Werra, Fourrier, Habib, Sarrazin, Sanseviero, Rush, and Wolf]{tunstall2024zephyr}
+Lewis Tunstall, Edward~Emanuel Beeching, Nathan Lambert, Nazneen Rajani, Kashif Rasul, Younes Belkada, Shengyi Huang, Leandro~Von Werra, Cl{\'e}mentine Fourrier, Nathan Habib, Nathan Sarrazin, Omar Sanseviero, Alexander~M Rush, and Thomas Wolf.
+\newblock Zephyr: Direct distillation of {LM} alignment.
+\newblock In \emph{First Conference on Language Modeling}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=aKkAwZB6JV}.
+
+\bibitem[Union(2016)]{regulation2016regulation}
+European Union.
+\newblock {Regulation (EU) 2016/679 of the European Parliament and of the Council}.
+\newblock \emph{Official Journal of the European Union}, 2016.
+
+\bibitem[Wang et~al.(2024)Wang, Wang, Li, and Neel]{wang2024pandoraswhiteboxprecisetraining}
+Jeffrey~G. Wang, Jason Wang, Marvin Li, and Seth Neel.
+\newblock Pandora's white-box: Precise training data detection and extraction in large language models, 2024.
+\newblock URL \url{https://arxiv.org/abs/2402.17012}.
+
+\bibitem[Wang et~al.(2025{\natexlab{a}})Wang, Han, Yang, Zhu, Liu, and Sugiyama]{wang2025towardseffective}
+Qizhou Wang, Bo~Han, Puning Yang, Jianing Zhu, Tongliang Liu, and Masashi Sugiyama.
+\newblock Towards effective evaluations and comparisons for {LLM} unlearning methods.
+\newblock In \emph{The Thirteenth International Conference on Learning Representations}, 2025{\natexlab{a}}.
+\newblock URL \url{https://openreview.net/forum?id=wUtCieKuQU}.
+
+\bibitem[Wang et~al.(2025{\natexlab{b}})Wang, Zhou, Zhou, Shin, Han, and Weinberger]{wang2025rethinking}
+Qizhou Wang, Jin~Peng Zhou, Zhanke Zhou, Saebyeol Shin, Bo~Han, and Kilian~Q Weinberger.
+\newblock Rethinking {LLM} unlearning objectives: A gradient perspective and go beyond.
+\newblock In \emph{The Thirteenth International Conference on Learning Representations}, 2025{\natexlab{b}}.
+\newblock URL \url{https://openreview.net/forum?id=huo8MqVH6t}.
+
+\bibitem[Wang et~al.(2025{\natexlab{c}})Wang, Wei, Liu, Pang, Liu, Shah, Bao, Liu, and Wei]{wang2025llm}
+Yaxuan Wang, Jiaheng Wei, Chris~Yuhao Liu, Jinlong Pang, Quan Liu, Ankit Shah, Yujia Bao, Yang Liu, and Wei Wei.
+\newblock {LLM} unlearning via loss adjustment with only forget data.
+\newblock In \emph{The Thirteenth International Conference on Learning Representations}, 2025{\natexlab{c}}.
+\newblock URL \url{https://openreview.net/forum?id=6ESRicalFE}.
+
+\bibitem[Wang et~al.(2025{\natexlab{d}})Wang, Wang, Liu, Huang, Du, Du, and Han]{wang2025gru}
+Yue Wang, Qizhou Wang, Feng Liu, Wei Huang, Yali Du, Xiaojiang Du, and Bo~Han.
+\newblock {GRU}: Mitigating the trade-off between unlearning and retention for large language models.
+\newblock \emph{arXiv preprint arXiv:2503.09117}, 2025{\natexlab{d}}.
+
+\bibitem[Wei et~al.(2023)Wei, Haghtalab, and Steinhardt]{wei2023jailbroken}
+Alexander Wei, Nika Haghtalab, and Jacob Steinhardt.
+\newblock Jailbroken: How does {LLM} safety training fail?
+\newblock In \emph{Thirty-seventh Conference on Neural Information Processing Systems}, 2023.
+\newblock URL \url{https://openreview.net/forum?id=jA235JGM09}.
+
+\bibitem[Wolf et~al.(2020)Wolf, Debut, Sanh, Chaumond, Delangue, Moi, Cistac, Rault, Louf, Funtowicz, Davison, Shleifer, von Platen, Ma, Jernite, Plu, Xu, Scao, Gugger, Drame, Lhoest, and Rush]{wolf-etal-2020-transformers}
+Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue, Anthony Moi, Pierric Cistac, Tim Rault, Rémi Louf, Morgan Funtowicz, Joe Davison, Sam Shleifer, Patrick von Platen, Clara Ma, Yacine Jernite, Julien Plu, Canwen Xu, Teven~Le Scao, Sylvain Gugger, Mariama Drame, Quentin Lhoest, and Alexander~M. Rush.
+\newblock Transformers: State-of-the-art natural language processing.
+\newblock In \emph{Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: System Demonstrations}, pages 38--45, Online, October 2020. Association for Computational Linguistics.
+\newblock URL \url{https://www.aclweb.org/anthology/2020.emnlp-demos.6}.
+
+\bibitem[Xu et~al.(2025)Xu, Zhao, Yang, Zhao, Deng, Wang, Hooi, Oo, Chen, and Zhang]{xu2025relearn}
+Haoming Xu, Ningyuan Zhao, Liming Yang, Sendong Zhao, Shumin Deng, Mengru Wang, Bryan Hooi, Nay Oo, Huajun Chen, and Ningyu Zhang.
+\newblock Relearn: Unlearning via learning for large language models.
+\newblock \emph{arXiv preprint arXiv:2502.11190}, 2025.
+
+\bibitem[Yadan(2019)]{Yadan2019Hydra}
+Omry Yadan.
+\newblock Hydra - {A} framework for elegantly configuring complex applications.
+\newblock Github, 2019.
+\newblock URL \url{https://github.com/facebookresearch/hydra}.
+
+\bibitem[Yang(2025{\natexlab{a}})]{yang2025ceucrossentropyunlearning}
+Bo~Yang.
+\newblock Ce-u: Cross entropy unlearning, 2025{\natexlab{a}}.
+\newblock URL \url{https://arxiv.org/abs/2503.01224}.
+
+\bibitem[Yang(2025{\natexlab{b}})]{yang2025u}
+Bo~Yang.
+\newblock {CE-U: Cross Entropy} unlearning.
+\newblock \emph{arXiv preprint arXiv:2503.01224}, 2025{\natexlab{b}}.
+
+\bibitem[Yang et~al.(2025)Yang, Wang, Huang, Liu, Zhang, and Han]{yang2025exploring}
+Puning Yang, Qizhou Wang, Zhuo Huang, Tongliang Liu, Chengqi Zhang, and Bo~Han.
+\newblock Exploring criteria of loss reweighting to enhance {LLM} unlearning.
+\newblock In \emph{Forty-second International Conference on Machine Learning}, 2025.
+\newblock URL \url{https://openreview.net/forum?id=mGOugCZlAq}.
+
+\bibitem[Yeom et~al.(2018)Yeom, Giacomelli, Fredrikson, and Jha]{yeom2018privacy}
+Samuel Yeom, Irene Giacomelli, Matt Fredrikson, and Somesh Jha.
+\newblock Privacy risk in machine learning: Analyzing the connection to overfitting.
+\newblock In \emph{2018 IEEE 31st computer security foundations symposium (CSF)}, pages 268--282. IEEE, 2018.
+
+\bibitem[Zhang et~al.(2025{\natexlab{a}})Zhang, Sun, Yeats, Ouyang, Kuo, Zhang, Yang, and Li]{zhang2025mink}
+Jingyang Zhang, Jingwei Sun, Eric Yeats, Yang Ouyang, Martin Kuo, Jianyi Zhang, Hao~Frank Yang, and Hai Li.
+\newblock {Min-K\%++}: Improved baseline for pre-training data detection from large language models.
+\newblock In \emph{The Thirteenth International Conference on Learning Representations}, 2025{\natexlab{a}}.
+\newblock URL \url{https://openreview.net/forum?id=ZGkfoufDaU}.
+
+\bibitem[Zhang et~al.(2024)Zhang, Lin, Bai, and Mei]{NPO_zhang2024negative}
+Ruiqi Zhang, Licong Lin, Yu~Bai, and Song Mei.
+\newblock Negative preference optimization: From catastrophic collapse to effective unlearning.
+\newblock \emph{First Conference on Language Modelling}, 2024.
+\newblock URL \url{https://openreview.net/pdf?id=MXLBXjQkmb}.
+
+\bibitem[Zhang et~al.(2025{\natexlab{b}})Zhang, Wang, Li, Wu, Tang, Liu, He, Yin, and Wang]{zhang2025catastrophic}
+Zhiwei Zhang, Fali Wang, Xiaomin Li, Zongyu Wu, Xianfeng Tang, Hui Liu, Qi~He, Wenpeng Yin, and Suhang Wang.
+\newblock Catastrophic failure of {LLM} unlearning via quantization.
+\newblock In \emph{The Thirteenth International Conference on Learning Representations}, 2025{\natexlab{b}}.
+\newblock URL \url{https://openreview.net/forum?id=lHSeDYamnz}.
+
+\end{thebibliography}

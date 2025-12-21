@@ -1,0 +1,56 @@
+\section{OpenUnlearning}
+
+\begin{figure*}[t]  
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \includegraphics[clip, trim=10pt 50pt 5pt 55pt,width=\linewidth]{images/framework.pdf}
+    }
+    \caption{\small
+      \ou{} is an extensible library for benchmarking LLM unlearning methods and metrics. It provides a unified framework for implementing unlearning methods, unlearning metrics, and stress-testing tools to verify unlearning robustness. This figure illustrates the unlearning pipeline in terms of implementation‑level components. 
+      }
+    \label{fig:pipeline-ou}
+\end{figure*}
+
+The significant volume of research in LLM unlearning lacks unification both in technical implementations and in both unlearning method implementation and unlearning evaluation methodology. Existing benchmarks are implemented with a structure that makes it difficult to integrate with newer ones, hindering their adoption, and creating barriers to reproducibility that slow down progress. Moreover, unlearning methods and evaluation metrics aren't consistently extended across benchmarks, preventing standardization and comprehensive comparative analysis. We give a few examples of this fragmentation that cover key parts of the unlearning pipeline, from unlearning algorithms, to data processing, and evaluations, 
+
+\begin{enumerate}[%
+  leftmargin=10pt,      % no left indent
+  labelwidth=*,        % natural label width
+  labelsep=0.5em,      % space between label and item text
+  itemsep=1pt,         % space between items
+  parsep=1pt,          % paragraph separation within items
+  topsep=0pt,          % space above and below the list
+  partopsep=0pt        % extra space when the list starts a new paragraph
+]
+    \item \textbf{Fragmented evaluations of methods:} New methods are not implemented in all benchmarks. For example: UNDIAL \citep{dong-etal-2025-undial} is not implemented on any of \tofu{}, \muse{} and \wmdp{}; NPO \citep{NPO_zhang2024negative} is implemented with a different formulation for \tofu{} v/s \muse{}; RMU was introduced only for \wmdp{} etc. Similarly, evaluation metrics like MIA from MUSE \citep{shi2025muse} are not implemented in TOFU; and LM Eval Harness benchmarks used in \wmdp{} can be extended to TOFU, MUSE.
+    
+  \item \textbf{Disparate implementations of core components:}  
+    Several approaches involve customized loss functions \citep{NPO_zhang2024negative, maini2024tofu, fan2024simplicity_simnpo, dong-etal-2025-undial} and others make adjustments to optimization steps \citep{wang2025gru, jia2024soul, fan2025towards}. These techniques could be modularized and reused across tasks for deeper investigation and a fair comparison. Evaluation metrics use many common functionalities which can be shared across metric implementations (eg. probability, ROUGE-score and MIA statistics). Dataset pre-processing is separately implemented across datasets and benchmarks, while there are many common data types: like the pre‑training corpora in WMDP and MUSE, and chat‑style prompts in TOFU and RWKU. Some works have proposed stress tests for assessing the robustness of unlearning which could easily be a common feature across benchmarks.
+  
+\end{enumerate}
+
+ To address this, we introduce \ou{}: a unified, extensible pipeline that consolidates benchmarks, methods, evaluation metrics, datasets, and stress‑tests under one roof (see Figure~\ref{fig:pipeline-ou}) to streamline unlearning implementations, benchmarking, and accelerate research.
+
+\subsection{Design of OpenUnlearning}
+
+\autoref{fig:pipeline-ou} gives an overview of \ou{}'s components. Our framework is designed with ease-of-use and easy extensibility in mind. All features are implemented in a structured, modular fashion, simplifying the process for researchers to integrate new datasets, evaluation metrics, unlearning methods, and entire benchmarks. Hydra \citep{Yadan2019Hydra} is used for configuration management, with \texttt{YAML} files specifying each pipeline component and experiment parameters. This helps users effortlessly swap in modules and easily launch an experiment with a single command. A variety of modules, including model-loaders, trainers, dataset preprocessors, evaluation suites, evaluation metrics, experiment types and stress-test interventions are joined together in \ou{} (listed in \autoref{tab:openunlearning_components}). 
+
+
+
+\subsection{Design of modules}
+% left bottom right top
+
+\input{tables/features_list}
+\input{tables/adding_component}
+
+
+% \vspace{-10pt}
+The procedure of extending \ou{} with a new module variant generally involves two simple steps. (1) \textbf{Create and register a handler.} The \texttt{Python} class or function encapsulating the component's logic is implemented then registered to be accessed via a string key. (2) \textbf{Create the config.} The configuration \texttt{YAML} file names the handler key and specifies its parameters. \autoref{fig:method_implementation_example} provides an example illustrating this procedure for a new unlearning method.
+
+
+% can be removed
+\paragraph{Features:} We currently support 13 unlearning algorithms, 8 model architectures, and 5 datasets ranging from chat to pretraining. Among existing benchmarks, we focus on the three most cited and used \tofu{} \citep{maini2024tofu}, \muse{} \citep{shi2025muse}, \wmdp{} \citep{li2024wmdp} benchmarks. The framework includes a diverse set of metrics to assess model performance, including 16 unlearning metrics from existing benchmarks, as well as additional evaluations by integrating LM Eval Harness \citep{eval-harness}. We also support three stress-testing approaches, which are essential for testing the robustness of unlearning, usually critical for model-owners in verifying compliance. All these features are summarized in \autoref{tab:openunlearning_components} by component and variant. Our integration enriches each benchmark by enabling the use of metrics originally developed for others. For example, PrivLeak, initially introduced in MUSE, is now available in TOFU. More details on these technical benchmark improvements can be found in Appendix~\ref{subsec:improving_benchmarks}.
+We also encourage community contributions by providing detailed guidelines for adding new benchmarks, unlearning methods, and evaluation metrics. This has already resulted in contributions from the community, with implementations for works like \citep{dong-etal-2025-undial, wang2025gru, yang2025u}.
+
+
+\ou{} is a living framework, and our design choices are built keeping easy integration of new components in mind. For instance, since the public release of our repository (with just \tofu{} and \muse{} benchmarks) we introduced the \wmdp{} benchmark, unlearning methods like RMU \citep{li2024wmdp}, UNDIAL \citep{dong-etal-2025-undial}, AltPO \citep{mekala-etal-2025-alternate}; evaluations like ES \citep{carlini2021extracting}, EM \citep{tirumala2022memorization}, MIA \citep{duan2024do} and integrated evaluations like \muse's PrivLeak (into \tofu) and LM Eval Harness \citep{eval-harness} (to enable \wmdp~evaluation) among many others. Additionally, we encourage community contributions by providing detailed guidelines for adding new benchmarks, unlearning methods, and evaluation metrics. This has already resulted in contributions from the community, with implementations for works like \citep{dong-etal-2025-undial, wang2025gru, yang2025u}. Currently, each module supports several variants, with 3 popular LLM unlearning benchmarks, 5 task datasets, 13 unlearning methods, 16 evaluation metrics, 8 LLM architectures and 3 stress-tests.

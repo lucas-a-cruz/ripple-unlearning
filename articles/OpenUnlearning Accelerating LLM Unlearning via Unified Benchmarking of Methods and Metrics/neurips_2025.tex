@@ -1,0 +1,253 @@
+\documentclass{article}
+\PassOptionsToPackage{numbers, compress}{natbib}
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2025
+
+% The authors should use one of these tracks.
+% Before accepting by the NeurIPS conference, select one of the options below.
+% 0. "default" for submission
+ % \usepackage{neurips_2025}
+% the "default" option is equal to the "main" option, which is used for the Main Track with double-blind reviewing.
+% 1. "main" option is used for the Main Track
+%  \usepackage[main]{neurips_2025}
+% 2. "position" option is used for the Position Paper Track
+%  \usepackage[position]{neurips_2025}
+% 3. "dandb" option is used for the Datasets & Benchmarks Track
+ % \usepackage[dandb]{neurips_2025}
+% 4. "creativeai" option is used for the Creative AI Track
+%  \usepackage[creativeai]{neurips_2025}
+% 5. "sglblindworkshop" option is used for the Workshop with single-blind reviewing
+ % \usepackage[sglblindworkshop]{neurips_2025}
+% 6. "dblblindworkshop" option is used for the Workshop with double-blind reviewing
+%  \usepackage[dblblindworkshop]{neurips_2025}
+
+% After being accepted, the authors should add "final" behind the track to compile a camera-ready version.
+% 1. Main Track
+ % \usepackage[main, final]{neurips_2025}
+% 2. Position Paper Track
+%  \usepackage[position, final]{neurips_2025}
+% 3. Datasets & Benchmarks Track
+ % \usepackage[dandb, final]{neurips_2025}
+% 4. Creative AI Track
+%  \usepackage[creativeai, final]{neurips_2025}
+% 5. Workshop with single-blind reviewing
+%  \usepackage[sglblindworkshop, final]{neurips_2025}
+% 6. Workshop with double-blind reviewing
+%  \usepackage[dblblindworkshop, final]{neurips_2025}
+% Note. For the workshop paper template, both \title{} and \workshoptitle{} are required, with the former indicating the paper title shown in the title and the latter indicating the workshop title displayed in the footnote.
+% For workshops (5., 6.), the authors should add the name of the workshop, "\workshoptitle" command is used to set the workshop title.
+% \workshoptitle{WORKSHOP TITLE}
+
+% "preprint" option is used for arXiv or other preprint submissions
+ \usepackage[dandb, final]{neurips_2025}
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2025}
+%% Useful packages
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{url}            % simple URL typesetting
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{mathrsfs}  % add this in the preamble
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+\usepackage{enumitem}
+\usepackage{dsfont}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{mathtools,commath}
+\usepackage{graphicx, multirow, xspace}
+\usepackage{hyperref}
+\usepackage{xcolor}
+% \usepackage{inconsolata}
+\usepackage{soul}
+\usepackage[colorinlistoftodos,textsize=scriptsize]{todonotes}
+\usepackage{footmisc}
+\usepackage[most,skins,theorems]{tcolorbox}
+\usepackage{caption, subcaption}
+\usepackage{fontawesome5}
+% \usepackage{emoji}
+\usepackage[capitalise,nameinlink,noabbrev]{cleveref}
+% \usepackage{arydshln} % Add this in the preamble
+% Include these in your preamble
+\usepackage{xcolor}
+% \usepackage{array}
+\usepackage{hyperref}
+\usepackage{wrapfig} 
+% \usepackage{float}
+% \usepackage{placeins}
+% \usepackage{adjustbox}
+\usepackage{graphicx}
+
+% MAYBE HAVE TO UNCOMMENT THIS
+\renewcommand{\paragraph}[1]{\textbf{#1~}}
+% left bottom right top
+\newcommand{\logo}{%
+  % make graphic as tall as the full strut (height+depth), and align to baseline
+  \raisebox{-\dp\strutbox}{%
+    \includegraphics[
+      height=1.5\dimexpr\ht\strutbox+\dp\strutbox\relax,
+      trim=0pt 0pt 0pt 5pt,clip
+    ]{images/logo.png}%
+  }%
+  \xspace%
+}
+
+% \usepackage{minted}
+\usepackage[frozencache,cachedir=_minted-neurips_2025]{minted}
+\usemintedstyle[python]{manni}
+\definecolor{codebackground}{RGB}{240, 240, 235}
+\newlength{\msize}
+\setlength{\msize}{\dimexpr\textwidth\relax}
+\newsavebox{\mintedbox}
+\newenvironment{boxminted}
+ {%
+  \VerbatimEnvironment
+  \RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{}%
+  \begin{lrbox}{\mintedbox}
+  \begin{minted}%
+ }
+ {%
+  \end{minted}%
+  \end{lrbox}%
+  \noindent\colorbox{codebackground}{\makebox[\textwidth][l]{\usebox{\mintedbox}}}%
+ }
+
+\newcommand{\eqcont}{\textsuperscript{\scalebox{1.0}{$\bigstar$}}}
+\usepackage[colorinlistoftodos]{todonotes}
+\definecolor{lightblue}{rgb}{0.8,0.9,1.0}
+\definecolor{gblue}{HTML}{4f79a7}
+\definecolor{ggreen}{HTML}{77b7b2}
+\definecolor{gred}{HTML}{e1575a}
+\definecolor{gorange}{HTML}{f28e2a}
+\definecolor{strongorange}{RGB}{255,87,34}
+\definecolor{ppurple}{HTML}{603a70}
+\definecolor{purple}{rgb}{0.5,0,0.5}
+\definecolor{mydarkblue}{rgb}{0.1,0.2,0.6}
+\definecolor{cyan}{rgb}{0.0,0.8,0.8}
+
+% Custom commands
+% \newcommand{\Lb}{\mathscr{L}}
+% \newcommand{\Db}{\mathscr{D}}
+
+%% colors not done correctly feel free to edit
+
+\newif\ifanmol
+\newif\ifvineeth
+\newif\ifpratyush
+\newif\ifzico
+
+% Enable or disable individually
+% \anmolfalse
+\anmoltrue
+% \vineethfalse
+\vineethtrue
+\pratyushtrue
+\zicotrue
+% \zicofalse
+% \pratyushfalse
+
+\newcommand{\anmolmargin}[1]{\ifanmol\todo[color=lightblue]{AM-- #1}\fi}
+\newcommand{\anmolresponse}[1]{\ifanmol\textcolor{gblue}{\bf \small [AM-- #1]}\fi}
+\newcommand{\anmoltodo}[1]{\ifanmol\textcolor{mydarkblue}{\bf \small [AM:todo-- #1]}\fi}
+
+\newcommand{\vineethmargin}[1]{\ifvineeth\todo[color=yellow]{VD-- #1}\fi}
+\newcommand{\vineethresponse}[1]{\ifvineeth\textcolor{orange}{\bf \small [VD-- #1]}\fi}
+\newcommand{\vineethtodo}[1]{\ifvineeth\textcolor{red}{\bf \small[VD:todo-- #1]}\fi}
+
+\newcommand{\pratyushmargin}[1]{\ifpratyush\todo[color=green]{PM: #1}\fi}
+\newcommand{\pratyushresponse}[1]{\ifpratyush\textcolor{red}{\bf \small [PM-- #1]}\fi}
+\newcommand{\pratyushtodo}[1]{\ifpratyush\textcolor{pink}{\bf \small[PM:todo-- #1]}\fi}
+
+
+\newcommand{\zicomargin}[1]{\ifzico\todo[color=cyan]{ZK: #1}\fi}
+\newcommand{\zicoresponse}[1]{\ifzico\textcolor{cyan}{\bf \small [ZK-- #1]}\fi}
+\newcommand{\zicotodo}[1]{\ifzico\textcolor{cyan}{\bf \small[ZK:todo-- #1]}\fi}
+
+
+% enable or disable all leaderboard discussion from the paper
+\newif\ifshowwrapped
+\showwrappedtrue % or 
+% \showwrappedfalse % to disable all wrapped text
+
+\newcommand{\wrapped}[1]{\ifshowwrapped#1\fi}
+
+% \newcommand{\pratyushmargin}[1]{}
+% \newcommand{\pratyushresponse}[1]{}
+% \newcommand{\pratyushtodo}[1]{}
+
+\newcommand{\llama}{\textsc{Llama}}
+\newcommand{\ou}{\texttt{OpenUnlearning}}
+% \newcommand{\ou}{OpenUnlearning}
+\newcommand{\tofu}{\textsc{TOFU}}
+\newcommand{\muse}{\textsc{MUSE}}
+\newcommand{\wmdp}{\textsc{WMDP}}
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+\newcommand{\Lb}{\pazocal{L}}
+\newcommand{\Db}{\pazocal{D}}
+
+\makeatletter
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+\makeatother
+
+
+\title{OpenUnlearning: Accelerating LLM Unlearning via Unified Benchmarking of Methods and Metrics}
+
+
+% \title{OpenUnlearning: Unifying LLM Unlearning}
+
+% \title{\ou{}: Accelerating LLM Unlearning via Unified Benchmarking of methods and metrics}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  Vineeth Dorna$^{*\dagger}$
+ \quad Anmol Mekala$^{*\dagger}$\quad
+  Wenlong Zhao$^{\dagger}$ \quad Andrew McCallum$^{\dagger}$ \\
+  \textbf{Zachary C. Lipton$^{\ddagger}$} \quad \textbf{J. Zico Kolter$^{\ddagger}$} \quad  \textbf{Pratyush Maini$^{\ddagger\uparrow}$} \\
+  University of Massachusetts Amherst$^\dagger$ \quad Carnegie Mellon University$^\ddagger$ \quad DatologyAI$^\uparrow$ \\
+  \texttt{\{vdorna,amekala\}@umass.edu}; \texttt{pratyushmaini@cmu.edu}
+}
+
+\begin{document}
+
+
+\maketitle
+\def\thefootnote{\eqcont}\footnotetext{These authors contributed equally to this work.}\def\thefootnote{\arabic{footnote}}
+
+\begin{abstract}
+Robust unlearning is crucial for safely deploying large language models (LLMs) in environments where data privacy, model safety, and regulatory compliance must be ensured. Yet the task is inherently challenging, partly due to difficulties in reliably measuring whether unlearning has truly occurred. Moreover, fragmentation in current methodologies and inconsistent evaluation metrics hinder comparative analysis and reproducibility. To unify and accelerate research efforts, we introduce \ou{}, a standardized and extensible framework designed explicitly for benchmarking both LLM unlearning methods and metrics. \ou{} integrates 13 unlearning algorithms and 16 diverse evaluations across 3 leading benchmarks (TOFU, MUSE, and WMDP) and also enables analyses of forgetting behaviors across 450+ checkpoints we publicly release. Leveraging \ou{}, we propose a novel meta-evaluation benchmark focused specifically on assessing the faithfulness and robustness of evaluation metrics themselves. \wrapped{We also benchmark diverse unlearning methods and provide a comparative analysis against an extensive evaluation suite.} Overall, we establish a clear, community-driven pathway toward rigorous development in LLM unlearning research.
+% \blfootnote{*Equal contribution.}
+\end{abstract}
+
+
+
+\input{sections/1-intro}
+\input{sections/2-overview}
+\input{sections/3-open_unlearning}
+\input{sections/4-meta_evaluation}
+\input{sections/5-benchmarking}
+\input{sections/6-conclusion}
+
+% \input{sections/7-broader_impact}
+\bibliographystyle{plainnat}
+\bibliography{neurips_2025}
+
+\clearpage
+\appendix
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+\input{sections/7-broader_impact}
+\input{sections/appendix}
+
+
+\end{document}

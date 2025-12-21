@@ -1,0 +1,81 @@
+\begin{table}[t]
+% \tiny
+% \resizebox{0.9\textwidth}{
+\small
+\centering
+% \caption{Current \ou{} components and available feature variants in each.}
+\caption{Overview of existing \ou{} components and their available feature variants. The design is easily extensible, allowing users to seamlessly contribute new features.}
+\label{tab:openunlearning_components}
+% \begin{tabular}{ccc}
+\begin{tabular}{p{0.1\linewidth}p{0.1\linewidth}p{0.7\linewidth}}
+\toprule
+\multicolumn{2}{c}{\textbf{Component}} & \multicolumn{1}{c}{\textbf{Variants}} \\
+\midrule
+\multicolumn{2}{c}{\textbf{Models}}
+&
+    \colorbox{gray!15}{\llama{}-2, 3.1, 3.2 \citep{touvron2023llama, grattafiori2024llama}}  \hspace{0.5pt}
+    \colorbox{gray!15}{\textsc{Zephyr}‑7B \citep{tunstall2024zephyr}} \hspace{0.5pt}
+    \colorbox{gray!15}{\textsc{Phi}-1.5, 3.5 \citep{li2023textbooksneediiphi15, abdin2024phi}}
+    \colorbox{gray!15}{\textsc{Qwen}-2.5 \citep{qwen2025qwen25technicalreport}}
+    \hspace{0.5pt} 
+    \colorbox{gray!15}{\textsc{Gemma} \citep{team2024gemma}} \\
+\midrule
+\multicolumn{2}{c}{\textbf{Unlearning algorithms}}
+&
+    \colorbox{gray!15}{GradAscent, GradDiff, IdkDPO, IdkNLL \citep{maini2024tofu}} \hspace{0.5pt}
+    \colorbox{gray!15}{NPO \citep{NPO_zhang2024negative}} \hspace{0.5pt}
+    \colorbox{gray!15}{SimNPO \citep{fan2024simplicity_simnpo}} \hspace{0.5pt}
+    \colorbox{gray!15}{RMU \citep{li2024wmdp}} \hspace{0.5pt} 
+    \colorbox{gray!15}{UNDIAL \citep{dong-etal-2025-undial}} \hspace{0.5pt} 
+    \colorbox{gray!15}{AltPO \citep{mekala-etal-2025-alternate}} \hspace{0.5pt} 
+    \colorbox{gray!15}{CE-U \citep{yang2025ceucrossentropyunlearning}} \hspace{0.5pt} 
+    \colorbox{gray!15}{PDU \citep{entesari2025constrainedentropicunlearningprimaldual}} \hspace{0.5pt}
+    \colorbox{gray!15}{WGA \citep{wang2025rethinking}}
+    \hspace{0.5pt}
+    \colorbox{gray!15}{SatImp \citep{yang2025exploring}} \\
+\midrule
+\multicolumn{2}{c}{\textbf{Datasets}}
+ &
+    \colorbox{gray!15}{TOFU: bios \citep{maini2024tofu}} \hspace{0.5pt}
+    \colorbox{gray!15}{WMDP: cyber, bio \citep{li2024wmdp}} \hspace{0.5pt}
+    \colorbox{gray!15}{MUSE: news, books \citep{shi2025muse}}  \\
+\midrule
+\multicolumn{2}{c}{\textbf{Evaluation suites}}
+ &
+    \colorbox{gray!15}{TOFU \citep{maini2024tofu}} \hspace{0.5pt}
+    \colorbox{gray!15}{MUSE \citep{shi2025muse}} \hspace{0.5pt}
+    \colorbox{gray!15}{WMDP \citep{li2024wmdp}} \hspace{0.5pt}
+    \colorbox{gray!15}{LM Eval \citep{eval-harness}} \\
+\midrule
+
+\multirow{5}{*}{\textbf{Metrics}}
+  & \multirow{2}{*}{\textbf{Mem.}} & 
+    \colorbox{gray!15}{Verbatim Prob. / ROUGE \citep{maini2024tofu, shi2025muse}} \hspace{0.05cm}
+    \colorbox{gray!15}{Knowledge QA- ROUGE \citep{maini2024tofu, shi2025muse} } \hspace{0.05cm}
+    \colorbox{gray!15}{Extraction Strength \citep{carlini2021extracting}} \hspace{0.05cm}
+    \colorbox{gray!15}{Exact Memorization \citep{tirumala2022memorization}} \\
+    \cmidrule(lr){2-3}
+  & \multirow{2}{*}{\textbf{Privacy}} & 
+    \colorbox{gray!15}{Forget Quality \citep{maini2024tofu}} \hspace{0.05cm}
+    \colorbox{gray!15}{LOSS \citep{yeom2018privacy}} \hspace{0.05cm}
+    \colorbox{gray!15}{ZLib \citep{carlini2021extracting}} \hspace{0.05cm}
+    \colorbox{gray!15}{GradNorm \citep{wang2024pandoraswhiteboxprecisetraining}} \hspace{0.05cm}
+    \colorbox{gray!15}{MinK \citep{shi2023detecting}} \hspace{0.05cm}
+    \colorbox{gray!15}{MinK++ \citep{zhang2025mink}} \hspace{0.05cm}
+    \colorbox{gray!15}{Privacy Leakage \citep{shi2025muse}} \\
+    \cmidrule(lr){2-3}
+  & \textbf{Utility} & 
+    \colorbox{gray!15}{Truth Ratio, Model Utility \citep{maini2024tofu}} \hspace{0.05cm}
+    \colorbox{gray!15}{LM-Eval \citep{eval-harness} (WMDP, MMLU, etc.)} \hspace{0.05cm}
+    \colorbox{gray!15}{Fluency \citep{mekala-etal-2025-alternate}} \\
+\midrule
+
+\multicolumn{2}{c}{\textbf{Stress tests}}
+ &
+    \colorbox{gray!15}{Relearning \citep{hu2025jogging, lynch2024eightrobust, lucki2025anadv, wang2025towardseffective}} \hspace{0.5pt}
+    \colorbox{gray!15}{Quantization \citep{zhang2025catastrophic}} \hspace{0.5pt}
+    \colorbox{gray!15}{Probing \citep{lynch2024eightrobust, seyitouglu2024extracting, wang2025towardseffective}} \\
+\bottomrule
+\end{tabular}
+% }
+\end{table}

@@ -1,0 +1,131 @@
+\vspace{-10pt}
+\section{Evaluating Unlearning Evaluations} 
+\label{sec:meta_eval} 
+\vspace{-5pt}
+
+\begin{figure}[!t]
+\centering \resizebox{0.9\textwidth}{!}
+{ 
+    \includegraphics[clip, trim=30pt 0pt 10pt 0pt, width=\linewidth]{images/meta_eval.pdf} 
+} 
+\caption{\small \textbf{Meta-evaluation of unlearning metrics}: (1) \textit{Faithfulness}: the metric distinguishes models with and without target knowledge, reflected by high AUC; (2) \textit{Robustness}: the metric value does not increase under benign changes (e.g., quantization) and does not improve faster than a retain model under non-benign changes (e.g., relearning).} 
+\label{fig:meta_eval} 
+\end{figure}
+
+Reliable evaluations for unlearning are essential for regulatory compliance and data privacy, yet remain challenging~\citep{kim2025we,acr_schwarzschild,lucki2025anadv}, especially for LLMs, due to ambiguity between memorization and generalization. We propose two minimal necessary desiderata—\textit{Faithfulness} and \textit{Robustness}—guided by our meta-evaluation framework, to promote trustworthy unlearning metrics (\autoref{fig:meta_eval}).
+
+Our meta-evaluation uses a test-bed of models with known ground truths to objectively assess metrics. We employ the \tofu{} benchmark~\citep{maini2024tofu} with the improvements described from Appendix~\ref{subsec:improving_benchmarks} with the \texttt{forget10} unlearning task (forgetting 10\% of \tofu{}) comprising 400 examples. We use the \llama{}-3.2 1B model~\citep{grattafiori2024llama}, analyzing 12 unlearning metrics adjusted to $[0,1]$ scale (see Appendix~\ref{subsec:improving_benchmarks}). While the \tofu{} benchmark setup we choose makes simplifying assumptions about unlearning data distribution and target model behavior, such a synthetic setup enables controlled evaluation of metric properties that would be difficult to assess systematically with purely real-world data. With this approach, we are able to establish a minimal set of properties that any reliable unlearning evaluation metric should satisfy.
+
+\vspace{-5pt}
+\subsection{Faithfulness} 
+\label{subsec:faithfulness}
+\begin{tcolorbox}[
+  colback=blue!5!white,          % very pale blue background
+  colframe=blue!40!black,        % moderate blue border
+  width=0.96\textwidth,
+  arc=3mm,                       % rounded corners
+  title={\textbf{Faithfulness}}
+]
+\textbf{Motivation.} Unlearning evaluations may not faithfully reflect an LLM's knowledge.
+\textbf{Desideratum.} A faithful metric accurately reflects the presence of targeted knowledge by assigning consistently higher scores to models possessing it than to those lacking it.
+\end{tcolorbox}
+
+LLMs often fail to regurgitate facts that remain encoded in their parameters when prompted, making it hard to tell whether a model truly forgot a target fact or simply refrained from exposing it \citep{doshi2024doesunlearning, lynch2024eightrobust, scholten2024probabilistic, wang2025towardseffective}. For example, work by \citet{doshi2024doesunlearning} shows that simple paraphrasing of inputs can yield a tenfold increase in evaluation scores on `unlearned' models, indicating that the apparent forgetting may only be superficial. ``Deeper'' evaluation metrics aim to quantify this knowledge more faithfully, like Truth Ratio \citep{maini2024tofu}, GCG \citep{gandikota2024erasing}, or by using prompt engineering \citep{wang2025towardseffective, shostack2024boy, thaker2025position}.
+
+On the other hand, evaluation metrics can register misleadingly high scores without the presence of the target knowledge \citep{maini2024tofu}. For example, in a question-answering evaluation using a simple ROUGE score, a model might achieve a high score by matching the parts of the target unrelated to the target fact. This calls for metrics that are \textbf{faithful} to the knowledge encoded in the model weights.
+
+% We measure \textit{faithfulness} as the ability of metrics to distinguish models trained with (\textit{positive pool}, $P$) versus without (\textit{negative pool}, $N$) target knowledge: 
+We measure \textit{faithfulness} as the ability of metrics to distinguish between models trained with the forget dataset's knowledge (the \textit{positive pool}, $P$) and those trained without it (the \textit{negative pool}, $N$):
+(i) Each pool has 30 diverse models trained under varying conditions.
+(ii) These variants present the target \texttt{forget10} information for pool P models in diverse, challenging formats (e.g., biography vs. QA, paraphrases). Pool N models serve as negative controls, using similarly structured data lacking this target information using various perturbations and alternative datasets.
+(iii) Metric scores yield two distributions: $m(P)$, $m(N)$ (for $P$ and $N$), and we compute AUC-ROC to quantify their separability.
+(iv) We select a classification threshold optimizing accuracy, which is subsequently used in robustness tests.
+
+\begin{equation} 
+\text{Faithfulness} = \text{AUC-ROC}(m(P), m(N))
+\end{equation}
+
+
+\subsection{Robustness} 
+\begin{tcolorbox}[
+  colback=violet!10!white,       % very light violet background
+  colframe=violet!90!black,      % darker violet border
+        width=0.96\textwidth,
+        arc=3mm,                    % rounded corners
+        title={\textbf{Robustness}}
+    ]
+\textbf{Motivation.} Unlearning evaluations can be vulnerable to stress‑testing interventions.
+\textbf{Desideratum.} A robust metric’s positive assessment of unlearning should (1) not flip upon benign model interventions; and (2) behave comparably to a model truly unfamiliar with the data under non-benign interventions.
+\end{tcolorbox}
+
+Robustness of unlearning metrics is probed using various stress-test interventions. These include (1) relearning attempts, where the unlearned model is further trained to potentially recover the forgotten information \citep{lynch2024eightrobust, hu2025jogging, lucki2025anadv, wang2025towardseffective}; (2) information extraction via manipulating the model's internal representations \citep{belrose2023eliciting, lynch2024eightrobust, seyitouglu2024extracting, wang2025towardseffective, arditi2024rmu}; and (3) applying techniques like quantization \citep{zhang2025catastrophic}. Benign interventions, such as model quantization or relearning on non-forget data, do not reintroduce the forgotten knowledge. In contrast, non-benign interventions—like relearning directly on the forget set—explicitly re-expose the model to the targeted data. These stress tests have revealed that several unlearning evaluation metrics may be unreliable, often signaling successful unlearning even when the underlying knowledge remains recoverable.
+
+For example, \citet{zhang2025catastrophic} show that the PrivLeak metric \citep{shi2025muse} that previously reported a model as successfully unlearned can effectively `flip' after a benign intervention, revealing that the targeted knowledge was perhaps never truly erased \citep{zhang2025catastrophic}. Such significant fluctuations under stress tests undermine the reliability of evaluation metrics. Furthermore, models unlearned with respect to a metric can exhibit high susceptibility on metric evaluation to non-benign interventions like relearning, where evaluation metrics show an unusually rapid return of the supposedly forgotten knowledge even with minimal retraining effort \citep{fan2025towards, fan2024simplicity_simnpo}.
+Robustness assesses stability under interventions such as relearning, probing and quantization. While probing was previously used by \citet{wang2025towardseffective, seyitouglu2024extracting, lynch2024eightrobust} to stress-test unlearning, in our setup, we found that probed models perform very poorly, with low scores across all metrics and show little discernible trends. Some probing results are shown in Appendix~\ref{subsec:probe}.
+
+\textbf{Robustness to Relearning:} We evaluate metric scores before ($m^a$) and after ($m^b$) relearning on forget-set data. Then, we compare relative metric score recovery rates between unlearned ($m_{\text{unl}}$) and retain ($m_{\text{ret}}$) models, where higher $R$ implies greater robustness.
+\begin{equation}
+r = \frac{m^a_{\text{ret}} - m^b_{\text{ret}}}{m^a_{\text{unl}} - m^b_{\text{unl}}}, \quad R = \min(r,1).
+\end{equation}
+
+\textbf{Robustness to Quantization:} We quantize models to 4-bit precision and compute scores before and after quantization, where higher $Q$ implies greater robustness.
+\begin{equation} q = \frac{m^b_{\text{unl}}}{m^a_{\text{unl}}}, \quad Q = \min(q,1). 
+\end{equation} 
+
+
+
+\begin{figure}
+  \centering
+  \begin{minipage}[b]{0.33\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/faithfulness_mini.pdf}
+    \label{fig:faithfulness_mini}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[b]{0.33\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/relearn_mini.pdf}
+    \label{fig:relearn_mini}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[b]{0.33\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/quantization_mini.pdf}
+    \label{fig:quantization_mini}
+  \end{minipage}
+  \vspace{-10pt}
+  \caption{\small
+For the ROUGE metric we evaluate faithfulness (left) and robustness to quantization (middle), and relearning (right). Faithfulness achieves an AUC of 0.79, indicating substantial prediction overlap between models trained with and without the target knowledge. Relearning robustness is 0.48, showing many unlearned models re-acquire knowledge faster than the retain model upon re‑exposure. Quantization robustness is 0.93, reflecting no distinctive trend of metric spikes post‑quantization.}
+  \label{fig:meta_eval_plots}
+\end{figure}
+
+
+% \vspace{-3pt}
+\subsubsection{Realistic Model Filtering} We enforce practical constraints by filtering models with: (i) Utility drops exceeding 20\%. (ii) Insufficient unlearning w.r.t. the considered metric (more than the threshold computed in \S\ref{subsec:faithfulness}'s \textit{faithfulness} analysis).
+Models which exhibit substantial model utility drops are unusable in practice and thus unlikely to inform robustness. Additionally, models that aren't unlearned w.r.t a metric are uninteresting for robustness analysis, since they do not reflect realistic scenarios where some kind of unlearning is observed before models are stress tested. The case of interest is when an ostensibly performant LLM exhibits low scores according to a chosen metric, indicating unlearning, and practitioners require confidence in the metric's judgement.
+
+We analyze roughly 400 diverse models from various unlearning methods to reflect realistic use cases. We ensure diversity by using models unlearned using the GradDiff, IdkDPO, IdkNLL \citep{maini2024tofu}, NPO \citep{NPO_zhang2024negative}, SimNPO \citep{fan2024simplicity_simnpo}, AltPO \citep{mekala-etal-2025-alternate}, UNDIAL \citep{dong-etal-2025-undial} and RMU \citep{li2024wmdp} unlearning methods (methods described in Appendix \S\ref{subsec:unl_methods} and hyperparameters in \S\ref{subsec:tuning_details}). This aligns the distributions between the unlearned model pools used in our analysis and unlearned models selected by practitioners.
+% \vspace{-3pt}
+
+
+\subsection{Aggregation of Metrics} We consolidate evaluations through harmonic mean, ensuring balanced performance across criteria: 
+% \vspace{-3pt}
+\begin{equation} \text{Robustness} = \text{HM}(R, Q), \quad \text{Overall} = \text{HM}(\text{Faithfulness}, \text{Robustness}) \end{equation}
+% \vspace{-3pt}
+An effective unlearning metric must be both faithful in representing unlearning and robust in its measurements; a trivial constant-value metric, for instance, would be robust but entirely unfaithful. To holistically assess a metric, we aggregate these distinct qualities using the Harmonic Mean (HM), as this ensures that a high final score demands strong performance in all constituent parts.
+\autoref{fig:meta_eval_plots} illustrates these distributions and scores for the ROUGE metric as an example. Further methodological considerations, including comparisons to prior work, are detailed in Appendix~\ref{subsec:meta_eval_further_considerations}.
+
+
+\input{tables/metrics_eval}
+
+\vspace{-5pt}
+
+\subsection{Results and Discussion} 
+% \vspace{-pt}
+\autoref{tab:meta_eval} highlights key insights: (i) \textbf{Extraction Strength (ES)}~\citep{carlini2021extracting} emerges as most reliable overall, aligning with \citet{wang2025towardseffective}.
+(ii) \textbf{Truth Ratio} has superior faithfulness but lower robustness, ranking third overall.
+(iii) Metrics based on raw probabilities or ROUGE scores have moderate faithfulness and robustness, limiting their reliability.
+(iv) Membership inference (MIA)-based metrics demonstrate high faithfulness but lack robustness, cautioning against relying solely on MIA metrics for assessing unlearning. This sensitivity raises concerns about the reliability of the MIA-based privacy assessments in unlearning contexts as introduced by \citet{shi2025muse}, as even benign interventions can reverse unlearning effects, as observed in \citet{zhang2025catastrophic}.
+
+Our extensive model testbed supports ongoing development of improved, practical unlearning metrics. Our testbed comprising 450+ models --- including those from pools $P$, $N$, and various unlearned model checkpoints --- offers a valuable platform for the creation and rigorous assessment of improved unlearning evaluation metrics. Metrics validated on this testbed can then be applied with greater confidence to real-world unlearning scenarios. Our overarching goal is to stimulate the development of more faithful and trustworthy metrics, leveraging the insights from our meta-evaluation framework. This meta-evaluation setup can be expanded by incorporating more diverse unlearning setups, model architectures and newer methods. Newer adversarial model setups will be needed to challenge metrics as they improve on existing testbeds. Such a dynamic approach ensures that unlearning methods and their meta-evaluations can mutually inform each other, driving progress as unlearning research advances.
+

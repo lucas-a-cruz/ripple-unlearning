@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{handler}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{Unlearner}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} map registered name}
+
+\PYG{n+nt}{args}\PYG{p}{:}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} HuggingFace Trainer args}
+\PYG{+w}{  }\PYG{n+nt}{num\PYGZus{}epochs}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{10}
+\PYG{+w}{  }\PYG{n+nt}{learning\PYGZus{}rate}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{1e\PYGZhy{}5}
+\PYG{+w}{  }\PYG{n+nt}{optim}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{shampoo}
+
+\PYG{n+nt}{method\PYGZus{}args}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{alpha}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{1.0}
+\PYG{+w}{  }\PYG{n+nt}{switch\PYGZus{}every\PYGZus{}n}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{10}
+\PYG{+w}{  }\PYG{n+nt}{retain\PYGZus{}loss\PYGZus{}type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{NLL}
+\end{Verbatim}

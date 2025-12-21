@@ -1,0 +1,47 @@
+
+\begin{figure}[ht]
+  \centering
+  \begin{minipage}[t]{0.48\linewidth}
+  \raggedright
+    \small
+    \textbf{(a) Method implementation leveraging HuggingFace Trainer, followed by registration.}
+    % \begin{listing}[h]
+    \begin{boxminted}[fontsize=\small]{Python}
+from transformers import Trainer
+class Unlearner(Trainer):
+  def compute_loss(self, ...):
+    ...
+  def get_optimizer_cls_and_kwargs(...):
+    # custom optimizer
+    ...
+  def _inner_training_loop(self, ...):
+    # modify training logic
+    ...
+_register_trainer(Unlearner)
+  \end{boxminted}
+  % \end{listing}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.48\linewidth}
+  \raggedright
+  \small
+  \textbf{(b) Configuration: create a YAML config specifying Training args and method parameters.}
+  \begin{boxminted}[fontsize=\small]{Yaml}
+handler: Unlearner # map registered name
+
+args: # HuggingFace Trainer args
+  num_epochs: 10
+  learning_rate: 1e-5
+  optim: shampoo
+
+method_args:
+  alpha: 1.0
+  switch_every_n: 10
+  retain_loss_type: NLL
+  \end{boxminted}
+  \end{minipage}
+  \caption{Illustration of implementing a hypothetical unlearning method in \ou{}}
+  \label{fig:method_implementation_example}
+  
+\end{figure}
+

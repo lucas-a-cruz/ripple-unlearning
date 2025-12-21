@@ -1,0 +1,788 @@
+{
+  "cities": {
+    "London": [
+      {
+        "entity": "United Kingdom",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct sovereign state of which London serves as the capital city (an 'is-capital-of' link), not a part of the city itself."
+      },
+      {
+        "entity": "Paris",
+        "relationship_type": "SEMANTIC",
+        "description": "Another major European capital city, serving as a direct peer and competitor in various global aspects, of the same type ('global city')."
+      },
+      {
+        "entity": "London, Ontario",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct city in Canada that shares the same primary name as the target city (a homonym)."
+      },
+      {
+        "entity": "Sherlock Holmes",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A fictional character whose stories are famously and intricately associated with Victorian London settings, representing a strong cultural link but not a physical part of the city."
+      },
+      {
+        "entity": "New York City",
+        "relationship_type": "SEMANTIC",
+        "description": "Another global financial, cultural, and political hub, making it a key semantic peer city of the same type and scale."
+      },
+      {
+        "entity": "The Commonwealth of Nations",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct intergovernmental organization whose headquarters (Commonwealth Secretariat) are located in London, representing a structural link to an external entity."
+      },
+      {
+        "entity": "The London School of Economics and Political Science (LSE)",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct, world-renowned university institution named after London, separate from the city itself."
+      },
+      {
+        "entity": "British Monarchy",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A distinct institution (the royal family and its associated traditions) deeply and historically associated with London (e.g., Buckingham Palace), but not a constituent part of the city."
+      },
+      {
+        "entity": "The Great Fire of London",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A specific historical event that dramatically impacted London, representing a significant historical and contextual link, distinct from the city's ongoing existence."
+      },
+      {
+        "entity": "Dublin",
+        "relationship_type": "SEMANTIC",
+        "description": "Another significant capital city in the British Isles region, sharing historical and cultural connections with London, thus a regional semantic peer."
+      }
+    ],
+    "Singapore": [
+      {
+        "entity": "Singapore Airlines",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct corporate entity (airline) that directly uses 'Singapore' in its official name, but is not constitutive of the country itself."
+      },
+      {
+        "entity": "Hong Kong",
+        "relationship_type": "SEMANTIC",
+        "description": "Another major Asian financial hub and global city often compared to Singapore due to similar economic models and city-state characteristics, making it a semantic peer."
+      },
+      {
+        "entity": "Malaysia",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct neighboring sovereign country from which Singapore separated in 1965, representing a significant historical and geopolitical relational link."
+      },
+      {
+        "entity": "ASEAN",
+        "relationship_type": "RELATIONAL",
+        "description": "The Association of Southeast Asian Nations, a distinct intergovernmental organization of which Singapore is a founding member, showing a structural international relationship."
+      },
+      {
+        "entity": "Strait of Malacca",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct geographical entity (a narrow sea lane) of immense strategic and economic importance, directly adjacent to Singapore and crucial to its port activities, but not part of it."
+      },
+      {
+        "entity": "Dubai",
+        "relationship_type": "SEMANTIC",
+        "description": "A prominent global city known for its rapid development, modern infrastructure, and role as a financial and tourism hub, positioning it as a semantic peer to Singapore in certain contexts."
+      },
+      {
+        "entity": "Crazy Rich Asians",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A distinct cultural product (novel and film) that prominently features Singapore as its setting and cultural backdrop, creating a strong, widely recognized cultural association."
+      },
+      {
+        "entity": "Tiger Economies",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A distinct economic concept referring to the rapidly growing economies of East Asia between the 1960s and 1990s, of which Singapore was a prime example, representing a historical economic association."
+      },
+      {
+        "entity": "Singapore Sling",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct cocktail that was created in and named after Singapore, representing a separate, culturally significant entity linked by name."
+      },
+      {
+        "entity": "Singapore Mathematics",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct educational methodology and curriculum developed in Singapore, widely adopted internationally, that directly uses the country's name but is a separate intellectual product."
+      }
+    ],
+    "New York City": [
+      {
+        "entity": "New York State",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct administrative and governmental entity that encompasses New York City, demonstrating an 'is-part-of' relationship from the state's perspective, but the state is a separate political entity."
+      },
+      {
+        "entity": "London",
+        "relationship_type": "SEMANTIC",
+        "description": "Another major global city, financial center, and cultural hub, serving as a direct peer and competitor in terms of global influence."
+      },
+      {
+        "entity": "United Nations Headquarters",
+        "relationship_type": "RELATIONAL",
+        "description": "While physically located in New York City, the United Nations is a distinct international organization with its own sovereignty and global mission, separate from the city's municipal functions."
+      },
+      {
+        "entity": "New Yorker (magazine)",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct publication (magazine) that is named after the city and its inhabitants, representing a derivative use of the name and a separate media entity."
+      },
+      {
+        "entity": "Frank Sinatra",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "An iconic singer strongly associated with New York City through popular culture and songs (e.g., 'New York, New York'), but not a structural part or creation of the city."
+      },
+      {
+        "entity": "Los Angeles",
+        "relationship_type": "SEMANTIC",
+        "description": "A major American city, often considered a peer or rival in terms of cultural influence, entertainment industry, and population size."
+      },
+      {
+        "entity": "New York Giants",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct professional sports team (NFL) that carries 'New York' in its name, even though its stadium is in New Jersey, representing a name-based association with the broader metropolitan area."
+      },
+      {
+        "entity": "Hip-hop culture",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A distinct cultural and musical movement that originated in and is deeply associated with New York City, particularly the Bronx, but is not a physical part or direct creation of the city itself."
+      },
+      {
+        "entity": "Port Authority of New York and New Jersey",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct bi-state agency responsible for major transportation infrastructure (airports, bridges, tunnels, ports) in the New York metropolitan area, operating independently from NYC's municipal government."
+      },
+      {
+        "entity": "New York University (NYU)",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct private university institution that uses 'New York' in its name, though it is a separate educational entity with its own administration and identity, not directly owned or operated by the city."
+      }
+    ],
+    "Hong Kong": [
+      {
+        "entity": "China",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct sovereign state of which Hong Kong is a Special Administrative Region, representing a fundamental structural relationship without China being a part of Hong Kong."
+      },
+      {
+        "entity": "Singapore",
+        "relationship_type": "SEMANTIC",
+        "description": "Another major global financial hub and city-state in Asia, serving as a direct economic and political peer/competitor to Hong Kong."
+      },
+      {
+        "entity": "United Kingdom",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct former colonial power that administered Hong Kong until 1997, representing a significant historical and political structural link."
+      },
+      {
+        "entity": "Macau",
+        "relationship_type": "SEMANTIC",
+        "description": "Another Special Administrative Region of China, geographically proximate and sharing a similar 'one country, two systems' status, making it a direct peer region."
+      },
+      {
+        "entity": "Pearl River Delta",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct larger geographical and economic region in southern China where Hong Kong is situated, without being an inherent part of Hong Kong itself."
+      },
+      {
+        "entity": "One Country, Two Systems",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The abstract political principle and framework that governs Hong Kong's high degree of autonomy, a concept deeply associated with but distinct from Hong Kong itself."
+      },
+      {
+        "entity": "Bruce Lee",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "An iconic martial artist and actor who grew up in Hong Kong and is strongly associated with its cultural identity, but is a distinct individual, not part of the entity 'Hong Kong'."
+      },
+      {
+        "entity": "Hong Kong Sevens",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct international rugby tournament (event) that explicitly uses 'Hong Kong' in its name, but is not constitutive of the city itself."
+      },
+      {
+        "entity": "Hongkonger",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "The demonym referring to a person from Hong Kong, a word directly derived from the target's name but representing a separate concept (a person or group of people)."
+      },
+      {
+        "entity": "Shanghai",
+        "relationship_type": "SEMANTIC",
+        "description": "A major city and economic powerhouse in mainland China, often viewed as a financial and urban peer or competitor to Hong Kong within the broader Chinese and Asian contexts."
+      }
+    ],
+    "Jerusalem": [
+      {
+        "entity": "Palestinian Authority",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct political entity that claims East Jerusalem as its capital, representing a key geopolitical link to Jerusalem's contested status, but not a part of the city itself."
+      },
+      {
+        "entity": "United Nations",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct international organization structurally linked through numerous resolutions and diplomatic efforts concerning Jerusalem's contested status and future, but not part of the city."
+      },
+      {
+        "entity": "Rome",
+        "relationship_type": "SEMANTIC",
+        "description": "Another major ancient city, capital, and significant holy site for a global religion (Christianity), making it a semantic peer to Jerusalem in terms of historical and religious significance."
+      },
+      {
+        "entity": "Mecca",
+        "relationship_type": "SEMANTIC",
+        "description": "A primary holy city in Islam, serving a similar spiritual and pilgrimage role as Jerusalem does for other Abrahamic religions, making it a semantic peer as a revered religious center."
+      },
+      {
+        "entity": "Vatican City",
+        "relationship_type": "SEMANTIC",
+        "description": "A distinct sovereign city-state and a major global religious center (for Catholicism), serving a comparable spiritual and political role to Jerusalem for its respective faith."
+      },
+      {
+        "entity": "Crusades",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A series of historical military expeditions deeply and contextually linked to the control and significance of Jerusalem, representing a major associated historical event, distinct from the city itself."
+      },
+      {
+        "entity": "Zionism",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A political ideology and movement deeply associated with the establishment and development of a Jewish state in the historical Land of Israel, with Jerusalem as its spiritual and political center, but not a component of the city."
+      },
+      {
+        "entity": "Jerusalem Artichoke",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct plant species that shares the name 'Jerusalem', despite its name being a corruption of the Italian word 'girasole' and having no direct connection to the city."
+      },
+      {
+        "entity": "New Jerusalem",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct theological concept referring to a heavenly or future idealized city, bearing the name 'Jerusalem' but not being the physical earthly city itself."
+      },
+      {
+        "entity": "Jerusalem Syndrome",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct psychiatric phenomenon, a dissociative disorder affecting visitors to the city, which is named directly after Jerusalem but is not a physical part of the city."
+      }
+    ]
+  },
+  "organizations": {
+    "Google": [
+      {
+        "entity": "Alphabet Inc.",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct parent company that owns Google (an 'is-owned-by' link), not a direct part or creation of Google."
+      },
+      {
+        "entity": "Microsoft",
+        "relationship_type": "SEMANTIC",
+        "description": "Another major multinational technology corporation, serving as a direct competitor and peer to Google in various markets."
+      },
+      {
+        "entity": "Digital Advertising",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A broad industry concept and economic sector that Google heavily dominates and influences, but is not *part* of Google itself."
+      },
+      {
+        "entity": "Googol",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "The specific mathematical term (10^100) that inspired Google's name, representing a distinct concept that shares a phonetic and historical link."
+      },
+      {
+        "entity": "YouTube",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct subsidiary company acquired by Google (and now Alphabet), operating as a separate entity rather than a core, in-house creation of Google."
+      },
+      {
+        "entity": "Apple",
+        "relationship_type": "SEMANTIC",
+        "description": "A major technology company and direct competitor to Google across several product and service categories, representing a peer entity."
+      },
+      {
+        "entity": "Data Privacy",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "An important ethical and regulatory concept and ongoing societal discussion that is deeply relevant to Google's business model but is not an internal part of Google."
+      },
+      {
+        "entity": "\"To google\" (verb)",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "The verb that has become eponymous with searching the internet, representing a linguistic derivation rather than a direct service or product of Google."
+      },
+      {
+        "entity": "Amazon",
+        "relationship_type": "SEMANTIC",
+        "description": "Another major multinational technology corporation that competes with Google in areas like cloud computing, advertising, and AI, serving as a distinct peer."
+      },
+      {
+        "entity": "Silicon Valley",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The geographical and cultural region where Google originated and remains a dominant player, representing a contextual association rather than a direct component of Google."
+      }
+    ],
+    "Apple Inc.": [
+      {
+        "entity": "Foxconn",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct multinational electronics contract manufacturing company that produces many of Apple's products, representing a critical supply chain partner, not an internal division."
+      },
+      {
+        "entity": "Samsung Electronics",
+        "relationship_type": "SEMANTIC",
+        "description": "A major global competitor in the consumer electronics and smartphone market, operating in similar product categories and vying for market share against Apple Inc."
+      },
+      {
+        "entity": "Microsoft",
+        "relationship_type": "SEMANTIC",
+        "description": "Another multinational technology corporation that is a historical peer and competitor to Apple Inc., particularly in personal computing operating systems and software."
+      },
+      {
+        "entity": "Google",
+        "relationship_type": "SEMANTIC",
+        "description": "A major technology competitor to Apple Inc., especially in mobile operating systems (Android vs. iOS) and various internet services and hardware."
+      },
+      {
+        "entity": "Silicon Valley",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The geographical region and technological hub strongly associated with Apple Inc.'s origin and current operations, but not a component or part of the company itself."
+      },
+      {
+        "entity": "Design Thinking",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A problem-solving methodology and philosophy that, while not owned by Apple, is deeply and contextually linked to its brand identity, product development, and user experience focus."
+      },
+      {
+        "entity": "Steve Wozniak",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A co-founder of Apple Inc. who, while integral to its early history, is now a distinct individual and not part of the company's direct operational structure or leadership."
+      },
+      {
+        "entity": "Apple Records",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct record label founded by The Beatles that shares the primary name 'Apple' and has a long, separate history, including legal disputes with Apple Inc. over trademark usage."
+      },
+      {
+        "entity": "Granny Smith apple",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A specific variety of the fruit 'apple,' which shares the primary name with the target entity, representing a homonym and the literal origin of the company's name."
+      },
+      {
+        "entity": "TSMC (Taiwan Semiconductor Manufacturing Company)",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct semiconductor foundry that manufactures the custom chips designed by Apple Inc. for its devices, representing a critical supplier relationship, not an internal department."
+      }
+    ],
+    "Microsoft": [
+      {
+        "entity": "OpenAI",
+        "relationship_type": "RELATIONAL",
+        "description": "Microsoft holds a significant investment in and partnership with OpenAI, which is a distinct legal and operational entity, not a direct product or division of Microsoft."
+      },
+      {
+        "entity": "Apple Inc.",
+        "relationship_type": "SEMANTIC",
+        "description": "A primary, long-standing competitor to Microsoft across various technology sectors, representing an entity of the same type and scale, but entirely separate."
+      },
+      {
+        "entity": "Activision Blizzard",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct video game company recently acquired by Microsoft, which operates as a subsidiary rather than being a foundational or integral part of Microsoft's original structure."
+      },
+      {
+        "entity": "The Dot-Com Bubble",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A significant economic era and event in which Microsoft was a major player and survivor, representing a historical and contextual link rather than a structural component."
+      },
+      {
+        "entity": "Amazon Web Services (AWS)",
+        "relationship_type": "SEMANTIC",
+        "description": "The leading competitor in the cloud computing market, directly rivaling Microsoft's Azure, thus representing an entity of the same type (cloud service provider)."
+      },
+      {
+        "entity": "Microsoft Theatre",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct entertainment venue that carries the 'Microsoft' name through a sponsorship and naming rights agreement, but is not owned, operated, or directly created by Microsoft itself."
+      },
+      {
+        "entity": "Redmond, Washington",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The city where Microsoft's main corporate campus is headquartered, representing a strong geographic and cultural association, distinct from the company itself."
+      },
+      {
+        "entity": "Google",
+        "relationship_type": "SEMANTIC",
+        "description": "A major multinational technology company and direct competitor to Microsoft across numerous product and service categories, representing a peer entity."
+      },
+      {
+        "entity": "European Commission",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The powerful regulatory body that has historically investigated and imposed antitrust measures against Microsoft, representing a key external, contextual influence, not a part of the company."
+      },
+      {
+        "entity": "MSNBC",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A cable news channel that historically was a joint venture with Microsoft (hence 'MS') but is now owned by NBCUniversal, making it a distinct entity with a name derived from its past association."
+      }
+    ],
+    "The Walt Disney Company": [
+      {
+        "entity": "SAG-AFTRA",
+        "relationship_type": "RELATIONAL",
+        "description": "A major labor union that structurally interacts with The Walt Disney Company by negotiating contracts for actors and media professionals, representing a distinct, non-ownership organizational link."
+      },
+      {
+        "entity": "Sony Group Corporation",
+        "relationship_type": "SEMANTIC",
+        "description": "A global entertainment, technology, and media conglomerate that operates as a direct peer and competitor to The Walt Disney Company in various sectors, including film production, television, and consumer electronics."
+      },
+      {
+        "entity": "Netflix",
+        "relationship_type": "SEMANTIC",
+        "description": "A primary competitor in the streaming entertainment industry, offering services that directly rival Disney+, making it a semantic peer in the digital content distribution landscape."
+      },
+      {
+        "entity": "Universal Destinations & Experiences",
+        "relationship_type": "SEMANTIC",
+        "description": "A major competitor in the theme park and resort industry, operating similar types of leisure and entertainment businesses, representing a direct semantic peer."
+      },
+      {
+        "entity": "Warner Bros. Discovery",
+        "relationship_type": "SEMANTIC",
+        "description": "Another large multinational mass media and entertainment conglomerate, serving as a direct competitor to The Walt Disney Company across film, television, and streaming content."
+      },
+      {
+        "entity": "Hollywood",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The conceptual and geographical heart of the American film and entertainment industry, with which The Walt Disney Company is deeply and culturally associated, but is not an owned part of the company."
+      },
+      {
+        "entity": "Family Entertainment",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A broad genre and market segment that The Walt Disney Company has significantly shaped and is strongly identified with, representing a core contextual association rather than a direct component."
+      },
+      {
+        "entity": "Animation Industry",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The wider creative and commercial field of animated content production where Disney has historically been a foundational and dominant force, representing a strong contextual link rather than a corporate division."
+      },
+      {
+        "entity": "Walt Disney Concert Hall",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct architectural landmark and performance venue in Los Angeles named after Walt Disney (the person), but which is not owned, operated, or directly affiliated with The Walt Disney Company."
+      },
+      {
+        "entity": "The Walt Disney Family Museum",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct non-profit museum dedicated to the life and legacy of Walt Disney (the person), operating independently and separate from The Walt Disney Company itself."
+      }
+    ],
+    "McDonald's": [
+      {
+        "entity": "Burger King",
+        "relationship_type": "SEMANTIC",
+        "description": "A major multinational fast-food chain, directly competing with McDonald's in the same restaurant industry."
+      },
+      {
+        "entity": "Coca-Cola Company",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct beverage corporation with a long-standing and significant exclusive partnership to supply drinks to McDonald's, representing a major business-to-business relationship."
+      },
+      {
+        "entity": "Super Size Me",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A distinct documentary film that culturally examined the health effects of consuming McDonald's food, creating a strong public association."
+      },
+      {
+        "entity": "McDonald Observatory",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct astronomical research center in Texas that shares the 'McDonald' name, but is unrelated to the fast-food chain."
+      },
+      {
+        "entity": "KFC",
+        "relationship_type": "SEMANTIC",
+        "description": "Another prominent global fast-food chain specializing in chicken, operating in the same quick-service restaurant market as McDonald's."
+      },
+      {
+        "entity": "McJob",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A colloquial and often derogatory term derived from the McDonald's name, used to describe low-wage, low-skill jobs, representing a distinct linguistic and cultural concept."
+      },
+      {
+        "entity": "Big Mac Index",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "An economic indicator published by The Economist magazine, using the price of McDonald's Big Mac sandwich to measure purchasing power parity across countries. It's a distinct analytical tool, not created or owned by McDonald's."
+      },
+      {
+        "entity": "Yum! Brands",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct multinational fast-food corporation that owns major chains like KFC and Pizza Hut, serving as a significant corporate competitor and peer to McDonald's within the global fast-food industry."
+      },
+      {
+        "entity": "Chick-fil-A",
+        "relationship_type": "SEMANTIC",
+        "description": "A major and growing American fast-food chain, specializing in chicken sandwiches, which is a direct competitor to McDonald's within the quick-service restaurant market."
+      },
+      {
+        "entity": "Food and Drug Administration (FDA)",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct U.S. federal agency responsible for regulating food safety and labeling, which has a direct oversight relationship with food corporations like McDonald's."
+      }
+    ]
+  },
+  "historical_events": {
+    "French Revolution": [
+      {
+        "entity": "Bourbon Restoration",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct historical period and political regime in France (1814-1830) that followed the Napoleonic era, representing a counter-revolutionary restoration of the monarchy, making it a direct (but separate) reaction/consequence to the French Revolution."
+      },
+      {
+        "entity": "Concert of Europe",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct system of diplomatic cooperation established by the major European powers after the Napoleonic Wars, specifically to maintain stability and suppress future revolutions, making it a direct (but separate) institutional reaction to the French Revolution's impact."
+      },
+      {
+        "entity": "American Revolution",
+        "relationship_type": "SEMANTIC",
+        "description": "Another major socio-political and ideological revolution of the 18th century, sharing similar Enlightenment ideals and having a profound global impact, thus acting as a direct historical peer to the French Revolution."
+      },
+      {
+        "entity": "Revolutions of 1848",
+        "relationship_type": "SEMANTIC",
+        "description": "A widespread series of distinct, but related, liberal and nationalist revolutions that swept across Europe decades later, representing a similar type of societal upheaval often inspired by the legacy of the French Revolution."
+      },
+      {
+        "entity": "Nationalism",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "An abstract political ideology and sense of collective identity that gained immense prominence and modern form during and after the French Revolution, deeply shaping its course and legacy, but existing as a separate concept."
+      },
+      {
+        "entity": "Romanticism",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A broad artistic, literary, and intellectual movement of the late 18th and early 19th centuries that was deeply influenced by and often a reaction to the ideals, turbulence, and outcomes of the French Revolution."
+      },
+      {
+        "entity": "Edmund Burke",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A prominent Anglo-Irish statesman and political theorist whose influential work, 'Reflections on the Revolution in France,' offered a conservative critique of the event, making him a significant intellectual figure contextually linked to the Revolution."
+      },
+      {
+        "entity": "Glorious Revolution",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct historical event in 17th-century England (1688) referred to by the same general term 'Revolution,' representing a similar type of fundamental political change, but entirely separate from the 1789 French Revolution."
+      },
+      {
+        "entity": "French Revolutionary Wars",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A series of distinct military conflicts fought from 1792 to 1802, named directly after the French Revolution and initiated by it, making them a name-based derivative outcome rather than the revolution itself."
+      },
+      {
+        "entity": "July Revolution (France, 1830)",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct political upheaval in France in 1830 that, while influenced by the legacy of 1789, is a separate historical 'revolution' and shares the generic term, thus creating a name-based ambiguity."
+      }
+    ],
+    "Prague Spring": [
+      {
+        "entity": "Velvet Revolution",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct and later political transition in Czechoslovakia (1989), often seen as a successful, peaceful successor to the aims of the Prague Spring, representing a 'successor event' link rather than a direct part."
+      },
+      {
+        "entity": "Brezhnev Doctrine",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct Soviet foreign policy doctrine formulated and applied *after* the Prague Spring, justifying intervention in socialist states. It is a consequence and ideological framework *related* to the Spring, but not constitutive of the event itself."
+      },
+      {
+        "entity": "Hungarian Revolution of 1956",
+        "relationship_type": "SEMANTIC",
+        "description": "Another major, distinct historical event where Soviet military force was used to suppress a reform movement in a satellite state, making it a direct semantic peer as a 'Soviet bloc crackdown' event."
+      },
+      {
+        "entity": "Perestroika",
+        "relationship_type": "SEMANTIC",
+        "description": "A distinct policy of political and economic reform initiated in the Soviet Union by Mikhail Gorbachev in the 1980s, representing a later, internal attempt at liberalization, similar in spirit but distinct in origin and execution."
+      },
+      {
+        "entity": "Eurocommunism",
+        "relationship_type": "SEMANTIC",
+        "description": "A distinct trend within Western European communist parties (1970s), advocating for more democratic and independent forms of communism, partly influenced by and a reaction to events like the Prague Spring."
+      },
+      {
+        "entity": "Milan Kundera",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A renowned Czech writer whose literary works are deeply and culturally associated with the political repression and human experience surrounding the Prague Spring and its aftermath, though he is not part of the event itself."
+      },
+      {
+        "entity": "Cold War",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The overarching geopolitical conflict and historical era during which the Prague Spring occurred, providing the broad historical and ideological context, but not a direct component or structural link."
+      },
+      {
+        "entity": "Détente",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The specific period of reduced Cold War tension between the superpowers during which the Prague Spring took place, representing a broader geopolitical atmosphere that was significantly challenged by the event."
+      },
+      {
+        "entity": "International Prague Spring Festival",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct international classical music festival held annually in Prague, which shares the exact name ('Prague Spring') but historically predates the political event, thus representing a homonymic link."
+      },
+      {
+        "entity": "Charter 77",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct, later unofficial civic initiative in Czechoslovakia (1977) that criticized the government's human rights record, directly influenced by and a response to the repression following the Prague Spring, yet a separate movement."
+      }
+    ],
+    "Ninety-five Theses": [
+      {
+        "entity": "The Catholic Church",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct overarching institution whose practices and authority were directly challenged by the Ninety-five Theses, representing an 'opposed to' structural link rather than a constitutive part."
+      },
+      {
+        "entity": "Pope Leo X",
+        "relationship_type": "RELATIONAL",
+        "description": "The specific Pope whose spiritual authority, particularly concerning indulgences, was directly questioned and undermined by the Ninety-five Theses, representing the 'head of challenged institution' link."
+      },
+      {
+        "entity": "Council of Trent",
+        "relationship_type": "SEMANTIC",
+        "description": "A major ecumenical council of the Catholic Church held years later as a direct response to the Protestant Reformation. It is a distinct, formal religious declaration/assembly of the same 'type' as an influential theological event, representing a counter-movement rather than a part of the original theses."
+      },
+      {
+        "entity": "Institutes of the Christian Religion",
+        "relationship_type": "SEMANTIC",
+        "description": "John Calvin's seminal work, a foundational theological treatise for Protestantism. It is a distinct document by a different author, but of a similar 'type' (influential theological text shaping a major Christian denomination)."
+      },
+      {
+        "entity": "Gutenberg Printing Press",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The revolutionary technology that enabled the rapid and widespread dissemination of the Ninety-five Theses and other Reformation ideas, providing a crucial contextual link without being part of the document itself."
+      },
+      {
+        "entity": "Jan Hus",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A Bohemian religious reformer who preceded Luther by a century, advocating similar reforms within the Church. He represents a strong historical and conceptual association of pre-Reformation dissent, but is distinct from the Theses."
+      },
+      {
+        "entity": "Thirty Years' War",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A major European conflict largely fueled by the religious divisions that intensified following the Protestant Reformation (of which the Theses were the catalyst). It is a profound, long-term consequence, but a distinct historical event far removed from the actual content of the Theses."
+      },
+      {
+        "entity": "Theses on Feuerbach",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct set of philosophical propositions by Karl Marx. While entirely different in subject matter, it shares the 'theses' format, creating a name-based or structural-form link to the concept of a series of propositions."
+      },
+      {
+        "entity": "Frederick the Wise",
+        "relationship_type": "RELATIONAL",
+        "description": "The Elector of Saxony and protector of Martin Luther, who was instrumental in providing safety and support during the early Reformation. He is a distinct political figure who played a critical role in the context surrounding the Theses' author."
+      },
+      {
+        "entity": "Diet of Worms",
+        "relationship_type": "SEMANTIC",
+        "description": "A formal imperial assembly where Martin Luther was summoned to recant his views. It is a distinct historical event of the same 'type' (a major official deliberation in response to the emerging Reformation), directly related to the consequences of Luther's actions, including the Theses."
+      }
+    ],
+    "Nativity of Jesus": [
+      {
+        "entity": "Annunciation",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct biblical event describing the announcement of Jesus' conception, structurally linked as a precursor to the Nativity but a separate occurrence."
+      },
+      {
+        "entity": "Flight into Egypt",
+        "relationship_type": "RELATIONAL",
+        "description": "A distinct subsequent biblical event in the infancy narrative, structurally linked to the period immediately after the Nativity but a separate action."
+      },
+      {
+        "entity": "Birth of John the Baptist",
+        "relationship_type": "SEMANTIC",
+        "description": "Another distinct miraculous birth narrative in the New Testament, serving as a direct biblical parallel or 'peer' event to the Nativity of Jesus."
+      },
+      {
+        "entity": "Epiphany",
+        "relationship_type": "SEMANTIC",
+        "description": "A distinct Christian feast commemorating the revelation of God in human form, specifically the visit of the Magi, making it a semantically similar religious celebration related to Christ's manifestation, but separate from the birth event itself."
+      },
+      {
+        "entity": "Christmas (holiday)",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The distinct annual religious and cultural holiday that commemorates the Nativity of Jesus, but is a separate celebration rather than the event itself."
+      },
+      {
+        "entity": "Saint Francis of Assisi",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A historical figure widely credited with creating the first living Nativity scene, establishing a strong cultural association with the depiction of the event."
+      },
+      {
+        "entity": "Christmas Carols",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "Musical compositions deeply associated with the Christmas season and the themes of the Nativity, serving as cultural artifacts linked to the event but not part of it."
+      },
+      {
+        "entity": "Church of the Nativity",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct physical edifice and holy site in Bethlehem, named after and believed to be built over the traditional birthplace of Jesus, making it a derivative entity."
+      },
+      {
+        "entity": "Nativity of Mary",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "A distinct Christian feast day celebrating the birth of Mary, mother of Jesus, sharing the 'Nativity' nomenclature and representing a parallel significant birth event."
+      },
+      {
+        "entity": "Crèche",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "The common term for a Nativity scene, an artistic or sculptural representation of the birth of Jesus, which is a distinct cultural creation derived from the event."
+      }
+    ],
+    "Storming of the Bastille": [
+      {
+        "entity": "French Revolution",
+        "relationship_type": "RELATIONAL",
+        "description": "The overarching historical period of which the Storming of the Bastille was a pivotal, but distinct, initiating event, making it a broader container rather than a direct part."
+      },
+      {
+        "entity": "Louis XVI",
+        "relationship_type": "RELATIONAL",
+        "description": "The distinct King of France at the time, whose absolute monarchy was directly challenged and eventually overthrown as a consequence of the broader revolutionary movement catalyzed by this event."
+      },
+      {
+        "entity": "Reign of Terror",
+        "relationship_type": "SEMANTIC",
+        "description": "A later, distinct, and more radical phase of the French Revolution, representing a different type of revolutionary violence and political upheaval, but sharing the same historical context as a peer event/period within the revolution."
+      },
+      {
+        "entity": "American Revolution",
+        "relationship_type": "SEMANTIC",
+        "description": "A preceding major historical event of the same type (a revolution against established authority) that served as an ideological and practical precursor to the French Revolution and influenced its participants."
+      },
+      {
+        "entity": "Bastille Day",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "The national holiday of France, officially 'Fête nationale,' which commemorates the Storming of the Bastille, making it a distinct celebration derived from the event's significance rather than the event itself."
+      },
+      {
+        "entity": "Declaration of the Rights of Man and of the Citizen",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A foundational document articulating the ideals of the French Revolution, deeply associated with the philosophical underpinnings and outcomes of the movement, but a separate abstract creation and not a part of the storming."
+      },
+      {
+        "entity": "Maximilien Robespierre",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "A prominent political figure and leader during the French Revolution, strongly associated with its radical phase and ideals, but not a direct participant in the Storming of the Bastille itself."
+      },
+      {
+        "entity": "Place de la Bastille",
+        "relationship_type": "AMBIGUOUS_DERIVATIVE",
+        "description": "The distinct public square in Paris that now stands on the site where the Bastille fortress once existed, deriving its name directly from the historic structure and event."
+      },
+      {
+        "entity": "October Days (Women's March on Versailles)",
+        "relationship_type": "SEMANTIC",
+        "description": "Another significant and distinct event during the early phase of the French Revolution, involving mass public action and challenging royal authority, making it a peer revolutionary event rather than a part of the Bastille storming."
+      },
+      {
+        "entity": "Guillotine",
+        "relationship_type": "ASSOCIATIVE",
+        "description": "The execution device that became an iconic symbol of the French Revolution's violence and revolutionary justice, representing a strong cultural and historical association with the era sparked by the storming."
+      }
+    ]
+  }
+}

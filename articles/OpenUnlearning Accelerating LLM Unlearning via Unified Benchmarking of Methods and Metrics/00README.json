@@ -1,0 +1,57 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "neurips_2025.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "_minted-neurips_2025/default.pygstyle"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "_minted-neurips_2025/listing1.pygtex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "_minted-neurips_2025/listing2.pygtex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "_minted-neurips_2025/listing3.pygtex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "_minted-neurips_2025/listing4.pygtex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "_minted-neurips_2025/listing5.pygtex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "_minted-neurips_2025/listing6.pygtex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "_minted-neurips_2025/listing7.pygtex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "_minted-neurips_2025/listing8.pygtex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "neurips_2025.bbl"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "neurips_2025.bib"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2023",
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}

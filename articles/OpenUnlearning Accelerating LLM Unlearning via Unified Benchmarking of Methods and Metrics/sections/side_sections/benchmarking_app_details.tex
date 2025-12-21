@@ -1,0 +1,102 @@
+\section{Further discussion on benchmarking unlearning methods}
+\label{appsec:leaderboard}
+
+\subsection{Metric aggregation}
+\label{subsec:benchmark_metric_agg}
+
+There are theee dimensions evaluated by our suite of metrics 1) Memorization, 2) Privacy 3) Utility.
+
+We consider multiple metrics in each dimension and aggregate the score as follows:
+
+\begin{enumerate}[leftmargin=*, itemsep=4pt, label=\arabic*.]
+    \item \textbf{Memorization}: To quantify the degree of successful forgetting, the Memorization Score is calculated as the Harmonic Mean (HM) of 4 core metrics which are best as per our meta-evaluations analysis in \S\ref{tab:meta_eval} --- ES, EM, Paraphrased Probability  and Truth Ratio. These metrics are inverted (i.e., $1 - \text{metric}$) so that higher scores indicate more effective unlearning. The score is given by:
+    $$ \text{Memorization Score} = \text{HM}\left(1 - \text{ES},\ 1 - \text{EM},\ 1 - \text{Para. Prob},\ 1 - \text{Truth Ratio}\right) $$
+
+    \item \textbf{Privacy}: For assessing privacy, we utilize four Membership Inference Attack (MIA) metrics: LOSS, ZLib, Min-k, and Mink++. For each of these, an individual privacy score ($s_{\text{MIA}}$) is calculated. This score, ranging from 0 to 1, quantifies how closely the unlearned model's behavior on the specific MIA metric aligns with that of a gold-standard retain model (details below). A higher $s_{\text{MIA}}$ score indicates greater similarity to the retain model. The overall Privacy Score is then the Harmonic Mean (HM) of these individual scores:
+    $$ \text{Privacy Score} = \text{HM}(s_{\text{LOSS}}, s_{\text{ZLib}}, s_{\text{Min-k}}, s_{\text{Mink++}}) $$
+
+
+    \item \textbf{Utility}: TOFU evaluates a model’s utility using nine core metrics that assess performance across splits at three different distances from the forget dataset distribution - namely, retain, real-world authors, and wrong-fact queries: using QA probability, ROUGE, and truth-ratio scores. In addition to this we include a new metric that measures the fluency of the model's response when prompted with entities-related to forget queries, following \citep{mekala-etal-2025-alternate, gandikota2024erasing}. Fluency is assessed using a classifier\footnote{\url{https://huggingface.co/madhurjindal/autonlp-Gibberish-Detector-492513457}} that detects gibberish / nonsensical outputs. The final utility score is the harmonic mean of MU and fluency. Note that we scale all metrics with init finetuned model, so their scores across all points fall in the $[0, 1]$ range. For example, TOFU MU scores never exceed that of the initial target model upon unlearning, so all scores are effectively divided by the target model's MU.
+    
+\end{enumerate}
+
+Note that for many metric aggregations we use Harmonic Mean, as HM ensures that a high final score demands strong performance in all constituent parts.
+
+% \begin{center}
+% \begin{minipage}{0.28\textwidth}
+% \begin{equation*}
+% \text{Deviation} = |m_{\text{ret}} - m_{\text{unl}}|
+% \end{equation*}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.38\textwidth}
+% \begin{equation*}
+% \text{Norm} =
+% \begin{cases}
+% m_{\text{ret}} & \text{if } m_{\text{ret}} > m_{\text{unl}} \\
+% 1 - m_{\text{ret}} & \text{otherwise}
+% \end{cases}
+% \end{equation*}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.28\textwidth}
+% \begin{equation*}
+% m\text{-score} = 1 - \frac{\text{Deviation}}{\text{Norm}}
+% \end{equation*}
+% \end{minipage}
+% \end{center}
+
+\subsection{Hyperparameter tuning and model selection while comparing unlearning methods}
+
+\label{subsec:tuning_details}
+
+\paragraph{Hyperparameters used}
+\begin{enumerate}[%
+  leftmargin=15pt,      % no left indent
+  labelwidth=*,        % natural label width
+  labelsep=0.5em,      % space between label and item text
+  itemsep=1pt,         % space between items
+  parsep=1pt,          % paragraph separation within items
+  topsep=0pt,          % space above and below the list
+  partopsep=0pt        % extra space when the list starts a new paragraph
+]
+\item For GradDiff and IdK-NLL: we vary the learning rate over the set $\{1\times10^{-5}, 2\times10^{-5}, 3\times10^{-5}, 4\times10^{-5}, 5\times10^{-5}\}$, and sweep the regularization coefficient $\alpha \in \{1, 2, 5, 10\}$.
+\item For IdK-DPO, NPO and AltPO: we tune learning rates in $\{1\times10^{-5}, 2\times10^{-5}, 5\times10^{-5}\}$, and search over $\alpha \in \{1, 2, 5\}$ and $\beta \in \{0.05, 0.1, 0.5\}$.
+\item For RMU: we use the same learning rate range $\{1\times10^{-5}, 2\times10^{-5}, 5\times10^{-5}\}$, vary the steering coefficient in $\{1, 10, 100\}$, and apply the loss at one of the layers $l \in \{6, 11, 16\}$ of the LLama3.2-1B model. For each selected layer $l$, we restrict training to layers $l-2$, $l-1$, and $l$. 
+\item For SimNPO: we tune learning rates in $\{1\times10^{-5}, 2\times10^{-5}, 5\times10^{-5}\}$, and search over $\beta \in \{3.5, 4.5\}$, $\delta \in \{0, 1\}$ and $\delta \in \{0.125, 0.25\}$.
+\item For UNDIAL: we tune learning rates in $\{1\times10^{-5}, 1\times10^{-4}, 3\times10^{-4}\}$, and search over $\alpha \in \{1, 2, 5\}$ and $\beta \in \{3, 10, 30\}$.
+\end{enumerate}
+
+
+
+
+We aggregate utility score and memorization score and use their harmonic mean for tuning the models. 
+
+\paragraph{What metrics are appropriate for model selection during hyperparameter tuning?} The nature of tuning in unlearning benchmarking has distinct considerations compared to general machine learning. While standard machine learning avoids using test data for tuning to ensure generalization, unlearning in \tofu{} and \muse{} specifically targets the known forget set for erasure. Consequently, iteratively refining the unlearning by evaluating the model's behavior concerning this specific set is a permissible approach to ensure thorough forgetting before deployment. For this tuning, we advocate relying on metrics realistically available during the development phase, specifically those assessing forget quality on the target data and general utility, while avoiding ``oracle" metrics that presume access to unavailable resources like true i.i.d holdout sets or retain models like in \citep{maini2024tofu, shi2025muse}. Since all our privacy scores use a retain model, we avoid them during tuning. We rely on the harmonic mean of the Memorization and Utility scores as the validation objective. 
+
+
+\paragraph{Comparison to \citet{wang2025towardseffective}'s benchmarking:} While \citet{wang2025towardseffective} propose approaches towards model selection and benchmarking through validation on Extraction Strength and calibration via model-merging, their analysis has several limitations. They rely only on ES scores for evaluating forgetting and utility. ES was found to be robust among the set of 4 evaluation metrics (an observation also re-verified in our work (\S\ref{sec:meta_eval}). Yet it has not been proved that ES is a comprehensive metric validating all facets of knowledge unlearning. For example, ES does not account for privacy metrics that prevent over-unlearning, like \tofu{}'s Truth Ratio or FQ or \muse{}'s PrivLeak. In addition, they do not consider all facets of general utility evaluation, particularly forget set fluency. Finally, the question of what metrics can be used in model selection and if they must be separate from the leaderboard metrics remains unanswered. These limitations remain, to a smaller degree, in our benchmarking procedure, and we consider this an important line for further research.
+
+\begin{table}
+  \caption{\small
+  Comparison of unlearning methods on the \tofu{} task, showing aggregate (Agg.) using only Memorization (Mem.) and utility (Utility) scores. Privacy scores are not used in the aggregation and are only shown for illustration. Higher scores indicate better performance ($\uparrow$). Initial finetuned is the target model before unlearning and Retain model is the gold standard target model. The focus on memorization as opposed to privacy results in GradDiff performing the best as it easily results in over-unlearning.}
+  \label{tab:leaderboard_with_mem_mu}
+  \centering
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Method} & \textbf{Agg.} $\uparrow$ & \textbf{Mem.} $\uparrow$ & \textbf{Priv.} $\uparrow$& \textbf{Utility} $\uparrow$ \\
+    \midrule
+    Init. finetuned & 0.00 & 0.00 & 0.10 & 1.00 \\
+    Retain & 0.58 & 0.31 & 1.00 & 0.99 \\
+    \midrule
+    GradDiff \citep{maini2024tofu}  & \textbf{0.87} & \textbf{0.97} & 3.27e-03 & 0.79 \\
+    AltPO \citep{mekala-etal-2025-alternate} & \underline{0.76} & \underline{0.63} & 0.06 & \underline{0.95} \\
+    IdkDPO \citep{maini2024tofu} & 0.71 & 0.56 & 0.06 & \underline{0.95} \\
+    NPO \citep{NPO_zhang2024negative} & 0.69 & 0.52 & 0.06 & \textbf{0.99} \\
+    RMU \citep{li2024wmdp} & 0.53 & 0.47 & 0.5 & 0.61 \\
+    SimNPO \citep{fan2024simplicity_simnpo} & 0.49 & 0.32 & \underline{0.63} & 1.0 \\
+    UNDIAL \citep{dong-etal-2025-undial} & 0.4 & 0.27 & 0.48 & 0.78 \\
+    IdkNLL \citep{maini2024tofu} & 0.14 & 0.08 & 0.17 & 0.93 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
