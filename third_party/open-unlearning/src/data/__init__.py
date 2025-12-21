@@ -3,8 +3,8 @@ from typing import Any, Dict, Union
 from data.collators import DataCollatorForSupervisedDataset
 from data.pretraining import CompletionDataset, PretrainingDataset
 from data.qa import QADataset, QAwithAlternateDataset, QAwithIdkDataset
-from data.unlearn import ForgetRetainDataset
 from data.ripple_dataset import RippleUnlearningDataset
+from data.unlearn import ForgetRetainDataset
 from omegaconf import DictConfig
 
 DATASET_REGISTRY: Dict[str, Any] = {}
@@ -99,6 +99,7 @@ _register_data(QAwithAlternateDataset)
 # Register composite datasets used in unlearning
 # groups: unlearn
 _register_data(ForgetRetainDataset)
+_register_data(RippleUnlearningDataset)
 
 # Register collators
 _register_collator(DataCollatorForSupervisedDataset)

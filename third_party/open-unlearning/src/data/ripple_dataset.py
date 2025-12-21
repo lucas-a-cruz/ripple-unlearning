@@ -1,9 +1,9 @@
 # ruff: noqa
 import json
-from torch.utils.data import Dataset
-from . import register_dataset
 
-@register_dataset("ripple")
+from torch.utils.data import Dataset
+
+
 class RippleUnlearningDataset(Dataset):
     """
     Dataset for the Ripple Unlearning benchmark.
