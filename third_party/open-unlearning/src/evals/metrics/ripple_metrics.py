@@ -1,8 +1,10 @@
 # ruff: noqa
+from typing import Any, Dict, List
+
 import torch
+from evals.metrics.base import unlearning_metric
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from typing import List, Dict, Any
-from .base import UnlearningMetric
+
 
 def check_answers(generated_text: str, answer_list: List[str]) -> bool:
     """
@@ -55,7 +57,7 @@ def run_probes(
         
     return results
 
-@UnlearningMetric.register("forget_efficacy")
+@unlearning_metric("forget_efficacy")
 def forget_efficacy(
     model: AutoModelForCausalLM, 
     tokenizer: AutoTokenizer, 
@@ -77,7 +79,7 @@ def forget_efficacy(
     
     return {"forget_efficacy_rate": efficacy_rate}
 
-@UnlearningMetric.register("logical_inconsistency")
+@unlearning_metric("logical_inconsistency")
 def logical_inconsistency(
     model: AutoModelForCausalLM, 
     tokenizer: AutoTokenizer, 
@@ -99,7 +101,7 @@ def logical_inconsistency(
     
     return {"logical_inconsistency_rate": inconsistency_rate}
 
-@UnlearningMetric.register("retain_accuracy")
+@unlearning_metric("retain_accuracy")
 def retain_accuracy(
     model: AutoModelForCausalLM, 
     tokenizer: AutoTokenizer, 
@@ -119,4 +121,4 @@ def retain_accuracy(
     num_retained = results.count(True)
     accuracy_rate = num_retained / len(results)
     
-    return {"retain_accuracy_rate": accuracy_rate}
+    return {"retain_accuracy_rate": accuracy_rate}    
