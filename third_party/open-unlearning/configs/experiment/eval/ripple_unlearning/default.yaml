@@ -1,0 +1,17 @@
+# @package _global_
+
+defaults:
+  - override /model: Llama-3.2-1B-Instruct
+  - override /trainer: GradAscent
+  - override /eval: ripple
+  - override /data: ripple
+
+eval:
+  ripple: {}
+
+data:
+  ripple_unlearning:
+    args:
+      path: "data/processed/ripple_unlearning_benchmark/recent.jsonl" # Default to recent.jsonl, user can override
+
+task_name: ripple_unlearning_default_run

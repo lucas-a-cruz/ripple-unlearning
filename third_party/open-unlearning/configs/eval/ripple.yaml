@@ -4,4 +4,5 @@ defaults:
   - override /eval/metrics: ripple_metrics.yaml
 
 handler: RippleUnlearningEvaluator
-args: {}
+args:
+  data_path: "data/processed/ripple_unlearning_benchmark/recent.jsonl" # Default, can be overridden

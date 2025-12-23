@@ -6,9 +6,11 @@ from collections import defaultdict
 from typing import Any, Dict, List
 
 import torch
+from data.ripple_dataset import RippleUnlearningDataset
 from data.unlearn import ForgetRetainDataset
 from torch.utils.data import Dataset
 from tqdm import tqdm
+from trainer import load_trainer
 from transformers import AutoModelForCausalLM
 
 from .base import Evaluator
@@ -37,27 +39,35 @@ class RippleUnlearningEvaluator(Evaluator):
     probes to measure forgetting efficacy, logical consistency, and retention
     of unrelated facts.
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__("ripple_unlearning", *args, **kwargs)
+    def __init__(self, eval_cfg, trainer_cfg=None, **kwargs):
+        super().__init__("ripple_unlearning", eval_cfg=eval_cfg, **kwargs)
         self.temp_model_state_path = "temp_model_state.pt"
 
-    def _tokenize_qa(self, question: str, answer: str) -> Dict[str, torch.Tensor]:
+        if trainer_cfg is None:
+            raise ValueError("RippleUnlearningEvaluator requires a trainer_cfg, but none was provided.")
+
+        # Note: train_dataset is passed as None because it's dynamically created for each step in this evaluator.
+        # This is fine as long as trainer arguments like warmup_steps (which depend on dataset length) are not used.
+        self.trainer, _ = load_trainer(trainer_cfg=trainer_cfg, train_dataset=None)
+
+    @staticmethod
+    def _tokenize_qa(tokenizer, question: str, answer: str) -> Dict[str, torch.Tensor]:
         """Tokenizes a question-answer pair and creates labels for fine-tuning."""
         full_text = f"{question} {answer}"
-        tokenized = self.tokenizer(full_text, return_tensors="pt")
+        tokenized = tokenizer(full_text, return_tensors="pt")
         
-        question_tokens = self.tokenizer(question, return_tensors="pt")['input_ids']
+        question_tokens = tokenizer(question, return_tensors="pt")['input_ids']
         q_len = question_tokens.shape[1]
 
         labels = tokenized['input_ids'].clone()
         labels[0, :q_len] = -100
         
-        tokenized_squeezed = {k: v.squeeze(0).to(self.model.device) for k, v in tokenized.items()}
-        tokenized_squeezed['labels'] = labels.squeeze(0).to(self.model.device)
+        tokenized_squeezed = {k: v.squeeze(0) for k, v in tokenized.items()}
+        tokenized_squeezed['labels'] = labels.squeeze(0)
         
         return tokenized_squeezed
 
-    def evaluate(self, model: AutoModelForCausalLM, dataset: torch.utils.data.Dataset, **kwargs):
+    def evaluate(self, model: AutoModelForCausalLM, **kwargs):
         if self.trainer is None:
             raise ValueError("Trainer is not set for RippleUnlearningEvaluator.")
 
@@ -65,6 +75,15 @@ class RippleUnlearningEvaluator(Evaluator):
         self.tokenizer = kwargs.get("tokenizer")
         if self.tokenizer is None:
             raise ValueError("Tokenizer must be provided to RippleUnlearningEvaluator")
+
+        # Load the dataset internally
+        dataset_path = self.eval_cfg.data_path
+        if not os.path.exists(dataset_path):
+            raise FileNotFoundError(f"Dataset not found at {dataset_path}. Please provide a valid path via `eval.ripple.data_path`.")
+        
+        dataset = RippleUnlearningDataset(path=dataset_path)
+        
+        logger.info(f"Loaded Ripple Unlearning dataset with {len(dataset)} cases from {dataset_path}")
 
         logger.info("Saving initial clean model state...")
         torch.save(model.state_dict(), self.temp_model_state_path)
@@ -76,14 +95,6 @@ class RippleUnlearningEvaluator(Evaluator):
             # PRE-CHECK: Verify the model knows the fact before trying to unlearn it.
             # The 'forget_efficacy' metric returns 1.0 if the model does NOT know the fact.
             # So, if efficacy is 1.0, it means the model is already ignorant, and we should skip.
-            pre_check_probe = {
-                "question": case["forget_request"]["question"],
-                "answer": [case["forget_request"]["answer"]] # The answer here is a list for consistency with check_answers
-            }
-            # Note: The 'forget_efficacy' function expects a list of probes.
-            # We use a temporary model state for the pre-check to not affect the actual unlearning process.
-            # However, for efficiency, we can query the model directly without saving/loading for just the pre-check.
-            # The model is in its initial 'clean' state here.
             
             # Create a temporary single-probe list for the efficacy check
             forget_check_probes_for_pre_check = [{
@@ -106,12 +117,19 @@ class RippleUnlearningEvaluator(Evaluator):
             model.load_state_dict(torch.load(self.temp_model_state_path))
 
             forget_request = case["forget_request"]
-            forget_sample = self._tokenize_qa(forget_request["question"], forget_request["answer"])
+            forget_sample = self._tokenize_qa(self.tokenizer, forget_request["question"], forget_request["answer"])
+            forget_sample = {k: v.to(self.model.device) for k, v in forget_sample.items()}
             forget_dataset = _TempDataset([forget_sample])
 
-            retain_samples = [self._tokenize_qa(probe["question"], probe["answer"][0]) for probe in case["retain_probes"]]
-            if not retain_samples:
-                retain_samples.append(self._tokenize_qa(" ", " "))
+            retain_probes = case.get("retain_probes", [])
+            if retain_probes:
+                retain_samples = [self._tokenize_qa(self.tokenizer, probe["question"], probe["answer"][0]) for probe in retain_probes]
+                retain_samples = [{k: v.to(self.model.device) for k,v in sample.items()} for sample in retain_samples]
+            else:
+                # Create a dummy sample if no retain probes exist
+                dummy_sample = self._tokenize_qa(self.tokenizer, " ", " ")
+                retain_samples = [{k: v.to(self.model.device) for k, v in dummy_sample.items()}]
+            
             retain_dataset = _TempDataset(retain_samples)
 
             unlearn_dataset = ForgetRetainDataset(forget=forget_dataset, retain=retain_dataset, anchor="forget")
