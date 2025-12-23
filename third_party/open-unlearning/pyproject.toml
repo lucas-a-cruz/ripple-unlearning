@@ -31,3 +31,6 @@ dependencies = [
     "peft==0.17.1",
     "flash-attn==2.6.3",
 ]
+
+[tool.uv.extra-build-dependencies]
+    flash-attn = ["torch"]
