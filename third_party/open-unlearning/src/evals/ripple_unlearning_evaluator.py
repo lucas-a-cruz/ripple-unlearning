@@ -145,6 +145,10 @@ class RippleUnlearningEvaluator(Evaluator):
         dataset = RippleUnlearningDataset(path=dataset_path)
         logger.info(f"Loaded Ripple Unlearning dataset with {len(dataset)} cases from {dataset_path}")
 
+        # Limit dataset to 25 samples for quick testing
+        dataset.data = dataset.data[:25]
+        logger.info(f"🔪 Limiting evaluation to the first 25 cases for testing.")
+
         torch.save(model.state_dict(), self.temp_model_state_path)
         
         aggregated_results = defaultdict(list)
