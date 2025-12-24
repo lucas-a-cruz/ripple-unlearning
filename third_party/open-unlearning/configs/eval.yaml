@@ -8,6 +8,7 @@ defaults:
   - hydra: eval
   - experiment: null
   - trainer: null
+  - data: null
 
 model:
   model_args:

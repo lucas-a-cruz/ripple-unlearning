@@ -78,3 +78,8 @@ _register_metric(mia_reference)
 
 # Register Utility metrics
 _register_metric(classifier_prob)
+
+# Register Ripple Unlearning metrics
+_register_metric(forget_efficacy)
+_register_metric(logical_inconsistency)
+_register_metric(retain_accuracy)

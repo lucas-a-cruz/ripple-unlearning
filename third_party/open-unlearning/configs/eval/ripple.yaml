@@ -1,8 +1,23 @@
-# @package _group_
-
-defaults:
-  - override /eval/metrics: ripple_metrics.yaml
+# @package eval.ripple
 
 handler: RippleUnlearningEvaluator
-args:
-  data_path: "data/processed/ripple_unlearning_benchmark/recent.jsonl" # Default, can be overridden
+output_dir: ${paths.output_dir} # set to default eval directory
+trainer: ${oc.select:trainer,null} # Pass through the top-level trainer config
+
+data:
+  ripple_unlearning:
+    args:
+      path: "data/processed/ripple_unlearning_benchmark/recent.jsonl"
+
+# Define the metrics to be used by the RippleUnlearningEvaluator directly.
+# The `Evaluator` base class will load these.
+metrics:
+  forget_efficacy:
+    handler: forget_efficacy
+    args: {}
+  logical_inconsistency:
+    handler: logical_inconsistency
+    args: {}
+  retain_accuracy:
+    handler: retain_accuracy
+    args: {}

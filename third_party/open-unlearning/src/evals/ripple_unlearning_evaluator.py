@@ -6,6 +6,7 @@ from collections import defaultdict
 from typing import Any, Dict, List
 
 import torch
+from data.collators import DataCollatorForSupervisedDataset
 from data.ripple_dataset import RippleUnlearningDataset
 from data.unlearn import ForgetRetainDataset
 from torch.utils.data import Dataset
@@ -15,166 +16,289 @@ from transformers import AutoModelForCausalLM
 
 from .base import Evaluator
 # Ensure the metrics are registered
-from .metrics import ripple_metrics
+from evals.metrics import ripple_metrics
+from evals.metrics.ripple_metrics import check_answers
 
 logger = logging.getLogger(__name__)
-
-class _TempDataset(Dataset):
-    """A temporary dataset to wrap a list of tokenized samples."""
-    def __init__(self, data: List[Dict[str, Any]]):
-        self.data = data
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        return self.data[idx]
 
 class RippleUnlearningEvaluator(Evaluator):
     """
     Custom evaluator for the Ripple Unlearning Benchmark.
-
-    This evaluator performs a one-by-one evaluation of unlearning cases. For each
-    case, it unlearns a single fact and then evaluates the model on a set of
-    probes to measure forgetting efficacy, logical consistency, and retention
-    of unrelated facts.
+    This evaluator performs a one-by-one evaluation of unlearning cases.
     """
-    def __init__(self, eval_cfg, trainer_cfg=None, **kwargs):
+    def __init__(self, eval_cfg, **kwargs):
         super().__init__("ripple_unlearning", eval_cfg=eval_cfg, **kwargs)
+        self.trainer = None
         self.temp_model_state_path = "temp_model_state.pt"
 
-        if trainer_cfg is None:
-            raise ValueError("RippleUnlearningEvaluator requires a trainer_cfg, but none was provided.")
 
-        # Note: train_dataset is passed as None because it's dynamically created for each step in this evaluator.
-        # This is fine as long as trainer arguments like warmup_steps (which depend on dataset length) are not used.
-        self.trainer, _ = load_trainer(trainer_cfg=trainer_cfg, train_dataset=None)
 
     @staticmethod
-    def _tokenize_qa(tokenizer, question: str, answer: str) -> Dict[str, torch.Tensor]:
-        """Tokenizes a question-answer pair and creates labels for fine-tuning."""
-        full_text = f"{question} {answer}"
-        tokenized = tokenizer(full_text, return_tensors="pt")
-        
-        question_tokens = tokenizer(question, return_tensors="pt")['input_ids']
-        q_len = question_tokens.shape[1]
+    def _tokenize_qa(tokenizer, template_args, question: str, answer: str) -> Dict[str, torch.Tensor]:
+        """
+        Tokenizes a question-answer pair using the model's chat template.
+        Returns a dictionary of CPU tensors.
+        """
+        chat = []
+        if template_args.get("apply_chat_template"):
+            system_prompt = template_args.get("system_prompt")
+            if system_prompt:
+                chat.append({"role": "system", "content": system_prompt})
+            chat.append({"role": "user", "content": question})
+            chat.append({"role": "assistant", "content": answer})
+            
+            # Tokenize the full chat to get input_ids and attention_mask
+            tokenized_ids = tokenizer.apply_chat_template(
+                chat, tokenize=True, add_generation_prompt=False
+            )
+            
+            # Tokenize up to the user part to find the length of the prompt for masking labels
+            prompt_ids = tokenizer.apply_chat_template(
+                chat[:-1], tokenize=True, add_generation_prompt=True
+            )
+            q_len = len(prompt_ids)
 
-        labels = tokenized['input_ids'].clone()
-        labels[0, :q_len] = -100
+            labels = list(tokenized_ids)
+            labels[:q_len] = [-100] * q_len
+            
+            item = {
+                "input_ids": tokenized_ids,
+                "attention_mask": [1] * len(tokenized_ids),
+                "labels": labels
+            }
+        else: # Fallback for non-chat models
+            full_text = f"{question} {answer}"
+            tokenized = tokenizer(full_text, add_special_tokens=False)
+            question_tokens = tokenizer(question, add_special_tokens=False)['input_ids']
+            q_len = len(question_tokens)
+
+            labels = list(tokenized['input_ids'])
+            labels[:q_len] = [-100] * q_len
+            
+            item = {
+                "input_ids": tokenized['input_ids'],
+                "attention_mask": tokenized['attention_mask'],
+                "labels": labels
+            }
         
-        tokenized_squeezed = {k: v.squeeze(0) for k, v in tokenized.items()}
-        tokenized_squeezed['labels'] = labels.squeeze(0)
+        return {k: torch.tensor(v) for k, v in item.items()}
+
+    @staticmethod
+    def _get_answer_for_probe(model, tokenizer, template_args, probe, log_prompt: bool = False) -> str:
+        """Generates a text answer for a given probe question, applying chat template."""
+        if not probe or "question" not in probe:
+            return "Invalid Probe"
+            
+        question = probe["question"]
         
-        return tokenized_squeezed
+        chat = []
+        if template_args.get("apply_chat_template"):
+            system_prompt = template_args.get("system_prompt")
+            if system_prompt:
+                chat.append({"role": "system", "content": system_prompt})
+            chat.append({"role": "user", "content": question})
+            
+            if log_prompt:
+                # Log the exact prompt string that will be tokenized
+                prompt_for_logging = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+                logger.info(f"\n[PROMPT FED TO MODEL]:\n---\n{prompt_for_logging}\n---")
+
+            input_ids = tokenizer.apply_chat_template(
+                chat, 
+                add_generation_prompt=True, 
+                return_tensors="pt"
+            ).to(model.device)
+            inputs = {'input_ids': input_ids}
+            input_length = inputs['input_ids'].shape[1]
+        else: # Fallback for non-chat models
+            if log_prompt:
+                logger.info(f"\n[PROMPT FED TO MODEL]:\n---\n{question}\n---")
+            inputs = tokenizer(question, return_tensors="pt").to(model.device)
+            input_length = inputs['input_ids'].shape[1]
+
+        stop_ids = [tokenizer.eos_token_id]
+        newline_token_ids = tokenizer.encode("\n", add_special_tokens=False)
+        if len(newline_token_ids) <= 2:
+            stop_ids.extend(newline_token_ids)
+
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=25,
+            pad_token_id=tokenizer.eos_token_id,
+            eos_token_id=stop_ids
+        )
+        generated_ids = outputs[0][input_length:]
+        answer_text = tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
+        return answer_text
 
     def evaluate(self, model: AutoModelForCausalLM, **kwargs):
-        if self.trainer is None:
-            raise ValueError("Trainer is not set for RippleUnlearningEvaluator.")
-
-        self.model = model 
+        self.model = model
         self.tokenizer = kwargs.get("tokenizer")
-        if self.tokenizer is None:
-            raise ValueError("Tokenizer must be provided to RippleUnlearningEvaluator")
+        self.template_args = kwargs.get("template_args")
+        if self.tokenizer is None or self.template_args is None:
+            raise ValueError("Tokenizer and template_args must be provided to RippleUnlearningEvaluator")
 
-        # Load the dataset internally
-        dataset_path = self.eval_cfg.data_path
+        dataset_path = self.eval_cfg.data.ripple_unlearning.args.path
         if not os.path.exists(dataset_path):
-            raise FileNotFoundError(f"Dataset not found at {dataset_path}. Please provide a valid path via `eval.ripple.data_path`.")
+            raise FileNotFoundError(f"Dataset not found at {dataset_path}. Please provide a valid path via `data.ripple_unlearning.args.path`.")
         
         dataset = RippleUnlearningDataset(path=dataset_path)
-        
         logger.info(f"Loaded Ripple Unlearning dataset with {len(dataset)} cases from {dataset_path}")
 
-        logger.info("Saving initial clean model state...")
         torch.save(model.state_dict(), self.temp_model_state_path)
         
-        all_results = defaultdict(list)
+        aggregated_results = defaultdict(list)
+        detailed_results = []
         skipped_cases = 0
 
         for case in tqdm(dataset, desc="Evaluating Ripple Unlearning Cases"):
-            # PRE-CHECK: Verify the model knows the fact before trying to unlearn it.
-            # The 'forget_efficacy' metric returns 1.0 if the model does NOT know the fact.
-            # So, if efficacy is 1.0, it means the model is already ignorant, and we should skip.
-            
-            # Create a temporary single-probe list for the efficacy check
-            forget_check_probes_for_pre_check = [{
-                "question": case["forget_request"]["question"],
-                "answer": case["forget_probes"][0]["answer"] # Use the full answer list from forget_probes
-            }]
+            case_result = {
+                "case_id": case.get("case_id"),
+                "metadata": case.get("metadata"),
+                "passed_pre_check": False,
+                "probes": []
+            }
 
-            initial_knowledge = ripple_metrics.forget_efficacy(model, self.tokenizer, forget_check_probes_for_pre_check)
-            
-            # If forget_efficacy_rate is 1.0, it means the model does NOT know the fact (i.e., it's already "forgotten").
+            # --- PRE-CHECK ---
+            forget_check_probes_for_pre_check = [{"question": case["forget_request"]["question"], "answer": case["forget_probes"][0]["answer"]}]
+            initial_knowledge = ripple_metrics.forget_efficacy(
+                model, metric_name="forget_efficacy_pre_check", cache={}, tokenizer=self.tokenizer, probes=forget_check_probes_for_pre_check, template_args=self.template_args
+            )
+            # A forget_efficacy_rate of 1.0 means the model *already* doesn't know the answer.
             if initial_knowledge["forget_efficacy_rate"] == 1.0:
-                logger.warning(
-                    f"SKIPPING case: Model does not know the fact to be unlearned. "
-                    f"Fact: {case['forget_request']['question']} -> {case['forget_request']['answer']}"
-                )
+                logger.warning(f"🟡 SKIPPING CASE: Model already does not know the fact to be unlearned.")
                 skipped_cases += 1
+                detailed_results.append(case_result) # Add even skipped cases for completeness
                 continue
+            else:
+                logger.info(f"✅ PRE-CHECK PASSED: Model correctly knows the fact that needs to be unlearned.")
+                case_result["passed_pre_check"] = True
 
-            # If the pre-check passes (model knows the fact), proceed with unlearning.
+            # --- Get pre-unlearning answers for all relevant probes ---
+            probes_to_log = {
+                "Forget": case["forget_probes"][0] if case.get("forget_probes") else None,
+                "Consistency": case["consistency_probes"][0] if case.get("consistency_probes") else None,
+                "Retain": case["retain_probes"][0] if case.get("retain_probes") else None,
+            }
+            clean_answers = {}
+            for name, probe in probes_to_log.items():
+                if probe:
+                    clean_answers[name] = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe)
+
+            # --- Unlearning Step ---
             model.load_state_dict(torch.load(self.temp_model_state_path))
+            
+            # Re-initialize the trainer to prevent state accumulation across iterations
+            trainer_cfg = self.eval_cfg.get("trainer")
+            data_collator = DataCollatorForSupervisedDataset(tokenizer=self.tokenizer)
+            self.trainer, trainer_args = load_trainer(
+                trainer_cfg=trainer_cfg, model=model, train_dataset=[], data_collator=data_collator
+            )
+            trainer_args.remove_unused_columns = False
+            self.trainer.args = trainer_args
 
             forget_request = case["forget_request"]
-            forget_sample = self._tokenize_qa(self.tokenizer, forget_request["question"], forget_request["answer"])
-            forget_sample = {k: v.to(self.model.device) for k, v in forget_sample.items()}
-            forget_dataset = _TempDataset([forget_sample])
-
-            retain_probes = case.get("retain_probes", [])
-            if retain_probes:
-                retain_samples = [self._tokenize_qa(self.tokenizer, probe["question"], probe["answer"][0]) for probe in retain_probes]
-                retain_samples = [{k: v.to(self.model.device) for k,v in sample.items()} for sample in retain_samples]
-            else:
-                # Create a dummy sample if no retain probes exist
-                dummy_sample = self._tokenize_qa(self.tokenizer, " ", " ")
-                retain_samples = [{k: v.to(self.model.device) for k, v in dummy_sample.items()}]
+            forget_dataset = [self._tokenize_qa(self.tokenizer, self.template_args, forget_request["question"], forget_request["answer"])]
             
-            retain_dataset = _TempDataset(retain_samples)
+            retain_samples = [self._tokenize_qa(self.tokenizer, self.template_args, p["question"], p["answer"][0]) for p in case.get("retain_probes", []) if p.get("answer")]
+            if not retain_samples:
+                retain_samples.append(self._tokenize_qa(self.tokenizer, self.template_args, " ", " ")) # Dummy sample if no retain probes
 
-            unlearn_dataset = ForgetRetainDataset(forget=forget_dataset, retain=retain_dataset, anchor="forget")
-
-            logger.info(f"Unlearning fact: {forget_request['question']} -> {forget_request['answer']}")
-            self.trainer.train(model=model, train_dataset=unlearn_dataset)
+            unlearn_dataset = ForgetRetainDataset(forget=forget_dataset, retain=retain_samples, anchor="forget")
+            self.trainer.train_dataset = unlearn_dataset
+            self.trainer.train()
             
+            # --- Evaluation Step ---
             with torch.no_grad():
                 model.eval()
 
-                efficacy_result = ripple_metrics.forget_efficacy(model, self.tokenizer, case.get("forget_probes", []))
-                all_results["forget_efficacy_rate"].append(efficacy_result["forget_efficacy_rate"])
-
-                inconsistency_result = ripple_metrics.logical_inconsistency(model, self.tokenizer, case.get("consistency_probes", []))
-                all_results["logical_inconsistency_rate"].append(inconsistency_result["logical_inconsistency_rate"])
+                # --- Qualitative and Detailed Logging ---
+                logger.info("\n" + "="*80)
+                logger.info(f"📊 ANALYSIS FOR CASE: {case.get('case_id', 'N/A')}")
+                logger.info("=" * 80)
                 
-                retain_result = ripple_metrics.retain_accuracy(model, self.tokenizer, case.get("retain_probes", []))
-                all_results["retain_accuracy_rate"].append(retain_result["retain_accuracy_rate"])
+                # Process Forget Probes
+                forget_probes = case.get("forget_probes", [])
+                if forget_probes:
+                    unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, forget_probes[0])
+                    has_answer = check_answers(unlearned_answer, forget_probes[0]['answer'])
+                    did_forget = not has_answer
+                    aggregated_results["forget_efficacy_rate"].append(1.0 if did_forget else 0.0)
+                    case_result["probes"].append({
+                        "type": "forget",
+                        "question": forget_probes[0]['question'],
+                        "expected_answer": forget_probes[0]['answer'],
+                        "clean_model_answer": clean_answers.get("Forget"),
+                        "unlearned_model_answer": unlearned_answer,
+                        "evaluation": {"did_forget": did_forget}
+                    })
+                    logger.info(f"🔹 Probe: Forget -> {'✅ FORGOT' if did_forget else '❌ FAILED TO FORGET'}")
+
+                # Process Consistency Probes
+                consistency_probes = case.get("consistency_probes", [])
+                if consistency_probes:
+                    unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, consistency_probes[0])
+                    has_answer = check_answers(unlearned_answer, consistency_probes[0]['answer'])
+                    is_consistent = not has_answer
+                    aggregated_results["logical_inconsistency_rate"].append(0.0 if is_consistent else 1.0)
+                    case_result["probes"].append({
+                        "type": "consistency",
+                        "question": consistency_probes[0]['question'],
+                        "expected_answer": consistency_probes[0]['answer'],
+                        "clean_model_answer": clean_answers.get("Consistency"),
+                        "unlearned_model_answer": unlearned_answer,
+                        "evaluation": {"is_consistent": is_consistent}
+                    })
+                    logger.info(f"🔹 Probe: Consistency -> {'✅ CONSISTENT' if is_consistent else '❌ INCONSISTENT'}")
+                
+                # Process Retain Probes
+                retain_probes = case.get("retain_probes", [])
+                if retain_probes:
+                    unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, retain_probes[0])
+                    has_answer = check_answers(unlearned_answer, retain_probes[0]['answer'])
+                    did_retain = has_answer
+                    aggregated_results["retain_accuracy_rate"].append(1.0 if did_retain else 0.0)
+                    case_result["probes"].append({
+                        "type": "retain",
+                        "question": retain_probes[0]['question'],
+                        "expected_answer": retain_probes[0]['answer'],
+                        "clean_model_answer": clean_answers.get("Retain"),
+                        "unlearned_model_answer": unlearned_answer,
+                        "evaluation": {"did_retain": did_retain}
+                    })
+                    logger.info(f"🔹 Probe: Retain -> {'✅ RETAINED' if did_retain else '❌ FORGOT'}")
+                logger.info("\n" + "=" * 80)
+
+            detailed_results.append(case_result)
 
         if os.path.exists(self.temp_model_state_path):
             os.remove(self.temp_model_state_path)
             logger.info("Cleaned up temporary model state.")
 
-        final_results = {}
-        for key, values in all_results.items():
-            if values:
-                final_results[f"mean_{key}"] = sum(values) / len(values)
-            else:
-                final_results[f"mean_{key}"] = 0.0
-        
-        final_results["skipped_cases"] = skipped_cases
-        total_cases = len(dataset)
-        evaluated_cases = total_cases - skipped_cases
-        final_results["total_cases"] = total_cases
-        final_results["evaluated_cases"] = evaluated_cases
-
-        logger.info(f"Final Aggregated Results: {final_results}")
-        
-        # Save final results
+        # --- Save Results ---
         output_dir = self.eval_cfg.output_dir
         os.makedirs(output_dir, exist_ok=True)
+        
+        # Save detailed results
+        detailed_summary_path = os.path.join(output_dir, "ripple_unlearning_detailed_results.json")
+        with open(detailed_summary_path, 'w') as f:
+            json.dump(detailed_results, f, indent=4)
+        logger.info(f"Detailed evaluation results saved to {detailed_summary_path}")
+
+        # Calculate and save aggregated summary
+        final_results = {}
+        for key, values in aggregated_results.items():
+            final_results[f"mean_{key}"] = sum(values) / len(values) if values else 0.0
+        
+        final_results["skipped_cases"] = skipped_cases
+        final_results["total_cases"] = len(dataset)
+        final_results["evaluated_cases"] = len(dataset) - skipped_cases
+        logger.info(f"Final Aggregated Results: {final_results}")
+        
         summary_path = os.path.join(output_dir, "ripple_unlearning_summary.json")
         with open(summary_path, 'w') as f:
             json.dump(final_results, f, indent=4)
-
-        logger.info(f"Ripple Unlearning evaluation summary saved to {summary_path}")
+        logger.info(f"Aggregated evaluation summary saved to {summary_path}")
 
         return final_results
+
