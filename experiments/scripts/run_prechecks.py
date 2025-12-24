@@ -13,18 +13,33 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # This is a hack to import from the parent directory and the open-unlearning framework
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'third_party', 'open-unlearning')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'third_party', 'open-unlearning', 'src')))
 
-from src.data.ripple_dataset import RippleUnlearningDataset
-from src.evals.metrics.ripple_metrics import check_answers
+from data.ripple_dataset import RippleUnlearningDataset
+from evals.metrics.ripple_metrics import check_answers
 
 # Configure basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def get_model_answer(model, tokenizer, question: str, device: str) -> str:
-    """Generates a text answer for a given question."""
-    inputs = tokenizer(question, return_tensors="pt").to(device)
-    input_length = inputs['input_ids'].shape[1]
+def get_model_answer(model, tokenizer, template_args: dict, question: str, device: str) -> str:
+    """Generates a text answer for a given question, applying chat template if specified."""
+    chat = []
+    if template_args.get("apply_chat_template"):
+        system_prompt = template_args.get("system_prompt")
+        if system_prompt:
+            chat.append({"role": "system", "content": system_prompt})
+        chat.append({"role": "user", "content": question})
+
+        input_ids = tokenizer.apply_chat_template(
+            chat, 
+            add_generation_prompt=True, 
+            return_tensors="pt"
+        ).to(model.device)
+        inputs = {'input_ids': input_ids}
+        input_length = inputs['input_ids'].shape[1]
+    else: # Fallback for non-chat models
+        inputs = tokenizer(question, return_tensors="pt").to(device)
+        input_length = inputs['input_ids'].shape[1]
 
     outputs = model.generate(
         **inputs,
@@ -47,6 +62,12 @@ def run_prechecks(args):
     tokenizer = AutoTokenizer.from_pretrained(args.model_id)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
+
+    # Define template_args based on user's request
+    template_args = {
+        "apply_chat_template": True,
+        "system_prompt": "You are a machine focused on providing concise, factual answers. Your task is to answer the user's question directly. Do not include any introductory phrases, explanations, or conversational filler. Output only the direct answer.",
+    }
 
     model_name_safe = args.model_id.replace("/", "_")
     summary_stats = {
@@ -80,7 +101,7 @@ def run_prechecks(args):
             forget_question = forget_probe["question"]
             expected_forget_answer = forget_probe["answer"]
             
-            model_answer = get_model_answer(model, tokenizer, forget_question, device)
+            model_answer = get_model_answer(model, tokenizer, template_args, forget_question, device)
             knows_forget_fact = check_answers(model_answer, expected_forget_answer)
 
             if not knows_forget_fact:
@@ -95,7 +116,7 @@ def run_prechecks(args):
                 probe_type = probe.get("type", "unknown")
                 benchmark_summary[probe_type]["total_probes"] += 1
 
-                model_answer = get_model_answer(model, tokenizer, probe["question"], device)
+                model_answer = get_model_answer(model, tokenizer, template_args, probe["question"], device)
                 if check_answers(model_answer, probe["answer"]):
                     passed_consistency_probes.append(probe)
                     benchmark_summary[probe_type]["passed_probes"] += 1
