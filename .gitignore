@@ -23,6 +23,10 @@ dist/
 /results/
 *.log
 temp_model_state.pt
+saves/eval/ripple_unlearning_popular_eval/
 
 # Add specific large files to ignore
 third_party/RippleEdits/src/wikidata/extracted_ent_label2id/ent_label2id.json
+
+# Environment Variable
+.env
