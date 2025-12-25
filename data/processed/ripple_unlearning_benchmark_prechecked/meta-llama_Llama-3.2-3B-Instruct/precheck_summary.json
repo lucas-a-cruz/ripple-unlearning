@@ -1,0 +1,31 @@
+{
+    "model_id": "meta-llama/Llama-3.2-3B-Instruct",
+    "benchmarks": {
+        "random": {
+            "total": {
+                "cases": 1922
+            },
+            "skipped_by_forget_check": {
+                "cases": 1318
+            },
+            "Compositionality_I": {
+                "total_probes": 902,
+                "passed_probes": 295
+            },
+            "Subject_Aliasing": {
+                "total_probes": 833,
+                "passed_probes": 623
+            },
+            "final_passed_cases": {
+                "cases": 525
+            },
+            "skipped_by_consistency_check": {
+                "cases": 79
+            },
+            "Forgetfulness": {
+                "total_probes": 57,
+                "passed_probes": 37
+            }
+        }
+    }
+}
