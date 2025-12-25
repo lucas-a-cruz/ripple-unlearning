@@ -184,6 +184,7 @@ class RippleUnlearningEvaluator(Evaluator):
             self.trainer, trainer_args = load_trainer(
                 trainer_cfg=trainer_cfg, model=model, train_dataset=[], data_collator=data_collator
             )
+            logger.info(f"Loaded Unlearning Trainer: {self.trainer.__class__.__name__}")
             trainer_args.remove_unused_columns = False
             self.trainer.args = trainer_args
 
