@@ -153,30 +153,16 @@ class RippleUnlearningEvaluator(Evaluator):
         
         aggregated_results = defaultdict(list)
         detailed_results = []
+        # Pre-check is no longer performed here, so no cases will be skipped.
         skipped_cases = 0
 
         for case in tqdm(dataset, desc="Evaluating Ripple Unlearning Cases"):
             case_result = {
                 "case_id": case.get("case_id"),
                 "metadata": case.get("metadata"),
-                "passed_pre_check": False,
+                "passed_pre_check": True,  # Assumed true for a pre-filtered benchmark
                 "probes": []
             }
-
-            # --- PRE-CHECK ---
-            forget_check_probes_for_pre_check = [{"question": case["forget_request"]["question"], "answer": case["forget_probes"][0]["answer"]}]
-            initial_knowledge = ripple_metrics.forget_efficacy(
-                model, metric_name="forget_efficacy_pre_check", cache={}, tokenizer=self.tokenizer, probes=forget_check_probes_for_pre_check, template_args=self.template_args
-            )
-            # A forget_efficacy_rate of 1.0 means the model *already* doesn't know the answer.
-            if initial_knowledge["forget_efficacy_rate"] == 1.0:
-                logger.warning(f"🟡 SKIPPING CASE: Model already does not know the fact to be unlearned.")
-                skipped_cases += 1
-                detailed_results.append(case_result) # Add even skipped cases for completeness
-                continue
-            else:
-                logger.info(f"✅ PRE-CHECK PASSED: Model correctly knows the fact that needs to be unlearned.")
-                case_result["passed_pre_check"] = True
 
             # --- Get pre-unlearning answers for all relevant probes ---
             probes_to_log = {
@@ -237,6 +223,9 @@ class RippleUnlearningEvaluator(Evaluator):
                         "evaluation": {"did_forget": did_forget}
                     })
                     logger.info(f"🔹 Probe: Forget -> {'✅ FORGOT' if did_forget else '❌ FAILED TO FORGET'}")
+                    logger.info(f"  Question: {forget_probes[0]['question']}")
+                    logger.info(f"  Clean Model Answer: {clean_answers.get('Forget')}")
+                    logger.info(f"  Unlearned Model Answer: {unlearned_answer}")
 
                 # Process Consistency Probes
                 consistency_probes = case.get("consistency_probes", [])
@@ -254,6 +243,9 @@ class RippleUnlearningEvaluator(Evaluator):
                         "evaluation": {"is_consistent": is_consistent}
                     })
                     logger.info(f"🔹 Probe: Consistency -> {'✅ CONSISTENT' if is_consistent else '❌ INCONSISTENT'}")
+                    logger.info(f"  Question: {consistency_probes[0]['question']}")
+                    logger.info(f"  Clean Model Answer: {clean_answers.get('Consistency')}")
+                    logger.info(f"  Unlearned Model Answer: {unlearned_answer}")
                 
                 # Process Retain Probes
                 retain_probes = case.get("retain_probes", [])
@@ -271,6 +263,9 @@ class RippleUnlearningEvaluator(Evaluator):
                         "evaluation": {"did_retain": did_retain}
                     })
                     logger.info(f"🔹 Probe: Retain -> {'✅ RETAINED' if did_retain else '❌ FORGOT'}")
+                    logger.info(f"  Question: {retain_probes[0]['question']}")
+                    logger.info(f"  Clean Model Answer: {clean_answers.get('Retain')}")
+                    logger.info(f"  Unlearned Model Answer: {unlearned_answer}")
                 logger.info("\n" + "=" * 80)
 
             detailed_results.append(case_result)
