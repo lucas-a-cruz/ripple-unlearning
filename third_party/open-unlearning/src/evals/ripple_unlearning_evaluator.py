@@ -6,6 +6,7 @@ from collections import defaultdict
 from typing import Any, Dict, List
 
 import torch
+import evaluate
 from data.collators import DataCollatorForSupervisedDataset
 from data.ripple_dataset import RippleUnlearningDataset
 from data.unlearn import ForgetRetainDataset
@@ -16,6 +17,7 @@ from transformers import AutoModelForCausalLM
 
 from .base import Evaluator
 # Ensure the metrics are registered
+from evals.metrics.utils import evaluate_probability
 from evals.metrics import ripple_metrics
 from evals.metrics.ripple_metrics import check_answers
 
@@ -31,7 +33,35 @@ class RippleUnlearningEvaluator(Evaluator):
         self.trainer = None
         self.temp_model_state_path = "temp_model_state.pt"
 
+    def _get_prob_of_answer(self, model, question, answer) -> float:
+        """
+        Calculates the probability of a model generating a specific answer for a given question.
+        Reuses the framework's `evaluate_probability` utility.
+        """
+        if not answer or not isinstance(answer, str):
+            return 0.0
 
+        tokenized_pair = self._tokenize_qa(self.tokenizer, self.template_args, question, answer)
+        
+        # Create a batch of size 1
+        batch = {
+            "input_ids": tokenized_pair['input_ids'].unsqueeze(0),
+            "attention_mask": tokenized_pair['attention_mask'].unsqueeze(0),
+            "labels": tokenized_pair['labels'].unsqueeze(0)
+        }
+        
+        # Move batch to model's device
+        for k, v in batch.items():
+            batch[k] = v.to(model.device)
+
+        with torch.no_grad():
+            # evaluate_probability expects a batch and returns a list of dicts
+            prob_results = evaluate_probability(model, batch)
+        
+        if prob_results and prob_results[0] and "prob" in prob_results[0]:
+            return prob_results[0]["prob"]
+        
+        return 0.0
 
     @staticmethod
     def _tokenize_qa(tokenizer, template_args, question: str, answer: str) -> Dict[str, torch.Tensor]:
@@ -138,6 +168,8 @@ class RippleUnlearningEvaluator(Evaluator):
         if self.tokenizer is None or self.template_args is None:
             raise ValueError("Tokenizer and template_args must be provided to RippleUnlearningEvaluator")
 
+        rouge_scorer = evaluate.load('rouge')
+        
         dataset_path = self.eval_cfg.data.ripple_unlearning.args.path
         if not os.path.exists(dataset_path):
             raise FileNotFoundError(f"Dataset not found at {dataset_path}. Please provide a valid path via `data.ripple_unlearning.args.path`.")
@@ -173,7 +205,19 @@ class RippleUnlearningEvaluator(Evaluator):
             clean_answers = {}
             for name, probe in probes_to_log.items():
                 if probe:
-                    clean_answers[name] = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe)
+                    text_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe)
+                    prob_answer = self._get_prob_of_answer(model, probe["question"], probe.get("answer"))
+                    rouge_result = rouge_scorer.compute(
+                        predictions=[text_answer],
+                        references=[probe.get("answer","")],
+                        use_stemmer=True
+                    )
+                    clean_answers[name] = {
+                        "text": text_answer,
+                        "prob": prob_answer,
+                        "rouge-l": rouge_result['rougeL']
+                    }
+
 
             # --- Unlearning Step ---
             model.load_state_dict(torch.load(self.temp_model_state_path))
@@ -211,62 +255,113 @@ class RippleUnlearningEvaluator(Evaluator):
                 # Process Forget Probes
                 forget_probes = case.get("forget_probes", [])
                 if forget_probes:
-                    unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, forget_probes[0])
-                    has_answer = check_answers(unlearned_answer, forget_probes[0]['answer'])
+                    probe_data = forget_probes[0]
+                    unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe_data)
+                    unlearned_prob = self._get_prob_of_answer(model, probe_data["question"], probe_data.get("answer"))
+                    unlearned_rouge_result = rouge_scorer.compute(predictions=[unlearned_answer], references=[probe_data.get("answer", "")], use_stemmer=True)
+                    unlearned_rouge_l = unlearned_rouge_result['rougeL']
+                    
+                    has_answer = check_answers(unlearned_answer, probe_data['answer'])
                     did_forget = not has_answer
+                    
                     aggregated_results["forget_efficacy_rate"].append(1.0 if did_forget else 0.0)
+                    aggregated_results["clean_forget_prob"].append(clean_answers.get("Forget", {}).get("prob", 0.0))
+                    aggregated_results["unlearned_forget_prob"].append(unlearned_prob)
+                    aggregated_results["clean_forget_rouge_l"].append(clean_answers.get("Forget", {}).get("rouge-l", 0.0))
+                    aggregated_results["unlearned_forget_rouge_l"].append(unlearned_rouge_l)
+
                     case_result["probes"].append({
                         "type": "forget",
-                        "question": forget_probes[0]['question'],
-                        "expected_answer": forget_probes[0]['answer'],
-                        "clean_model_answer": clean_answers.get("Forget"),
+                        "question": probe_data['question'],
+                        "expected_answer": probe_data['answer'],
+                        "clean_model_answer": clean_answers.get("Forget", {}).get("text"),
                         "unlearned_model_answer": unlearned_answer,
-                        "evaluation": {"did_forget": did_forget}
+                        "evaluation": {
+                            "did_forget": did_forget,
+                            "clean_prob": clean_answers.get("Forget", {}).get("prob"),
+                            "unlearned_prob": unlearned_prob,
+                            "clean_rouge_l": clean_answers.get("Forget", {}).get("rouge-l"),
+                            "unlearned_rouge_l": unlearned_rouge_l
+                        }
                     })
                     logger.info(f"🔹 Probe: Forget -> {'✅ FORGOT' if did_forget else '❌ FAILED TO FORGET'}")
-                    logger.info(f"  Question: {forget_probes[0]['question']}")
-                    logger.info(f"  Clean Model Answer: {clean_answers.get('Forget')}")
-                    logger.info(f"  Unlearned Model Answer: {unlearned_answer}")
+                    logger.info(f"  Question: {probe_data['question']}")
+                    logger.info(f"  Clean Model Answer: {clean_answers.get('Forget', {}).get('text')} (Prob: {clean_answers.get('Forget', {}).get('prob', 0.0):.4f}, ROUGE-L: {clean_answers.get('Forget', {}).get('rouge-l', 0.0):.4f})")
+                    logger.info(f"  Unlearned Model Answer: {unlearned_answer} (Prob: {unlearned_prob:.4f}, ROUGE-L: {unlearned_rouge_l:.4f})")
 
                 # Process Consistency Probes
                 consistency_probes = case.get("consistency_probes", [])
                 if consistency_probes:
-                    unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, consistency_probes[0])
-                    has_answer = check_answers(unlearned_answer, consistency_probes[0]['answer'])
+                    probe_data = consistency_probes[0]
+                    unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe_data)
+                    unlearned_prob = self._get_prob_of_answer(model, probe_data["question"], probe_data.get("answer"))
+                    unlearned_rouge_result = rouge_scorer.compute(predictions=[unlearned_answer], references=[probe_data.get("answer", "")], use_stemmer=True)
+                    unlearned_rouge_l = unlearned_rouge_result['rougeL']
+                    
+                    has_answer = check_answers(unlearned_answer, probe_data['answer'])
                     is_consistent = not has_answer
+
                     aggregated_results["logical_inconsistency_rate"].append(0.0 if is_consistent else 1.0)
+                    aggregated_results["clean_consistency_prob"].append(clean_answers.get("Consistency", {}).get("prob", 0.0))
+                    aggregated_results["unlearned_consistency_prob"].append(unlearned_prob)
+                    aggregated_results["clean_consistency_rouge_l"].append(clean_answers.get("Consistency", {}).get("rouge-l", 0.0))
+                    aggregated_results["unlearned_consistency_rouge_l"].append(unlearned_rouge_l)
+                    
                     case_result["probes"].append({
                         "type": "consistency",
-                        "question": consistency_probes[0]['question'],
-                        "expected_answer": consistency_probes[0]['answer'],
-                        "clean_model_answer": clean_answers.get("Consistency"),
+                        "question": probe_data['question'],
+                        "expected_answer": probe_data['answer'],
+                        "clean_model_answer": clean_answers.get("Consistency", {}).get("text"),
                         "unlearned_model_answer": unlearned_answer,
-                        "evaluation": {"is_consistent": is_consistent}
+                        "evaluation": {
+                            "is_consistent": is_consistent,
+                            "clean_prob": clean_answers.get("Consistency", {}).get("prob"),
+                            "unlearned_prob": unlearned_prob,
+                            "clean_rouge_l": clean_answers.get("Consistency", {}).get("rouge-l"),
+                            "unlearned_rouge_l": unlearned_rouge_l
+                        }
                     })
                     logger.info(f"🔹 Probe: Consistency -> {'✅ CONSISTENT' if is_consistent else '❌ INCONSISTENT'}")
-                    logger.info(f"  Question: {consistency_probes[0]['question']}")
-                    logger.info(f"  Clean Model Answer: {clean_answers.get('Consistency')}")
-                    logger.info(f"  Unlearned Model Answer: {unlearned_answer}")
+                    logger.info(f"  Question: {probe_data['question']}")
+                    logger.info(f"  Clean Model Answer: {clean_answers.get('Consistency', {}).get('text')} (Prob: {clean_answers.get('Consistency', {}).get('prob', 0.0):.4f}, ROUGE-L: {clean_answers.get('Consistency', {}).get('rouge-l', 0.0):.4f})")
+                    logger.info(f"  Unlearned Model Answer: {unlearned_answer} (Prob: {unlearned_prob:.4f}, ROUGE-L: {unlearned_rouge_l:.4f})")
                 
                 # Process Retain Probes
                 retain_probes = case.get("retain_probes", [])
                 if retain_probes:
-                    unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, retain_probes[0])
-                    has_answer = check_answers(unlearned_answer, retain_probes[0]['answer'])
+                    probe_data = retain_probes[0]
+                    unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe_data)
+                    unlearned_prob = self._get_prob_of_answer(model, probe_data["question"], probe_data.get("answer"))
+                    unlearned_rouge_result = rouge_scorer.compute(predictions=[unlearned_answer], references=[probe_data.get("answer", "")], use_stemmer=True)
+                    unlearned_rouge_l = unlearned_rouge_result['rougeL']
+
+                    has_answer = check_answers(unlearned_answer, probe_data['answer'])
                     did_retain = has_answer
+
                     aggregated_results["retain_accuracy_rate"].append(1.0 if did_retain else 0.0)
+                    aggregated_results["clean_retain_prob"].append(clean_answers.get("Retain", {}).get("prob", 0.0))
+                    aggregated_results["unlearned_retain_prob"].append(unlearned_prob)
+                    aggregated_results["clean_retain_rouge_l"].append(clean_answers.get("Retain", {}).get("rouge-l", 0.0))
+                    aggregated_results["unlearned_retain_rouge_l"].append(unlearned_rouge_l)
+                    
                     case_result["probes"].append({
                         "type": "retain",
-                        "question": retain_probes[0]['question'],
-                        "expected_answer": retain_probes[0]['answer'],
-                        "clean_model_answer": clean_answers.get("Retain"),
+                        "question": probe_data['question'],
+                        "expected_answer": probe_data['answer'],
+                        "clean_model_answer": clean_answers.get("Retain", {}).get("text"),
                         "unlearned_model_answer": unlearned_answer,
-                        "evaluation": {"did_retain": did_retain}
+                        "evaluation": {
+                            "did_retain": did_retain,
+                            "clean_prob": clean_answers.get("Retain", {}).get("prob"),
+                            "unlearned_prob": unlearned_prob,
+                            "clean_rouge_l": clean_answers.get("Retain", {}).get("rouge-l"),
+                            "unlearned_rouge_l": unlearned_rouge_l
+                        }
                     })
                     logger.info(f"🔹 Probe: Retain -> {'✅ RETAINED' if did_retain else '❌ FORGOT'}")
-                    logger.info(f"  Question: {retain_probes[0]['question']}")
-                    logger.info(f"  Clean Model Answer: {clean_answers.get('Retain')}")
-                    logger.info(f"  Unlearned Model Answer: {unlearned_answer}")
+                    logger.info(f"  Question: {probe_data['question']}")
+                    logger.info(f"  Clean Model Answer: {clean_answers.get('Retain', {}).get('text')} (Prob: {clean_answers.get('Retain', {}).get('prob', 0.0):.4f}, ROUGE-L: {clean_answers.get('Retain', {}).get('rouge-l', 0.0):.4f})")
+                    logger.info(f"  Unlearned Model Answer: {unlearned_answer} (Prob: {unlearned_prob:.4f}, ROUGE-L: {unlearned_rouge_l:.4f})")
                 logger.info("\n" + "=" * 80)
 
             detailed_results.append(case_result)
