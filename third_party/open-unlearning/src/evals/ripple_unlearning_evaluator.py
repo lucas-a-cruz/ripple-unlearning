@@ -4,6 +4,9 @@ import logging
 import os
 from collections import defaultdict
 from typing import Any, Dict, List
+import re 
+import numpy as np 
+import copy
 
 import torch
 import evaluate
@@ -13,15 +16,64 @@ from data.unlearn import ForgetRetainDataset
 from torch.utils.data import Dataset
 from tqdm import tqdm
 from trainer import load_trainer
-from transformers import AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, TrainerCallback, TrainerControl, TrainerState, TrainingArguments
 
 from .base import Evaluator
-# Ensure the metrics are registered
 from evals.metrics.utils import evaluate_probability
 from evals.metrics import ripple_metrics
 from evals.metrics.ripple_metrics import check_answers
 
 logger = logging.getLogger(__name__)
+
+class RippleEvalCallback(TrainerCallback):
+    """
+    Custom Callback to evaluate the model on specific probes at the end of each epoch.
+    """
+    def __init__(self, evaluator, probes_to_log, perturbed_answers_map, rouge_scorer, history_list):
+        self.evaluator = evaluator
+        self.probes_to_log = probes_to_log
+        self.perturbed_answers_map = perturbed_answers_map
+        self.rouge_scorer = rouge_scorer
+        self.history_list = history_list
+
+    def on_epoch_end(self, args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs):
+        model = kwargs['model']
+        tokenizer = kwargs['tokenizer']
+        
+        # Switch to eval mode to disable dropout/etc for consistent metrics
+        was_training = model.training
+        model.eval()
+        
+        epoch_metrics = {
+            "epoch": state.epoch,
+            "step": state.global_step,
+            "probes": {}
+        }
+        
+        logger.info(f"\n--- ⏱️ Epoch {state.epoch} Evaluation ---")
+        
+        with torch.no_grad():
+            for probe_name, probe_data in self.probes_to_log.items():
+                if probe_data:
+                    # Reuse the centralized evaluation logic
+                    metrics = self.evaluator._evaluate_single_probe(
+                        model, 
+                        probe_name, 
+                        probe_data, 
+                        self.perturbed_answers_map.get(probe_name),
+                        self.rouge_scorer
+                    )
+                    epoch_metrics["probes"][probe_name] = metrics
+                    
+                    # Log brief status
+                    tr_str = f"{metrics.get('truth_ratio', 0.0):.4f}"
+                    logger.info(f"  {probe_name}: TR={tr_str} | Prob={metrics['prob']:.4f} | ROUGE={metrics['rouge_l']:.4f}")
+
+        self.history_list.append(epoch_metrics)
+        
+        # Restore training state
+        if was_training:
+            model.train()
 
 class RippleUnlearningEvaluator(Evaluator):
     """
@@ -33,14 +85,13 @@ class RippleUnlearningEvaluator(Evaluator):
         self.trainer = None
         self.temp_model_state_path = "temp_model_state.pt"
 
-    def _get_metrics_for_answers(self, model, question, answers) -> dict:
+    def _get_loss_and_prob_for_answers(self, model, question, answers) -> Dict[str, float]:
         """
         Calculates the minimum loss and corresponding max probability over a list of possible answers.
         """
         if not answers:
             return {'loss': float('inf'), 'prob': 0.0}
         
-        # Ensure answers is a list, even if a single string is passed
         if isinstance(answers, str):
             answers = [answers]
 
@@ -65,15 +116,77 @@ class RippleUnlearningEvaluator(Evaluator):
                 if current_loss is not None:
                     min_loss = min(min_loss, current_loss)
 
-        max_prob = torch.exp(-torch.tensor(min_loss)).item() if min_loss != float('inf') else 0.0
+        max_prob = np.exp(-min_loss) if min_loss != float('inf') else 0.0
         return {'loss': min_loss if min_loss != float('inf') else -1.0, 'prob': max_prob}
+
+    def _get_perturbed_answers(self, question: str, answer: str) -> List[str]:
+        """
+        Generates plausible but incorrect answers for a given question-answer pair
+        by prompting the model itself.
+        """
+        # Few-shot prompting works best for smaller models to enforce format and conciseness.
+        prompt = (
+            "Task: Provide one plausible but incorrect answer for the following question. "
+            "The answer should be of the same entity type as the correct answer but factually wrong. "
+            "Keep the answer very short (1-5 words).\n\n"
+            "Question: What is the capital of France?\n"
+            "Correct Answer: Paris\n"
+            "Incorrect Answer: London\n\n"
+            "Question: Who wrote Harry Potter?\n"
+            "Correct Answer: J.K. Rowling\n"
+            "Incorrect Answer: Stephen King\n\n"
+            "Question: What is the currency of Japan?\n"
+            "Correct Answer: Yen\n"
+            "Incorrect Answer: Won\n\n"
+            f"Question: {question}?\n"
+            f"Correct Answer: {answer}\n"
+            "Incorrect Answer:"
+        )
+        
+        dummy_probe = {"question": prompt, "answer": ""} 
+        response_text = self._get_answer_for_probe(self.model, self.tokenizer, self.template_args, dummy_probe)
+        
+        # Clean up the response
+        perturbed_answer = response_text.strip().split('\n')[0].strip()
+        
+        # Remove any potential surrounding quotes if the model added them
+        if perturbed_answer.startswith('"') and perturbed_answer.endswith('"'):
+            perturbed_answer = perturbed_answer[1:-1]
+            
+        if perturbed_answer:
+             return [perturbed_answer]
+        
+        logger.warning(f"Failed to generate perturbed answer for '{question}' (got empty response)")
+        return []
+
+    def _get_truth_ratio(self, model_to_eval, question: str, correct_answer: str, perturbed_answers: List[str]) -> float:
+        """
+        Calculates the truth ratio for a given question, correct answer, and a list of perturbed answers.
+        truth_ratio = mean(prob_perturbed) / (prob_correct + 1e-10)
+        """
+        if not perturbed_answers or not correct_answer:
+            return 0.0
+            
+        metrics_correct = self._get_loss_and_prob_for_answers(model_to_eval, question, correct_answer)
+        prob_correct = metrics_correct['prob']
+
+        if prob_correct == 0.0: 
+            return 0.0
+
+        perturbed_probs = []
+        for p_answer in perturbed_answers:
+            metrics_p = self._get_loss_and_prob_for_answers(model_to_eval, question, p_answer)
+            perturbed_probs.append(metrics_p['prob'])
+
+        if not perturbed_probs:
+            return 0.0
+
+        avg_prob_perturbed = np.mean(perturbed_probs)
+        return prob_correct / (prob_correct + avg_prob_perturbed + 1e-10)
+
 
     @staticmethod
     def _tokenize_qa(tokenizer, template_args, question: str, answer: str) -> Dict[str, torch.Tensor]:
-        """
-        Tokenizes a question-answer pair using the model's chat template.
-        Returns a dictionary of CPU tensors.
-        """
         chat = []
         if template_args.get("apply_chat_template"):
             system_prompt = template_args.get("system_prompt")
@@ -89,8 +202,8 @@ class RippleUnlearningEvaluator(Evaluator):
             labels = list(tokenized_ids)
             labels[:q_len] = [-100] * q_len
             
-            item = {"input_ids": tokenized_ids, "attention_mask": [1] * len(tokenized_ids), "labels": labels}
-        else: # Fallback
+            item = {"input_ids": torch.tensor(tokenized_ids), "attention_mask": torch.tensor([1] * len(tokenized_ids)), "labels": torch.tensor(labels)}
+        else: 
             full_text = f"{question} {answer}"
             tokenized = tokenizer(full_text, add_special_tokens=False)
             question_tokens = tokenizer(question, add_special_tokens=False)['input_ids']
@@ -99,13 +212,12 @@ class RippleUnlearningEvaluator(Evaluator):
             labels = list(tokenized['input_ids'])
             labels[:q_len] = [-100] * q_len
             
-            item = {"input_ids": tokenized['input_ids'], "attention_mask": tokenized['attention_mask'], "labels": labels}
+            item = {"input_ids": torch.tensor(tokenized['input_ids']), "attention_mask": torch.tensor(tokenized['attention_mask']), "labels": torch.tensor(labels)}
         
-        return {k: torch.tensor(v) for k, v in item.items()}
+        return item
 
     @staticmethod
     def _get_answer_for_probe(model, tokenizer, template_args, probe, log_prompt: bool = False) -> str:
-        """Generates a text answer for a given probe question."""
         if not probe or "question" not in probe: return "Invalid Probe"
         question = probe["question"]
         
@@ -121,7 +233,7 @@ class RippleUnlearningEvaluator(Evaluator):
 
             inputs = {'input_ids': tokenizer.apply_chat_template(chat, add_generation_prompt=True, return_tensors="pt").to(model.device)}
             input_length = inputs['input_ids'].shape[1]
-        else: # Fallback
+        else: 
             if log_prompt: logger.info(f"\n[PROMPT FED TO MODEL]:\n---\n{question}\n---")
             inputs = tokenizer(question, return_tensors="pt").to(model.device)
             input_length = inputs['input_ids'].shape[1]
@@ -129,6 +241,46 @@ class RippleUnlearningEvaluator(Evaluator):
         stop_ids = [tokenizer.eos_token_id] + tokenizer.encode("\n", add_special_tokens=False)
         outputs = model.generate(**inputs, max_new_tokens=25, pad_token_id=tokenizer.eos_token_id, eos_token_id=stop_ids)
         return tokenizer.decode(outputs[0][input_length:], skip_special_tokens=True).strip()
+
+    def _evaluate_single_probe(self, model, probe_name, probe_data, perturbed_answers, rouge_scorer):
+        """
+        Helper method to evaluate a single probe. 
+        Returns a dictionary of metrics.
+        """
+        text_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe_data)
+        metrics = self._get_loss_and_prob_for_answers(model, probe_data["question"], probe_data.get("answer"))
+        
+        ref_answer = probe_data.get("answer")
+        if isinstance(ref_answer, list) and ref_answer:
+            ref_answer = ref_answer[0]
+        elif not isinstance(ref_answer, str):
+            ref_answer = ""
+        
+        rouge_result = rouge_scorer.compute(predictions=[text_answer], references=[ref_answer], use_stemmer=True)
+        
+        # Calculate TRUTH RATIO
+        tr_value = 0.0
+        if perturbed_answers:
+            tr_value = self._get_truth_ratio(model, probe_data["question"], probe_data.get("answer"), perturbed_answers)
+
+        result = {
+            "text": text_answer, 
+            "loss": metrics['loss'], 
+            "prob": metrics['prob'], 
+            "rouge_l": rouge_result['rougeL'],
+            "truth_ratio": tr_value
+        }
+        
+        # Add simple boolean flags for convenience
+        has_answer = check_answers(text_answer, probe_data.get("answer", ""))
+        if probe_name == "Forget":
+            result["did_forget"] = not has_answer
+        elif probe_name == "Consistency":
+            result["is_consistent"] = not has_answer
+        elif probe_name == "Retain":
+            result["did_retain"] = has_answer
+            
+        return result
 
     def evaluate(self, model: AutoModelForCausalLM, **kwargs):
         self.model, self.tokenizer, self.template_args = model, kwargs.get("tokenizer"), kwargs.get("template_args")
@@ -145,15 +297,23 @@ class RippleUnlearningEvaluator(Evaluator):
         logger.info(f"Loaded Ripple Unlearning dataset with {len(dataset)} cases.")
 
         # Limit dataset to 25 samples for quick testing
-        # dataset.data = dataset.data[:25]
-        # logger.info(f"🔪 Limiting evaluation to the first 25 cases for testing.")
+        dataset.data = dataset.data[:25]
+        logger.info(f"🔪 Limiting evaluation to the first 25 cases for testing.")
 
         torch.save(model.state_dict(), self.temp_model_state_path)
         
         aggregated_results, detailed_results = defaultdict(list), []
         skipped_cases = 0
 
+        # Create output directory early to allow incremental saving
+        output_dir = self.eval_cfg.output_dir
+        os.makedirs(output_dir, exist_ok=True)
+        detailed_json_path = os.path.join(output_dir, "ripple_unlearning_detailed_results.json")
+
         for case in tqdm(dataset, desc="Evaluating Ripple Unlearning Cases"):
+            # Initialize history for this case
+            case_history = []
+            
             case_result = {"case_id": case.get("case_id"), "metadata": case.get("metadata"), "passed_pre_check": True, "probes": []}
 
             probes_to_log = {
@@ -163,102 +323,123 @@ class RippleUnlearningEvaluator(Evaluator):
             }
             
             clean_answers = {}
+            perturbed_answers_map = {}
+
+            # --- PRE-GENERATION OF PERTURBED ANSWERS FOR ALL PROBES ---
+            for probe_name, probe_data in probes_to_log.items():
+                if probe_data:
+                    p_answers = self._get_perturbed_answers(probe_data["question"], probe_data.get("answer"))
+                    perturbed_answers_map[probe_name] = p_answers
+                    
+                    if p_answers:
+                        logger.info(f"Generated perturbed answer for [{probe_name}] probe (Case {case.get('case_id')}): {p_answers[0]}")
+                    else:
+                        logger.warning(f"⚠️ Failed to generate perturbed answers for [{probe_name}] probe.")
+
+            # --- CLEAN EVALUATION (Epoch 0) ---
+            epoch_0_metrics = {"epoch": 0, "probes": {}}
+            logger.info(f"\n--- ⏱️ Epoch 0 (Clean Model) Evaluation ---")
             for name, probe in probes_to_log.items():
                 if probe:
-                    text_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe)
-                    metrics = self._get_metrics_for_answers(model, probe["question"], probe.get("answer"))
-                    
-                    ref_answer = probe.get("answer")
-                    if isinstance(ref_answer, list) and ref_answer:
-                        ref_answer = ref_answer[0]
-                    elif not isinstance(ref_answer, str):
-                        ref_answer = ""
-                    
-                    rouge_result = rouge_scorer.compute(predictions=[text_answer], references=[ref_answer], use_stemmer=True)
-                    clean_answers[name] = {"text": text_answer, "loss": metrics['loss'], "prob": metrics['prob'], "rouge-l": rouge_result['rougeL']}
+                    metrics = self._evaluate_single_probe(model, name, probe, perturbed_answers_map.get(name), rouge_scorer)
+                    clean_answers[name] = metrics
+                    epoch_0_metrics["probes"][name] = metrics
 
+                    # Log brief status
+                    tr_str = f"{metrics.get('truth_ratio', 0.0):.4f}"
+                    logger.info(f"  {name}: TR={tr_str} | Prob={metrics['prob']:.4f} | ROUGE={metrics['rouge_l']:.4f}")
+            
+            case_history.append(epoch_0_metrics)
+                    
+            # --- UNLEARNING STEP ---
             model.load_state_dict(torch.load(self.temp_model_state_path))
             
             trainer_cfg = self.eval_cfg.get("trainer")
             self.trainer, trainer_args = load_trainer(trainer_cfg, model=model, train_dataset=[], data_collator=DataCollatorForSupervisedDataset(tokenizer=self.tokenizer))
-            logger.info(f"Loaded Unlearning Trainer: {self.trainer.__class__.__name__}")
             trainer_args.remove_unused_columns = False
             self.trainer.args = trainer_args
             
+            forget_request = case["forget_request"]
+            forget_dataset = [self._tokenize_qa(self.tokenizer, self.template_args, forget_request["question"], forget_request["answer"])]
+            
             retain_probes = case.get("retain_probes", [])
-            retain_answers = [p.get("answer") for p in retain_probes if p.get("answer")]
-            # Flatten the list of lists of answers and take the first answer of each
-            retain_first_answers = [ans[0] for ans in retain_answers if ans]
+            retain_answers_list_of_lists = [p.get("answer") for p in retain_probes if p.get("answer")]
+            retain_first_answers = [ans[0] for ans in retain_answers_list_of_lists if ans]
 
             self.trainer.train_dataset = ForgetRetainDataset(
-                forget=[self._tokenize_qa(self.tokenizer, self.template_args, case["forget_request"]["question"], case["forget_request"]["answer"])],
+                forget=forget_dataset,
                 retain=[self._tokenize_qa(self.tokenizer, self.template_args, p["question"], ans) for p, ans in zip(retain_probes, retain_first_answers)] or [self._tokenize_qa(self.tokenizer, self.template_args, " ", " ")]
             )
 
+            # REGISTER CALLBACK
+            self.trainer.add_callback(RippleEvalCallback(self, probes_to_log, perturbed_answers_map, rouge_scorer, case_history))
+
             self.trainer.train()
             
+            # --- AGGREGATE RESULTS ---
+            # We take the final state from case_history (last epoch)
+            final_metrics = case_history[-1]["probes"]
+            
             with torch.no_grad():
-                model.eval()
-                logger.info(f"\n{'='*80}\n📊 ANALYSIS FOR CASE: {case.get('case_id', 'N/A')}\n{'='*80}")
+                logger.info(f"\n{'='*80}\n📊 FINAL ANALYSIS FOR CASE: {case.get('case_id', 'N/A')}\n{'='*80}")
                 
-                for probe_type_name, probes in [("Forget", case.get("forget_probes", [])), ("Consistency", case.get("consistency_probes", [])), ("Retain", case.get("retain_probes", []))]:
-                    if probes:
-                        probe_data = probes[0]
-                        unlearned_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe_data)
-                        unlearned_metrics = self._get_metrics_for_answers(model, probe_data["question"], probe_data.get("answer"))
+                for probe_type_name in ["Forget", "Consistency", "Retain"]:
+                    if probe_type_name in final_metrics:
+                        final_res = final_metrics[probe_type_name]
+                        clean_res = clean_answers.get(probe_type_name, {})
                         
-                        ref_answer = probe_data.get("answer")
-                        if isinstance(ref_answer, list) and ref_answer:
-                            ref_answer = ref_answer[0]
-                        elif not isinstance(ref_answer, str):
-                            ref_answer = ""
-                        
-                        unlearned_rouge_result = rouge_scorer.compute(predictions=[unlearned_answer], references=[ref_answer], use_stemmer=True)
-                        unlearned_rouge_l = unlearned_rouge_result['rougeL']
-
-                        has_answer = check_answers(unlearned_answer, probe_data.get("answer", ""))
-                        
+                        # Prepare simplified eval_dict for aggregation logic
                         eval_dict = {
-                            "clean_loss": clean_answers.get(probe_type_name, {}).get("loss"), "unlearned_loss": unlearned_metrics['loss'],
-                            "clean_prob": clean_answers.get(probe_type_name, {}).get("prob"), "unlearned_prob": unlearned_metrics['prob'],
-                            "clean_rouge_l": clean_answers.get(probe_type_name, {}).get("rouge-l"), "unlearned_rouge_l": unlearned_rouge_l
+                            "clean_truth_ratio": clean_res.get("truth_ratio", 0.0),
+                            "unlearned_truth_ratio": final_res.get("truth_ratio", 0.0),
+                            "clean_rouge_l": clean_res.get("rouge_l", 0.0),
+                            "unlearned_rouge_l": final_res.get("rouge_l", 0.0),
+                            # Pass through booleans
+                            "did_forget": final_res.get("did_forget"),
+                            "is_consistent": final_res.get("is_consistent"),
+                            "did_retain": final_res.get("did_retain")
                         }
 
+                        # Metrics aggregation logic
                         if probe_type_name == "Forget":
-                            did_forget = not has_answer
-                            aggregated_results["forget_efficacy_rate"].append(1.0 if did_forget else 0.0)
-                            eval_dict["did_forget"] = did_forget
-                            log_status = f"Forget -> {'✅ FORGOT' if did_forget else '❌ FAILED TO FORGET'}"
+                            aggregated_results["forget_efficacy_rate"].append(1.0 if final_res["did_forget"] else 0.0)
+                            log_status = f"Forget -> {'✅ FORGOT' if final_res['did_forget'] else '❌ FAILED TO FORGET'}"
                         elif probe_type_name == "Consistency":
-                            is_consistent = not has_answer
-                            aggregated_results["logical_inconsistency_rate"].append(0.0 if is_consistent else 1.0)
-                            eval_dict["is_consistent"] = is_consistent
-                            log_status = f"Consistency -> {'✅ CONSISTENT' if is_consistent else '❌ INCONSISTENT'}"
+                            aggregated_results["logical_inconsistency_rate"].append(0.0 if final_res["is_consistent"] else 1.0)
+                            log_status = f"Consistency -> {'✅ CONSISTENT (Forgot)' if final_res['is_consistent'] else '❌ INCONSISTENT (Remembered)'}"
                         else: # Retain
-                            did_retain = has_answer
-                            aggregated_results["retain_accuracy_rate"].append(1.0 if did_retain else 0.0)
-                            eval_dict["did_retain"] = did_retain
-                            log_status = f"Retain -> {'✅ RETAINED' if did_retain else '❌ FORGOT'}"
+                            aggregated_results["retain_accuracy_rate"].append(1.0 if final_res["did_retain"] else 0.0)
+                            log_status = f"Retain -> {'✅ RETAINED' if final_res['did_retain'] else '❌ FORGOT'}"
 
+                        # Aggregate numeric values
                         for key, val in eval_dict.items():
-                             if val is not None and ('clean' in key or 'unlearned' in key):
+                             if isinstance(val, (int, float)) and ('clean' in key or 'unlearned' in key):
                                 key_name = f"{key.replace('clean_','clean_'+probe_type_name.lower()+'_').replace('unlearned_','unlearned_'+probe_type_name.lower()+'_')}"
                                 aggregated_results[key_name].append(val)
 
-                        case_result["probes"].append({"type": probe_type_name.lower(), "question": probe_data['question'], "expected_answer": probe_data['answer'], "clean_model_answer": clean_answers.get(probe_type_name, {}).get("text"), "unlearned_model_answer": unlearned_answer, "evaluation": eval_dict})
+                        # Add simplified structure to final output
+                        case_result["probes"].append({
+                            "type": probe_type_name.lower(),
+                            "clean_model_answer": clean_res.get("text"),
+                            "unlearned_model_answer": final_res.get("text"),
+                            "evaluation": eval_dict
+                        })
                         
                         logger.info(f"🔹 Probe: {log_status}")
-                        logger.info(f"  Question: {probe_data['question']}")
-                        logger.info(f"  Clean Model Answer: {clean_answers.get(probe_type_name, {}).get('text')} (Loss: {eval_dict['clean_loss']:.4f}, Prob: {eval_dict['clean_prob']:.4f}, ROUGE-L: {eval_dict['clean_rouge_l']:.4f})")
-                        logger.info(f"  Unlearned Model Answer: {unlearned_answer} (Loss: {eval_dict['unlearned_loss']:.4f}, Prob: {eval_dict['unlearned_prob']:.4f}, ROUGE-L: {eval_dict['unlearned_rouge_l']:.4f})")
+                        logger.info(f"  Clean TR: {clean_res.get('truth_ratio', 0.0):.4f} -> Final TR: {final_res.get('truth_ratio', 0.0):.4f}")
 
-                logger.info("\n" + "=" * 80)
+            # ATTACH HISTORY TO RESULT
+            case_result["history"] = case_history
             detailed_results.append(case_result)
 
+            # SAVE INCREMENTALLY (Critical for long runs)
+            # This ensures we don't lose data if the script crashes mid-way
+            with open(detailed_json_path, 'w') as f:
+                json.dump(detailed_results, f, indent=4)
+
         if os.path.exists(self.temp_model_state_path): os.remove(self.temp_model_state_path); logger.info("Cleaned up temporary model state.")
-        output_dir = self.eval_cfg.output_dir; os.makedirs(output_dir, exist_ok=True)
-        with open(os.path.join(output_dir, "ripple_unlearning_detailed_results.json"), 'w') as f: json.dump(detailed_results, f, indent=4)
-        logger.info(f"Detailed evaluation results saved to {os.path.join(output_dir, 'ripple_unlearning_detailed_results.json')}")
+        
+        logger.info(f"Detailed evaluation results saved to {detailed_json_path}")
         
         final_results = {f"mean_{key}": sum(values) / len(values) if values else 0.0 for key, values in aggregated_results.items()}
         final_results.update({"skipped_cases": skipped_cases, "total_cases": len(dataset), "evaluated_cases": len(dataset) - skipped_cases})
