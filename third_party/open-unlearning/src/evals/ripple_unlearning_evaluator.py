@@ -2,6 +2,7 @@
 import json
 import logging
 import os
+import time  # Added for sleep/wait logic
 
 # Fix for huggingface/tokenizers warning when using dataloader_num_workers
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -111,6 +112,46 @@ class RippleUnlearningEvaluator(Evaluator):
         self.worker_threads = 0
         logger.info("🚀 Stability Fix: Using 0 dataloader workers to prevent resource exhaustion.")
 
+    def _wait_for_memory(self, min_free_gib=1.5, timeout=120):
+        """
+        Bloqueia a execução se a memória livre da GPU for muito baixa.
+        Isso evita que o script tente alocar memória quando a GPU já está cheia.
+        """
+        if not torch.cuda.is_available():
+            return
+
+        start_time = time.time()
+        first_wait = True
+        
+        while True:
+            # Obtém info da GPU 0 (assumindo single-gpu ou device correto setado por env)
+            try:
+                free_bytes, total_bytes = torch.cuda.mem_get_info()
+                free_gib = free_bytes / (1024**3)
+            except Exception:
+                # Se falhar ao pegar info, assume que está ok para tentar
+                return
+
+            if free_gib >= min_free_gib:
+                if not first_wait:
+                    logger.info(f"✅ Memory freed! {free_gib:.2f} GiB available. Resuming...")
+                return
+
+            # Se estamos aqui, a memória está cheia
+            if first_wait:
+                logger.warning(f"⏳ Low GPU Memory ({free_gib:.2f} GiB free). Waiting for release (Target: {min_free_gib} GiB)...")
+                first_wait = False
+
+            # Tenta limpar o que pode
+            torch.cuda.empty_cache()
+            gc.collect()
+            
+            if time.time() - start_time > timeout:
+                logger.error(f"⚠️ Timeout waiting for memory after {timeout}s. Proceeding at risk...")
+                return
+            
+            time.sleep(5)  # Espera 5 segundos antes de checar de novo
+
     def _compute_batch_metrics(self, model, question: str, answers: List[str]) -> List[Dict[str, float]]:
         """
         Calculates metrics for multiple answers in parallel using GPU batching.
@@ -119,8 +160,8 @@ class RippleUnlearningEvaluator(Evaluator):
         if not answers:
             return []
 
-        # MEMORY SAFEGUARD: Processa em chunks de tamanho fixo
-        chunk_size = 8
+        # MEMORY SAFEGUARD: Reduced chunk size to prevent OOM spikes
+        chunk_size = 4
         all_results = []
 
         for i in range(0, len(answers), chunk_size):
@@ -173,7 +214,7 @@ class RippleUnlearningEvaluator(Evaluator):
                     all_results.append({'loss': l, 'prob': np.exp(-l)})
                 
                 # Limpeza explícita de tensores intermediários grandes
-                del outputs, logits, shift_logits, shift_labels, loss, input_ids_batch
+                del outputs, logits, shift_logits, shift_labels, loss, input_ids_batch, labels_batch, attention_mask_batch
                 torch.cuda.empty_cache() # Limpa cache após cada chunk pesado
         
         return all_results
@@ -269,7 +310,13 @@ class RippleUnlearningEvaluator(Evaluator):
             eos_token_id=stop_ids,
             do_sample=False
         )
-        return tokenizer.decode(outputs[0][input_length:], skip_special_tokens=True).strip()
+        decoded_text = tokenizer.decode(outputs[0][input_length:], skip_special_tokens=True).strip()
+        
+        # Aggressive cleanup of generation tensors
+        del inputs, outputs, stop_ids
+        torch.cuda.empty_cache()
+        
+        return decoded_text
 
     def _evaluate_single_probe(self, model, probe_name, probe_data, perturbed_answers, rouge_scorer):
         text_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe_data)
@@ -304,12 +351,25 @@ class RippleUnlearningEvaluator(Evaluator):
         output_dir = self.eval_cfg.output_dir
         os.makedirs(output_dir, exist_ok=True)
         
-        for case in tqdm(dataset, desc="Evaluating Ripple Unlearning"):
+        # Use enumerate to track iterations for periodic cleanup
+        for case_idx, case in enumerate(tqdm(dataset, desc="Evaluating Ripple Unlearning")):
             try:
-                # 1. Clean Memory Aggressively
+                # 0. Wait for Memory (Throttle)
+                # Ensure we have at least 1.0 GB free before starting a case
+                self._wait_for_memory(min_free_gib=1.0)
+                
+                # 0.5 Periodic Deep Cleanup (Every 10 cases)
+                if case_idx > 0 and case_idx % 10 == 0:
+                    logger.info("🧹 Periodic Aggressive Cleanup (every 10 cases)...")
+                    model.zero_grad(set_to_none=True)
+                    torch.cuda.empty_cache()
+                    gc.collect()
+                    time.sleep(2) # Allow OS to reclaim
+                    
+                
+                # 1. Clean Memory Aggressively from previous iter
                 model.zero_grad(set_to_none=True)
                 if self.trainer:
-                    # Manually delete heavy components
                     if hasattr(self.trainer, 'optimizer'): del self.trainer.optimizer
                     if hasattr(self.trainer, 'lr_scheduler'): del self.trainer.lr_scheduler
                     if hasattr(self.trainer, 'model_wrapped'): del self.trainer.model_wrapped
@@ -322,7 +382,7 @@ class RippleUnlearningEvaluator(Evaluator):
                 
                 # 2. Setup Case
                 case_history = []
-                case_id = case.get("case_id", "Unknown")
+                case_id = case.get("case_id", "unknown")
                 
                 probes_to_log = {
                     "Forget": case.get("forget_probes", [])[0] if case.get("forget_probes") else None,
@@ -331,7 +391,6 @@ class RippleUnlearningEvaluator(Evaluator):
                 }
                 
                 # 3. Pre-compute Perturbed Answers (Clean Model)
-                # IMPORTANTE: Carregar com map_location='cpu' para evitar duplicar VRAM antes de copiar para o modelo
                 model.load_state_dict(torch.load(self.temp_model_state_path, map_location='cpu'))
                 model.eval()
                 
@@ -378,7 +437,6 @@ class RippleUnlearningEvaluator(Evaluator):
                 # 6. Post-Case Cleanup
                 self.trainer.remove_callback(eval_cb)
                 del eval_cb
-                # Explicit cleanup of Trainer internals again
                 if hasattr(self.trainer, 'optimizer'): del self.trainer.optimizer
                 if hasattr(self.trainer, 'lr_scheduler'): del self.trainer.lr_scheduler
                 del self.trainer
@@ -424,7 +482,7 @@ class RippleUnlearningEvaluator(Evaluator):
                     json.dump(detailed_results, f, indent=4)
 
             except Exception as e:
-                logger.error(f"❌ Error evaluating case {case.get('case_id')}: {str(e)}")
+                logger.error(f"❌ Error evaluating case {case.get('case_id', 'unknown')}: {str(e)}")
                 skipped_cases += 1
                 if self.trainer:
                     del self.trainer
