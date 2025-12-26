@@ -5,6 +5,8 @@ import os
 
 # Fix for huggingface/tokenizers warning when using dataloader_num_workers
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+# Reduce memory fragmentation
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 import copy
 import gc
@@ -172,6 +174,7 @@ class RippleUnlearningEvaluator(Evaluator):
                 
                 # Limpeza explícita de tensores intermediários grandes
                 del outputs, logits, shift_logits, shift_labels, loss, input_ids_batch
+                torch.cuda.empty_cache() # Limpa cache após cada chunk pesado
         
         return all_results
 
@@ -238,11 +241,6 @@ class RippleUnlearningEvaluator(Evaluator):
             tokenized_ids = tokenizer(f"{question} {answer}", add_special_tokens=False)['input_ids']
             
         labels = list(tokenized_ids)
-        # Masking logic simplificada para ser robusta
-        # Assume que o último segmento é a resposta, mas aqui mascaramos tudo para consistência se não calcularmos a loss apenas na resposta
-        # Para metricas de probabilidade, geralmente queremos a loss total da sequência ou apenas da resposta.
-        # Aqui mantemos a lógica original: mask input? O código original mascarava prompt.
-        # Recalculando mask para ser seguro:
         return {"input_ids": torch.tensor(tokenized_ids), "attention_mask": torch.tensor([1] * len(tokenized_ids)), "labels": torch.tensor(labels)}
 
     @staticmethod
@@ -308,10 +306,17 @@ class RippleUnlearningEvaluator(Evaluator):
         
         for case in tqdm(dataset, desc="Evaluating Ripple Unlearning"):
             try:
-                # 1. Clean Memory
+                # 1. Clean Memory Aggressively
                 model.zero_grad(set_to_none=True)
                 if self.trainer:
+                    # Manually delete heavy components
+                    if hasattr(self.trainer, 'optimizer'): del self.trainer.optimizer
+                    if hasattr(self.trainer, 'lr_scheduler'): del self.trainer.lr_scheduler
+                    if hasattr(self.trainer, 'model_wrapped'): del self.trainer.model_wrapped
+                    if hasattr(self.trainer, 'model'): del self.trainer.model
+                    del self.trainer
                     self.trainer = None
+                
                 gc.collect()
                 torch.cuda.empty_cache()
                 
@@ -326,7 +331,8 @@ class RippleUnlearningEvaluator(Evaluator):
                 }
                 
                 # 3. Pre-compute Perturbed Answers (Clean Model)
-                model.load_state_dict(torch.load(self.temp_model_state_path))
+                # IMPORTANTE: Carregar com map_location='cpu' para evitar duplicar VRAM antes de copiar para o modelo
+                model.load_state_dict(torch.load(self.temp_model_state_path, map_location='cpu'))
                 model.eval()
                 
                 perturbed_map = {}
@@ -346,7 +352,6 @@ class RippleUnlearningEvaluator(Evaluator):
                 case_history.append(epoch_0_metrics)
                 
                 # 5. Training
-                # Ensure fresh gradients and memory
                 model.zero_grad(set_to_none=True)
                 
                 trainer_cfg = self.eval_cfg.get("trainer")
@@ -356,7 +361,6 @@ class RippleUnlearningEvaluator(Evaluator):
                 trainer_args.remove_unused_columns = False
                 self.trainer.args = trainer_args
                 
-                # Setup Dataset
                 forget_req = case["forget_request"]
                 forget_ds = [self._tokenize_qa(self.tokenizer, self.template_args, forget_req["question"], forget_req["answer"])]
                 
@@ -366,21 +370,25 @@ class RippleUnlearningEvaluator(Evaluator):
 
                 self.trainer.train_dataset = ForgetRetainDataset(forget=forget_ds, retain=retain_ds)
                 
-                # Callback creates circular reference, handle with care (or simply recreate)
                 eval_cb = RippleEvalCallback(self, probes_to_log, perturbed_map, rouge_scorer, case_history)
                 self.trainer.add_callback(eval_cb)
 
                 self.trainer.train()
                 
-                # 6. Post-Case Cleanup & Logging
+                # 6. Post-Case Cleanup
                 self.trainer.remove_callback(eval_cb)
                 del eval_cb
-                self.trainer = None # Break cycle
+                # Explicit cleanup of Trainer internals again
+                if hasattr(self.trainer, 'optimizer'): del self.trainer.optimizer
+                if hasattr(self.trainer, 'lr_scheduler'): del self.trainer.lr_scheduler
+                del self.trainer
+                self.trainer = None
+                
                 model.zero_grad(set_to_none=True)
                 gc.collect()
                 torch.cuda.empty_cache()
                 
-                # --- Result Aggregation (Same as before) ---
+                # --- Result Aggregation ---
                 final_metrics = case_history[-1]["probes"]
                 clean_answers = {k: v for k,v in epoch_0_metrics["probes"].items()}
                 
@@ -400,7 +408,6 @@ class RippleUnlearningEvaluator(Evaluator):
                             "did_retain": fin.get("did_retain")
                         }
                         
-                        # Aggregation helpers
                         if ptype == "Forget": aggregated_results["forget_efficacy_rate"].append(1.0 if fin["did_forget"] else 0.0)
                         elif ptype == "Consistency": aggregated_results["logical_inconsistency_rate"].append(0.0 if fin["is_consistent"] else 1.0)
                         else: aggregated_results["retain_accuracy_rate"].append(1.0 if fin["did_retain"] else 0.0)
@@ -419,8 +426,9 @@ class RippleUnlearningEvaluator(Evaluator):
             except Exception as e:
                 logger.error(f"❌ Error evaluating case {case.get('case_id')}: {str(e)}")
                 skipped_cases += 1
-                # Emergency Cleanup
-                self.trainer = None
+                if self.trainer:
+                    del self.trainer
+                    self.trainer = None
                 model.zero_grad(set_to_none=True)
                 gc.collect()
                 torch.cuda.empty_cache()
