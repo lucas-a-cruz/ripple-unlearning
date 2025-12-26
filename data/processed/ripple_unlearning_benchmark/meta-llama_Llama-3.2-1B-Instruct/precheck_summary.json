@@ -1,0 +1,70 @@
+{
+    "model_id": "meta-llama/Llama-3.2-1B-Instruct",
+    "benchmarks": {
+        "popular": {
+            "total": {
+                "cases": 885
+            },
+            "Compositionality_I": {
+                "total_probes": 359,
+                "passed_probes": 116
+            },
+            "Subject_Aliasing": {
+                "total_probes": 752,
+                "passed_probes": 520
+            },
+            "Forgetfulness": {
+                "total_probes": 102,
+                "passed_probes": 44
+            },
+            "final_passed_cases": {
+                "cases": 231
+            },
+            "Logical_Generalization": {
+                "total_probes": 209,
+                "passed_probes": 105
+            },
+            "skipped_by_forget_check": {
+                "cases": 616
+            },
+            "skipped_by_consistency_check": {
+                "cases": 38
+            },
+            "Compositionality_II": {
+                "total_probes": 13,
+                "passed_probes": 1
+            }
+        },
+        "random": {
+            "total": {
+                "cases": 1922
+            },
+            "skipped_by_forget_check": {
+                "cases": 1360
+            },
+            "Compositionality_I": {
+                "total_probes": 732,
+                "passed_probes": 274
+            },
+            "final_passed_cases": {
+                "cases": 512
+            },
+            "Subject_Aliasing": {
+                "total_probes": 782,
+                "passed_probes": 552
+            },
+            "Logical_Generalization": {
+                "total_probes": 833,
+                "passed_probes": 353
+            },
+            "skipped_by_consistency_check": {
+                "cases": 50
+            },
+            "Forgetfulness": {
+                "total_probes": 66,
+                "passed_probes": 25
+            }
+        },
+        "recent": {}
+    }
+}

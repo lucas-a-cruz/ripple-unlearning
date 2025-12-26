@@ -29,8 +29,7 @@ dependencies = [
     "loguru>=0.7.3",
     "lm-eval==0.4.8",
     "peft==0.17.1",
-    "flash-attn==2.6.3",
-    "qwikidata"
+    "qwikidata",
 ]
 
 [tool.uv.extra-build-dependencies]
