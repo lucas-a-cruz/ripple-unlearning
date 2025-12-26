@@ -417,7 +417,7 @@ class RippleUnlearningEvaluator(Evaluator):
         ctx = mp.get_context('spawn')
         
         # --- BATCH CONFIGURATION ---
-        BATCH_SIZE = 8 # Configurado conforme sugestão
+        BATCH_SIZE = 7 # Configurado conforme sugestão
         logger.info(f"🚀 Starting evaluation with Worker Batch Size = {BATCH_SIZE}")
         
         # Cria chunks do dataset
