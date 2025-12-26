@@ -3,7 +3,7 @@ name = "open-unlearning"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = "==3.11.*"
 dependencies = [
     "accelerate>=0.34.2",
     "bitsandbytes>=0.44.1",
@@ -19,8 +19,8 @@ dependencies = [
     "scikit-learn>=1.5.2",
     "scipy>=1.14.1",
     "tensorboard>=2.18.0",
-    "torch>=2.4.0",
-    "torchaudio>=2.4.0",
+    "torch==2.8.0",
+    "torchaudio==2.8.0",
     "torchvision>=0.19.0",
     "transformers>=4.45.1",
     "langchain>=1.0.2",
@@ -40,6 +40,6 @@ dependencies = [
 
 [tool.uv]
 # Use PyTorch with CUDA 12.8
-torch-backend = "cu128"
+#torch-backend = "cu128"
 # flash-attn needs torch during build, disable build isolation for it
 no-build-isolation-package = ["flash-attn"]
