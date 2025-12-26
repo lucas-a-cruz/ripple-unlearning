@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import shutil
+import sys
 import time
 from collections import defaultdict
 from typing import Any, Dict, List
@@ -29,146 +30,180 @@ from .base import Evaluator
 
 logger = logging.getLogger(__name__)
 
-# --- FUNÇÃO DO TRABALHADOR (Executa em Processo Isolado) ---
-def _run_case_in_worker(
+# --- FUNÇÃO DO TRABALHADOR (Executa LOTE de Casos) ---
+def _run_batch_in_worker(
     temp_dir: str,
-    case_data: Dict,
+    cases_batch: List[Dict], # Agora recebe uma LISTA de casos
     eval_cfg: Any,
     template_args: Dict,
     result_queue: mp.Queue
 ):
     """
-    Carrega o modelo do zero, executa UM caso de teste, coloca o resultado na fila e encerra.
-    O encerramento deste processo garante a limpeza forçada da VRAM pelo OS.
+    Carrega o modelo UMA VEZ, executa N casos (resetando pesos via RAM entre eles),
+    e retorna os resultados. Isso amortece o custo de startup do processo.
     """
+    # Configurar logging simples para o worker (garante que print apareça no stdout principal)
+    logging.basicConfig(
+        format="[Worker] %(asctime)s - %(levelname)s - %(message)s",
+        datefmt="%H:%M:%S",
+        level=logging.INFO,
+        stream=sys.stdout
+    )
+    worker_logger = logging.getLogger("worker")
+    worker_logger.setLevel(logging.INFO)
+
     try:
         # 1. Setup Básico
         device = "cuda" if torch.cuda.is_available() else "cpu"
         
-        # 2. Carregar Recursos (Do disco, garantindo isolamento)
-        # Carrega Tokenizer e Config salvos pelo processo pai
+        # 2. Carregar Recursos (Do disco)
         tokenizer = AutoTokenizer.from_pretrained(temp_dir)
         config = AutoConfig.from_pretrained(temp_dir)
         
-        # Cria o modelo (vazio inicialmente para rapidez)
+        # Cria arquitetura (vazia)
         model = AutoModelForCausalLM.from_config(config)
         
-        # Carrega os pesos "limpos" salvos
+        # Carrega pesos limpos do disco para a RAM (CPU)
+        # Manteremos essa cópia na RAM para "resetar" o modelo rapidamente entre casos
         state_dict_path = os.path.join(temp_dir, "base_model.pt")
-        # map_location='cpu' evita pico de memória na carga antes de mover para GPU
-        state_dict = torch.load(state_dict_path, map_location="cpu")
-        model.load_state_dict(state_dict)
+        clean_state_dict = torch.load(state_dict_path, map_location="cpu")
+        
+        # Carrega no modelo (GPU) pela primeira vez
+        model.load_state_dict(clean_state_dict)
         model.to(device)
         model.eval()
 
-        # 3. Instancia uma versão leve do Evaluator apenas para usar os métodos auxiliares
-        # (Não chamamos evaluate() dele, apenas usamos seus métodos estáticos/helpers)
+        # Instancia Evaluator Helper
         worker_eval = RippleUnlearningEvaluator(eval_cfg, silent=True)
         worker_eval.model = model
         worker_eval.tokenizer = tokenizer
         worker_eval.template_args = template_args
-
-        # 4. Preparação do Caso (Lógica original)
-        case_id = case_data.get("case_id", "unknown")
-        probes_to_log = {
-            "Forget": case_data.get("forget_probes", [])[0] if case_data.get("forget_probes") else None,
-            "Consistency": case_data.get("consistency_probes", [])[0] if case_data.get("consistency_probes") else None,
-            "Retain": case_data.get("retain_probes", [])[0] if case_data.get("retain_probes") else None,
-        }
-
-        # 5. Pre-compute Perturbed Answers (Clean Model)
+        
         rouge_scorer = evaluate.load('rouge')
-        perturbed_map = {}
-        for pname, pdata in probes_to_log.items():
-            if pdata:
-                perturbed_map[pname] = worker_eval._get_perturbed_answers(pdata["question"], pdata.get("answer"))
+        batch_results = []
 
-        # 6. Epoch 0 Evaluation (Baseline)
-        epoch_0_metrics = {"epoch": 0, "probes": {}}
-        with torch.no_grad():
-            for pname, pdata in probes_to_log.items():
-                if pdata:
-                    metrics = worker_eval._evaluate_single_probe(
-                        model, pname, pdata, perturbed_map.get(pname), rouge_scorer
-                    )
-                    epoch_0_metrics["probes"][pname] = metrics
+        # --- LOOP INTERNO DO BATCH ---
+        for i, case_data in enumerate(cases_batch):
+            case_id = case_data.get("case_id", "unknown")
+            worker_logger.info(f"Processing Case {case_id} ({i+1}/{len(cases_batch)} in batch)")
+            
+            try:
+                # A. RESETAR MODELO (Rápido: RAM -> GPU)
+                # Não precisamos recarregar do disco, apenas copiar da RAM
+                if i > 0: # Não precisa no primeiro
+                    model.load_state_dict(clean_state_dict)
+                model.eval()
 
-        case_history = [epoch_0_metrics]
+                # B. Preparação (Lógica original)
+                probes_to_log = {
+                    "Forget": case_data.get("forget_probes", [])[0] if case_data.get("forget_probes") else None,
+                    "Consistency": case_data.get("consistency_probes", [])[0] if case_data.get("consistency_probes") else None,
+                    "Retain": case_data.get("retain_probes", [])[0] if case_data.get("retain_probes") else None,
+                }
 
-        # 7. Training Phase
-        model.train()
-        
-        # Preparar Datasets
-        forget_req = case_data["forget_request"]
-        forget_ds = [worker_eval._tokenize_qa(tokenizer, template_args, forget_req["question"], forget_req["answer"])]
-        
-        retain_probes = case_data.get("retain_probes", [])
-        retain_ans = [p.get("answer")[0] for p in retain_probes if p.get("answer")]
-        retain_ds = [worker_eval._tokenize_qa(tokenizer, template_args, p["question"], a) for p, a in zip(retain_probes, retain_ans)] or \
-                    [worker_eval._tokenize_qa(tokenizer, template_args, " ", " ")]
+                # C. Pre-compute Perturbed Answers
+                perturbed_map = {}
+                for pname, pdata in probes_to_log.items():
+                    if pdata:
+                        perturbed_map[pname] = worker_eval._get_perturbed_answers(pdata["question"], pdata.get("answer"))
 
-        train_dataset = ForgetRetainDataset(forget=forget_ds, retain=retain_ds)
+                # D. Epoch 0 Evaluation
+                epoch_0_metrics = {"epoch": 0, "probes": {}}
+                with torch.no_grad():
+                    for pname, pdata in probes_to_log.items():
+                        if pdata:
+                            metrics = worker_eval._evaluate_single_probe(
+                                model, pname, pdata, perturbed_map.get(pname), rouge_scorer
+                            )
+                            epoch_0_metrics["probes"][pname] = metrics
 
-        # Carregar Trainer
-        trainer_cfg = eval_cfg.get("trainer")
-        trainer, trainer_args = load_trainer(
-            trainer_cfg, 
-            model=model, 
-            train_dataset=train_dataset, 
-            data_collator=DataCollatorForSupervisedDataset(tokenizer=tokenizer)
-        )
-        
-        # Otimizações para o Worker
-        trainer_args.dataloader_num_workers = 0 
-        trainer_args.report_to = "none" # Desabilita wandb no worker para evitar conflito
-        trainer_args.disable_tqdm = True # Limpa output
-        
-        # --- CORREÇÃO DO ERRO ---
-        # Garante que o Trainer não remova colunas do dataset customizado
-        # Se True (default), o Trainer remove 'input_ids' se não conseguir inferir a assinatura do modelo,
-        # causando o erro "The batch received was empty".
-        trainer_args.remove_unused_columns = False 
-        
-        # Opcional: Ativar BF16 se suportado (recomendado para A100)
-        trainer_args.bf16 = True
-        trainer_args.fp16 = False
-        
-        trainer.args = trainer_args
+                case_history = [epoch_0_metrics]
 
-        # Callback
-        eval_cb = RippleEvalCallback(worker_eval, probes_to_log, perturbed_map, rouge_scorer, case_history)
-        trainer.add_callback(eval_cb)
+                # E. Training Phase
+                model.train()
+                
+                forget_req = case_data["forget_request"]
+                forget_ds = [worker_eval._tokenize_qa(tokenizer, template_args, forget_req["question"], forget_req["answer"])]
+                
+                retain_probes = case_data.get("retain_probes", [])
+                retain_ans = [p.get("answer")[0] for p in retain_probes if p.get("answer")]
+                retain_ds = [worker_eval._tokenize_qa(tokenizer, template_args, p["question"], a) for p, a in zip(retain_probes, retain_ans)] or \
+                            [worker_eval._tokenize_qa(tokenizer, template_args, " ", " ")]
 
-        # Treinar
-        trainer.train()
+                train_dataset = ForgetRetainDataset(forget=forget_ds, retain=retain_ds)
 
-        # 8. Sucesso - Enviar dados
-        result_queue.put({
-            "status": "success", 
-            "epoch_0_metrics": epoch_0_metrics,
-            "history": case_history
-        })
+                trainer_cfg = eval_cfg.get("trainer")
+                trainer, trainer_args = load_trainer(
+                    trainer_cfg, 
+                    model=model, 
+                    train_dataset=train_dataset, 
+                    data_collator=DataCollatorForSupervisedDataset(tokenizer=tokenizer)
+                )
+                
+                # Configs Otimizadas
+                trainer_args.dataloader_num_workers = 0 
+                trainer_args.report_to = "none"
+                trainer_args.disable_tqdm = True
+                trainer_args.remove_unused_columns = False 
+                trainer_args.bf16 = True
+                trainer_args.fp16 = False
+                trainer.args = trainer_args
+
+                # Callback com Logger Explícito
+                eval_cb = RippleEvalCallback(worker_eval, probes_to_log, perturbed_map, rouge_scorer, case_history, logger=worker_logger)
+                trainer.add_callback(eval_cb)
+
+                trainer.train()
+
+                # F. Guardar Resultados
+                batch_results.append({
+                    "case_id": case_id,
+                    "status": "success", 
+                    "epoch_0_metrics": epoch_0_metrics,
+                    "history": case_history
+                })
+
+                # G. CLEANUP INTRA-BATCH (Crucial para não estourar memória no caso 8 do batch)
+                trainer.remove_callback(eval_cb)
+                del trainer
+                del eval_cb
+                
+                # Limpeza leve (o reset do load_state_dict cuida dos pesos, mas precisamos limpar gradientes/otimizador)
+                model.zero_grad(set_to_none=True)
+                gc.collect()
+                torch.cuda.empty_cache()
+            
+            except Exception as e_case:
+                worker_logger.error(f"Error processing case {case_id}: {e_case}")
+                batch_results.append({
+                    "case_id": case_id,
+                    "status": "error",
+                    "message": str(e_case)
+                })
+                # Tentar recuperar memória para o próximo caso do batch
+                gc.collect()
+                torch.cuda.empty_cache()
+
+        # Envia lista completa de resultados do batch
+        result_queue.put(batch_results)
 
     except Exception as e:
-        # Em caso de erro, loga e envia status de falha
-        logger.error(f"Worker process failed for case {case_data.get('case_id')}: {e}")
-        result_queue.put({"status": "error", "message": str(e)})
+        worker_logger.error(f"Critical Worker Failure: {e}")
+        # Se falhar o processo todo, envia erro genérico
+        result_queue.put([{"status": "critical_error", "message": str(e)}])
     finally:
-        # Não precisamos de limpeza agressiva manual aqui (gc, empty_cache),
-        # pois o processo vai morrer logo em seguida.
         pass
 
 
 class RippleEvalCallback(TrainerCallback):
-    """
-    Custom Callback to evaluate the model on specific probes at the end of each epoch.
-    """
-    def __init__(self, evaluator, probes_to_log, perturbed_answers_map, rouge_scorer, history_list):
+    def __init__(self, evaluator, probes_to_log, perturbed_answers_map, rouge_scorer, history_list, logger=None):
         self.evaluator = evaluator
         self.probes_to_log = probes_to_log
         self.perturbed_answers_map = perturbed_answers_map
         self.rouge_scorer = rouge_scorer
         self.history_list = history_list
+        # Usa o logger passado ou print direto se falhar
+        self.logger = logger 
 
     def on_epoch_end(self, args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs):
         target_epochs = {3, 6, 10}
@@ -190,11 +225,9 @@ class RippleEvalCallback(TrainerCallback):
             "probes": {}
         }
         
-        # Log simplificado para não poluir console multiprocessado
-        # logger.info(f"Worker Eval Epoch {state.epoch:.1f}")
-        
         try:
             with torch.no_grad():
+                log_msg = []
                 for probe_name, probe_data in self.probes_to_log.items():
                     if probe_data:
                         metrics = self.evaluator._evaluate_single_probe(
@@ -205,8 +238,18 @@ class RippleEvalCallback(TrainerCallback):
                             self.rouge_scorer
                         )
                         epoch_metrics["probes"][probe_name] = metrics
+                        log_msg.append(f"{probe_name}: TR={metrics.get('truth_ratio', 0.0):.4f}")
+                
+                # LOGAR NO CONSOLE (Flush garante que apareça mesmo do subprocesso)
+                msg = f"  [Ep {state.epoch:.0f}] " + " | ".join(log_msg)
+                if self.logger:
+                    self.logger.info(msg)
+                else:
+                    print(msg, flush=True)
+
         except Exception as e:
-            logger.error(f"Error during callback evaluation: {e}")
+            if self.logger: self.logger.error(f"Callback Error: {e}")
+            else: print(f"Callback Error: {e}", flush=True)
         finally:
             self.history_list.append(epoch_metrics)
             if was_training:
@@ -214,30 +257,22 @@ class RippleEvalCallback(TrainerCallback):
 
 
 class RippleUnlearningEvaluator(Evaluator):
-    """
-    Custom evaluator for the Ripple Unlearning Benchmark.
-    Refactored to use Subprocess Isolation for robust memory management.
-    """
     def __init__(self, eval_cfg, silent: bool = False, **kwargs):
         super().__init__("ripple_unlearning", eval_cfg=eval_cfg, **kwargs)
         if silent:
             logger.setLevel(logging.WARNING)
-        
-        # Configurar método de spawn para garantir contexto limpo de CUDA
         try:
             mp.set_start_method('spawn', force=True)
         except RuntimeError:
-            pass # Já configurado
+            pass 
 
+    # ... [Métodos auxiliares _compute_batch_metrics, _tokenize_qa, etc. permanecem iguais] ...
     def _compute_batch_metrics(self, model, question: str, answers: List[str]) -> List[Dict[str, float]]:
-        # Same implementation, but WITHOUT empty_cache for speed
         if not answers: return []
         chunk_size = 4
         all_results = []
-
         for i in range(0, len(answers), chunk_size):
             chunk_answers = answers[i : i + chunk_size]
-            
             input_ids_list, labels_list, attention_mask_list = [], [], []
             for ans in chunk_answers:
                 item = self._tokenize_qa(self.tokenizer, self.template_args, question, ans)
@@ -250,7 +285,6 @@ class RippleUnlearningEvaluator(Evaluator):
                 attention_mask_list.append(item["attention_mask"])
 
             pad_id = self.tokenizer.pad_token_id if self.tokenizer.pad_token_id is not None else self.tokenizer.eos_token_id
-            
             input_ids_batch = pad_sequence(input_ids_list, batch_first=True, padding_value=pad_id).to(model.device)
             labels_batch = pad_sequence(labels_list, batch_first=True, padding_value=-100).to(model.device)
             attention_mask_batch = pad_sequence(attention_mask_list, batch_first=True, padding_value=0).to(model.device)
@@ -260,23 +294,16 @@ class RippleUnlearningEvaluator(Evaluator):
                 logits = outputs.logits
                 shift_logits = logits[..., :-1, :].contiguous()
                 shift_labels = labels_batch[..., 1:].contiguous()
-                
                 loss_fct = torch.nn.CrossEntropyLoss(reduction='none', ignore_index=-100)
                 loss = loss_fct(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
                 loss = loss.view(shift_labels.size())
-                
                 loss_sum = loss.sum(dim=1)
                 valid_tokens = (shift_labels != -100).sum(dim=1)
                 avg_loss = loss_sum / (valid_tokens + 1e-9)
-                
                 for idx in range(len(chunk_answers)):
                     l = avg_loss[idx].item()
                     all_results.append({'loss': l, 'prob': np.exp(-l)})
-                
-                # Cleanup básico, mas o processo vai morrer de qualquer jeito
                 del outputs, logits, shift_logits, shift_labels, loss, input_ids_batch
-                # torch.cuda.empty_cache() REMOVIDO para performance dentro do chunk
-        
         return all_results
 
     def _get_loss_and_prob_for_answers(self, model, question, answers) -> Dict[str, float]:
@@ -349,26 +376,19 @@ class RippleUnlearningEvaluator(Evaluator):
     def _evaluate_single_probe(self, model, probe_name, probe_data, perturbed_answers, rouge_scorer):
         text_answer = self._get_answer_for_probe(model, self.tokenizer, self.template_args, probe_data)
         metrics = self._get_loss_and_prob_for_answers(model, probe_data["question"], probe_data.get("answer"))
-        
         ref = probe_data.get("answer", "")
         if isinstance(ref, list) and ref: ref = ref[0]
-        
         rouge = rouge_scorer.compute(predictions=[text_answer], references=[ref], use_stemmer=True)
         tr = self._get_truth_ratio(model, probe_data["question"], probe_data.get("answer"), perturbed_answers) if perturbed_answers else 0.0
-
         return {
-            "text": text_answer, 
-            "loss": metrics['loss'], 
-            "prob": metrics['prob'], 
-            "rouge_l": rouge['rougeL'],
-            "truth_ratio": tr,
+            "text": text_answer, "loss": metrics['loss'], "prob": metrics['prob'], 
+            "rouge_l": rouge['rougeL'], "truth_ratio": tr,
             "did_forget": not check_answers(text_answer, ref) if probe_name == "Forget" else None,
             "is_consistent": not check_answers(text_answer, ref) if probe_name == "Consistency" else None,
             "did_retain": check_answers(text_answer, ref) if probe_name == "Retain" else None
         }
 
     def evaluate(self, model: AutoModelForCausalLM, **kwargs):
-        # 1. SETUP INICIAL
         self.tokenizer = kwargs.get("tokenizer")
         self.template_args = kwargs.get("template_args")
         output_dir = self.eval_cfg.output_dir
@@ -376,9 +396,6 @@ class RippleUnlearningEvaluator(Evaluator):
         
         dataset = RippleUnlearningDataset(path=self.eval_cfg.data.ripple_unlearning.args.path)
 
-        # 2. PREPARAÇÃO DOS ARTEFATOS COMPARTILHADOS
-        # Para que os subprocessos funcionem, precisamos salvar o modelo base em disco (ou shared memory).
-        # Salvar em disco é mais seguro para garantir o "clean state".
         temp_dir = os.path.join(output_dir, "temp_worker_artifacts")
         if os.path.exists(temp_dir): shutil.rmtree(temp_dir)
         os.makedirs(temp_dir)
@@ -386,13 +403,8 @@ class RippleUnlearningEvaluator(Evaluator):
         logger.info(f"💾 Saving base model state to {temp_dir} for worker distribution...")
         self.tokenizer.save_pretrained(temp_dir)
         model.config.save_pretrained(temp_dir)
-        
-        # Salvamos apenas os pesos. O worker recria a arquitetura via config.
         torch.save(model.state_dict(), os.path.join(temp_dir, "base_model.pt"))
         
-        # 3. LIBERAÇÃO DE MEMÓRIA NO PROCESSO PAI
-        # Isso é crucial: O processo pai não precisa mais do modelo na GPU.
-        # Liberamos tudo para que o subprocesso tenha 100% da GPU disponível.
         logger.info("🗑️ Clearing Parent Process GPU memory...")
         del model
         gc.collect()
@@ -402,88 +414,86 @@ class RippleUnlearningEvaluator(Evaluator):
         detailed_results = []
         skipped_cases = 0
 
-        # 4. LOOP DE MULTIPROCESSAMENTO
-        # Usamos 'spawn' para garantir que o worker pegue um contexto CUDA virgem
         ctx = mp.get_context('spawn')
         
-        for case_idx, case in enumerate(tqdm(dataset, desc="Evaluating (Isolated Processes)")):
+        # --- BATCH CONFIGURATION ---
+        BATCH_SIZE = 8 # Configurado conforme sugestão
+        logger.info(f"🚀 Starting evaluation with Worker Batch Size = {BATCH_SIZE}")
+        
+        # Cria chunks do dataset
+        dataset_chunks = [dataset[i:i + BATCH_SIZE] for i in range(0, len(dataset), BATCH_SIZE)]
+
+        for chunk_idx, batch_cases in enumerate(tqdm(dataset_chunks, desc="Eval Batches")):
             
-            # Fila para receber os resultados do worker
             result_queue = ctx.Queue()
             
-            # Criar e iniciar o processo do trabalhador
+            # Spawn worker para o BATCH inteiro
             p = ctx.Process(
-                target=_run_case_in_worker,
-                args=(temp_dir, case, self.eval_cfg, self.template_args, result_queue)
+                target=_run_batch_in_worker, # Nova função alvo
+                args=(temp_dir, batch_cases, self.eval_cfg, self.template_args, result_queue)
             )
             
             p.start()
             
-            # Esperar resultado
+            # Coletar resultados
             try:
-                # Timeout generoso para evitar hangs eternos (ajuste conforme necessário)
-                result = result_queue.get(timeout=None) 
+                # O worker retorna uma lista de resultados, um para cada caso do batch
+                batch_results_list = result_queue.get(timeout=None) 
             except Exception as e:
-                logger.error(f"❌ Failed to get result from worker for case {case_idx}: {e}")
-                result = None
+                logger.error(f"❌ Failed to get batch results from worker {chunk_idx}: {e}")
+                batch_results_list = []
             
-            p.join() # Garante que o processo morreu e liberou recursos
+            p.join()
             
-            # Processar resultado
-            if result and result.get("status") == "success":
-                history = result["history"]
-                epoch_0_metrics = result["epoch_0_metrics"]
-                final_metrics = history[-1]["probes"]
-                
-                # --- AGGREGAÇÃO DE MÉTRICAS (Lógica original trazida para cá) ---
-                clean_answers = {k: v for k,v in epoch_0_metrics["probes"].items()}
-                case_res = {"case_id": case.get("case_id"), "probes": [], "history": history}
+            # Processar resultados do batch
+            if isinstance(batch_results_list, list):
+                for res in batch_results_list:
+                    if res.get("status") == "success":
+                        history = res["history"]
+                        epoch_0_metrics = res["epoch_0_metrics"]
+                        final_metrics = history[-1]["probes"]
+                        
+                        clean_answers = {k: v for k,v in epoch_0_metrics["probes"].items()}
+                        case_res = {"case_id": res.get("case_id"), "probes": [], "history": history}
 
-                for ptype in ["Forget", "Consistency", "Retain"]:
-                    if ptype in final_metrics:
-                        fin, cln = final_metrics[ptype], clean_answers.get(ptype, {})
-                        
-                        eval_dict = {
-                            "clean_truth_ratio": cln.get("truth_ratio", 0.0),
-                            "unlearned_truth_ratio": fin.get("truth_ratio", 0.0),
-                            "clean_rouge_l": cln.get("rouge_l", 0.0),
-                            "unlearned_rouge_l": fin.get("rouge_l", 0.0),
-                            "did_forget": fin.get("did_forget"),
-                            "is_consistent": fin.get("is_consistent"),
-                            "did_retain": fin.get("did_retain")
-                        }
-                        
-                        if ptype == "Forget": aggregated_results["forget_efficacy_rate"].append(1.0 if fin["did_forget"] else 0.0)
-                        elif ptype == "Consistency": aggregated_results["logical_inconsistency_rate"].append(0.0 if fin["is_consistent"] else 1.0)
-                        else: aggregated_results["retain_accuracy_rate"].append(1.0 if fin["did_retain"] else 0.0)
-                        
-                        for k, v in eval_dict.items():
-                            if isinstance(v, (int, float)) and ('clean' in k or 'unlearned' in k):
-                                key_name = f"{k.replace('clean_',f'clean_{ptype.lower()}_').replace('unlearned_',f'unlearned_{ptype.lower()}_')}"
-                                aggregated_results[key_name].append(v)
-                        
-                        case_res["probes"].append({"type": ptype.lower(), "evaluation": eval_dict})
-
-                detailed_results.append(case_res)
-                
-                # Salvar parciais periodicamente
-                if case_idx % 5 == 0:
-                    with open(os.path.join(output_dir, "ripple_unlearning_detailed_results.json"), 'w') as f:
-                        json.dump(detailed_results, f, indent=4)
+                        for ptype in ["Forget", "Consistency", "Retain"]:
+                            if ptype in final_metrics:
+                                fin, cln = final_metrics[ptype], clean_answers.get(ptype, {})
+                                eval_dict = {
+                                    "clean_truth_ratio": cln.get("truth_ratio", 0.0),
+                                    "unlearned_truth_ratio": fin.get("truth_ratio", 0.0),
+                                    "clean_rouge_l": cln.get("rouge_l", 0.0),
+                                    "unlearned_rouge_l": fin.get("rouge_l", 0.0),
+                                    "did_forget": fin.get("did_forget"),
+                                    "is_consistent": fin.get("is_consistent"),
+                                    "did_retain": fin.get("did_retain")
+                                }
+                                
+                                if ptype == "Forget": aggregated_results["forget_efficacy_rate"].append(1.0 if fin["did_forget"] else 0.0)
+                                elif ptype == "Consistency": aggregated_results["logical_inconsistency_rate"].append(0.0 if fin["is_consistent"] else 1.0)
+                                else: aggregated_results["retain_accuracy_rate"].append(1.0 if fin["did_retain"] else 0.0)
+                                
+                                for k, v in eval_dict.items():
+                                    if isinstance(v, (int, float)) and ('clean' in k or 'unlearned' in k):
+                                        key_name = f"{k.replace('clean_',f'clean_{ptype.lower()}_').replace('unlearned_',f'unlearned_{ptype.lower()}_')}"
+                                        aggregated_results[key_name].append(v)
+                                
+                                case_res["probes"].append({"type": ptype.lower(), "evaluation": eval_dict})
+                        detailed_results.append(case_res)
+                    else:
+                        skipped_cases += 1
+                        logger.error(f"Case failure inside batch: {res.get('message', 'Unknown')}")
             else:
-                skipped_cases += 1
-                msg = result.get('message') if result else "Unknown error"
-                logger.error(f"Skipping case {case_idx} due to worker failure: {msg}")
+                 # Caso o worker retorne erro crítico no formato incorreto
+                 logger.error("Worker returned invalid data format.")
 
-        # Cleanup final
-        if os.path.exists(temp_dir):
-            shutil.rmtree(temp_dir)
-            
+            # Salvar periodicamente (por batch)
+            if chunk_idx % 1 == 0:
+                with open(os.path.join(output_dir, "ripple_unlearning_detailed_results.json"), 'w') as f:
+                    json.dump(detailed_results, f, indent=4)
+
+        if os.path.exists(temp_dir): shutil.rmtree(temp_dir)
         final_results = {f"mean_{k}": sum(v)/len(v) if v else 0.0 for k,v in aggregated_results.items()}
-        
-        with open(os.path.join(output_dir, "ripple_unlearning_detailed_results.json"), 'w') as f:
-            json.dump(detailed_results, f, indent=4)
-        with open(os.path.join(output_dir, "ripple_unlearning_summary.json"), 'w') as f:
-            json.dump(final_results, f, indent=4)
-            
+        with open(os.path.join(output_dir, "ripple_unlearning_detailed_results.json"), 'w') as f: json.dump(detailed_results, f, indent=4)
+        with open(os.path.join(output_dir, "ripple_unlearning_summary.json"), 'w') as f: json.dump(final_results, f, indent=4)
         return final_results
