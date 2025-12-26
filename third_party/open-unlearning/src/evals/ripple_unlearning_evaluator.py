@@ -122,6 +122,17 @@ def _run_case_in_worker(
         trainer_args.dataloader_num_workers = 0 
         trainer_args.report_to = "none" # Desabilita wandb no worker para evitar conflito
         trainer_args.disable_tqdm = True # Limpa output
+        
+        # --- CORREÇÃO DO ERRO ---
+        # Garante que o Trainer não remova colunas do dataset customizado
+        # Se True (default), o Trainer remove 'input_ids' se não conseguir inferir a assinatura do modelo,
+        # causando o erro "The batch received was empty".
+        trainer_args.remove_unused_columns = False 
+        
+        # Opcional: Ativar BF16 se suportado (recomendado para A100)
+        trainer_args.bf16 = True
+        trainer_args.fp16 = False
+        
         trainer.args = trainer_args
 
         # Callback
