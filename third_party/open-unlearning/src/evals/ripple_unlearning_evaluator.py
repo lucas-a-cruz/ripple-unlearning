@@ -22,8 +22,7 @@ from data.unlearn import ForgetRetainDataset
 from evals.metrics import ripple_metrics
 from evals.metrics.ripple_metrics import check_answers
 from evals.metrics.utils import evaluate_probability
-# Importação necessária para criar batches manuais
-from torch.nn.utils.rnn import pad_sequence
+from torch.nn.utils.rnn import pad_sequence  # Import necessário para Batching
 from torch.utils.data import Dataset
 from tqdm import tqdm
 from trainer import load_trainer
@@ -46,6 +45,21 @@ class RippleEvalCallback(TrainerCallback):
         self.history_list = history_list
 
     def on_epoch_end(self, args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs):
+        # CONFIGURAÇÃO DE CHECKPOINTS:
+        # Avalia nas epochs 3, 6 e 10 conforme solicitado.
+        # A Epoch 0 (Clean) é feita fora deste callback (antes do treino começar).
+        # Verificamos se a epoch atual (arredondada) está na lista de alvos.
+        
+        target_epochs = {3, 6, 10}
+        current_epoch = int(round(state.epoch))
+        
+        # Verifica se é uma epoch alvo ou a última epoch do treino (para garantir)
+        is_target = current_epoch in target_epochs
+        is_last = state.epoch >= args.num_train_epochs - 0.1
+        
+        if not (is_target or is_last):
+            return
+
         model = kwargs['model']
         tokenizer = kwargs['tokenizer']
         
@@ -59,7 +73,7 @@ class RippleEvalCallback(TrainerCallback):
             "probes": {}
         }
         
-        logger.info(f"\n--- ⏱️ Epoch {state.epoch} Evaluation ---")
+        logger.info(f"\n--- ⏱️ Evaluation Checkpoint (Epoch {state.epoch:.1f}) ---")
         
         with torch.no_grad():
             for probe_name, probe_data in self.probes_to_log.items():
@@ -94,80 +108,90 @@ class RippleUnlearningEvaluator(Evaluator):
         self.trainer = None
         self.temp_model_state_path = "temp_model_state.pt"
         
-        # OTIMIZAÇÃO: Detectar e configurar uso de CPU
-        self.num_cores = multiprocessing.cpu_count()
-        # Reserva 1 core para o sistema/gerenciamento se tivermos muitos, senão usa todos
-        self.worker_threads = max(1, self.num_cores - 1) if self.num_cores > 4 else self.num_cores
+        # CORREÇÃO DE ESTABILIDADE: Removido o cálculo agressivo de workers.
+        # Usar muitos workers em loop causa 'Resource temporarily unavailable'.
+        # Para datasets pequenos (few-shot unlearning), 0 workers (main process) é o mais rápido e seguro.
+        self.worker_threads = 0
+        logger.info("🚀 Stability Fix: Using 0 dataloader workers to prevent resource exhaustion.")
         
-        logger.info(f"🚀 Optimizing for {self.num_cores} CPU cores. Using {self.worker_threads} worker threads.")
-        torch.set_num_threads(self.num_cores)
+        # Deixa o PyTorch gerenciar threads intra-op automaticamente para evitar conflitos
+        # torch.set_num_threads(self.num_cores) # Removido para segurança
 
     def _compute_batch_metrics(self, model, question: str, answers: List[str]) -> List[Dict[str, float]]:
         """
-        Calculates loss and probability for a list of answers in a SINGLE BATCH (Parallelized on GPU).
-        This replaces the slow sequential loop.
+        Calculates metrics for multiple answers in parallel using GPU batching.
+        Esta função substitui loops sequenciais lentos.
         """
         if not answers:
             return []
-            
-        # 1. Tokenize all (question, answer) pairs
+
+        # 1. Tokenize all pairs and prepare tensors
         input_ids_list = []
         labels_list = []
         attention_mask_list = []
-        
+
         for ans in answers:
-            # Note: _tokenize_qa returns tensors, we need to handle them carefully
             item = self._tokenize_qa(self.tokenizer, self.template_args, question, ans)
+            
+            # Ajuste de dimensão: o tokenizer pode retornar [1, seq_len], queremos [seq_len] para o pad_sequence
+            if item['input_ids'].dim() > 1:
+                item['input_ids'] = item['input_ids'].squeeze(0)
+                item['labels'] = item['labels'].squeeze(0)
+                item['attention_mask'] = item['attention_mask'].squeeze(0)
+            
             input_ids_list.append(item["input_ids"])
             labels_list.append(item["labels"])
             attention_mask_list.append(item["attention_mask"])
+
+        # 2. Pad to create a proper batch
+        if self.tokenizer.pad_token_id is None:
+            self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
             
-        # 2. Pad sequence to create a batch
-        # Ensure we have a pad token
-        pad_id = self.tokenizer.pad_token_id if self.tokenizer.pad_token_id is not None else self.tokenizer.eos_token_id
+        pad_id = self.tokenizer.pad_token_id
         
-        # Collate (Pad inputs to max length in this batch)
+        # pad_sequence empilha os tensores e preenche os mais curtos
         input_ids_batch = pad_sequence(input_ids_list, batch_first=True, padding_value=pad_id).to(model.device)
+        # Labels são preenchidos com -100 para serem ignorados na loss
         labels_batch = pad_sequence(labels_list, batch_first=True, padding_value=-100).to(model.device)
         attention_mask_batch = pad_sequence(attention_mask_list, batch_first=True, padding_value=0).to(model.device)
-        
-        # 3. Batch Forward Pass (The actual optimization)
-        # We calculate loss manually here to handle the batch correctly
-        outputs = model(input_ids=input_ids_batch, attention_mask=attention_mask_batch)
-        logits = outputs.logits
-        
-        # 4. Calculate Loss per item
-        # Shift logits and labels for CausalLM loss calculation
-        shift_logits = logits[..., :-1, :].contiguous()
-        shift_labels = labels_batch[..., 1:].contiguous()
-        
-        # Use reduction='none' to get loss per token, then we sum per row
-        loss_fct = torch.nn.CrossEntropyLoss(reduction='none', ignore_index=-100)
-        # Flatten for API compatibility
-        token_losses = loss_fct(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
-        # Reshape back to [batch, seq_len]
-        token_losses = token_losses.view(shift_labels.size())
-        
-        # Sum loss over the sequence (masked positions are 0.0)
-        sum_losses = token_losses.sum(dim=1)
-        # Count non-masked tokens to compute average
-        non_masked_tokens = (shift_labels != -100).sum(dim=1)
-        
-        # Avoid division by zero
-        avg_losses = sum_losses / (non_masked_tokens + 1e-9)
-        
-        results = []
-        for loss_val in avg_losses:
-            l = loss_val.item()
-            # Prob = exp(-loss)
-            results.append({'loss': l, 'prob': np.exp(-l)})
+
+        # 3. Forward pass único (GPU Acceleration)
+        with torch.no_grad():
+            outputs = model(input_ids=input_ids_batch, attention_mask=attention_mask_batch)
+            logits = outputs.logits
+
+            # 4. Calculate Loss manualmente para o batch
+            # Shift logits e labels para tarefa de Causal LM (next token prediction)
+            shift_logits = logits[..., :-1, :].contiguous()
+            shift_labels = labels_batch[..., 1:].contiguous()
             
-        return results
+            loss_fct = torch.nn.CrossEntropyLoss(reduction='none', ignore_index=-100)
+            # Flatten para calcular
+            loss = loss_fct(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
+            
+            # Reshape de volta para [batch, seq_len-1]
+            loss = loss.view(shift_labels.size())
+            
+            # Soma da loss por sequência
+            loss_sum = loss.sum(dim=1)
+            # Conta tokens válidos (onde label != -100)
+            valid_tokens = (shift_labels != -100).sum(dim=1)
+            
+            # Média da loss por token válido
+            avg_loss = loss_sum / (valid_tokens + 1e-9)
+            
+            results = []
+            for i in range(len(answers)):
+                l = avg_loss[i].item()
+                # Probabilidade = exp(-loss)
+                results.append({'loss': l, 'prob': np.exp(-l)})
+                
+            return results
 
     def _get_loss_and_prob_for_answers(self, model, question, answers) -> Dict[str, float]:
         """
         Calculates the minimum loss and corresponding max probability over a list of possible answers.
-        Optimized to use batch processing.
+        Atualizado para usar Batching.
         """
         if not answers:
             return {'loss': float('inf'), 'prob': 0.0}
@@ -175,16 +199,14 @@ class RippleUnlearningEvaluator(Evaluator):
         if isinstance(answers, str):
             answers = [answers]
 
-        # Use the batched computation
+        # Usa a computação em lote (GPU eficiente)
         batch_results = self._compute_batch_metrics(model, question, answers)
-        
-        if not batch_results:
-             return {'loss': float('inf'), 'prob': 0.0}
 
-        # Find the best result (min loss)
-        best_result = min(batch_results, key=lambda x: x['loss'])
-        
-        return best_result
+        if not batch_results:
+            return {'loss': float('inf'), 'prob': 0.0}
+
+        # Retorna o melhor resultado (menor loss)
+        return min(batch_results, key=lambda x: x['loss'])
 
     def _get_perturbed_answers(self, question: str, answer: str) -> List[str]:
         """
@@ -231,25 +253,22 @@ class RippleUnlearningEvaluator(Evaluator):
         Calculates the truth ratio for a given question, correct answer, and a list of perturbed answers.
         truth_ratio = mean(prob_perturbed) / (prob_correct + 1e-10)
         
-        OPTIMIZED: Uses batch processing to calculate all probabilities in one go.
+        Atualizado para usar Batching: Calcula todas as probabilidades em uma única passada na GPU.
         """
         if not perturbed_answers or not correct_answer:
             return 0.0
-            
-        # Combine correct answer and perturbed answers into a single batch request
-        # This avoids looping and doing multiple small forward passes
+        
+        # Agrupa todas as respostas (correta + perturbadas) em um único lote
         all_candidates = [correct_answer] + perturbed_answers
         
-        # Get all metrics in one batch forward pass
+        # Executa na GPU em paralelo
         all_metrics = self._compute_batch_metrics(model_to_eval, question, all_candidates)
         
         if not all_metrics:
             return 0.0
             
-        # Extract correct prob (first item) and perturbed probs (rest)
+        # Extrai resultados
         prob_correct = all_metrics[0]['prob']
-        
-        # Note: perturbed_probs should be the mean of probabilities of perturbed answers
         perturbed_results = all_metrics[1:]
         perturbed_probs = [m['prob'] for m in perturbed_results]
 
@@ -452,9 +471,8 @@ class RippleUnlearningEvaluator(Evaluator):
 
                 self.trainer, trainer_args = load_trainer(trainer_cfg, model=model, train_dataset=[], data_collator=DataCollatorForSupervisedDataset(tokenizer=self.tokenizer))
                 
-                # OTIMIZAÇÃO: Usar múltiplos workers para carregar dados
+                # CORREÇÃO DE ESTABILIDADE: Setando workers para 0
                 trainer_args.dataloader_num_workers = self.worker_threads
-                # Desabilita o pin_memory se usar muitos workers em máquinas com pouca RAM, mas geralmente ajuda na GPU
                 trainer_args.dataloader_pin_memory = True 
                 
                 trainer_args.remove_unused_columns = False
@@ -479,6 +497,7 @@ class RippleUnlearningEvaluator(Evaluator):
                 
                 # --- AGGREGATE RESULTS ---
                 # We take the final state from case_history (last epoch)
+                # IMPORTANTE: Como pulamos epochs intermediárias, case_history terá apenas [Epoch 0, Final Epoch]
                 final_metrics = case_history[-1]["probes"]
                 
                 with torch.no_grad():
