@@ -1,10 +1,14 @@
 # ruff: noqa
-import copy
-import gc
 import json
 import logging
-import multiprocessing
 import os
+
+# Fix for huggingface/tokenizers warning when using dataloader_num_workers
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+import copy
+import gc
+import multiprocessing
 import re
 from collections import defaultdict
 from typing import Any, Dict, List
@@ -18,6 +22,8 @@ from data.unlearn import ForgetRetainDataset
 from evals.metrics import ripple_metrics
 from evals.metrics.ripple_metrics import check_answers
 from evals.metrics.utils import evaluate_probability
+# Importação necessária para criar batches manuais
+from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import Dataset
 from tqdm import tqdm
 from trainer import load_trainer
@@ -96,9 +102,72 @@ class RippleUnlearningEvaluator(Evaluator):
         logger.info(f"🚀 Optimizing for {self.num_cores} CPU cores. Using {self.worker_threads} worker threads.")
         torch.set_num_threads(self.num_cores)
 
+    def _compute_batch_metrics(self, model, question: str, answers: List[str]) -> List[Dict[str, float]]:
+        """
+        Calculates loss and probability for a list of answers in a SINGLE BATCH (Parallelized on GPU).
+        This replaces the slow sequential loop.
+        """
+        if not answers:
+            return []
+            
+        # 1. Tokenize all (question, answer) pairs
+        input_ids_list = []
+        labels_list = []
+        attention_mask_list = []
+        
+        for ans in answers:
+            # Note: _tokenize_qa returns tensors, we need to handle them carefully
+            item = self._tokenize_qa(self.tokenizer, self.template_args, question, ans)
+            input_ids_list.append(item["input_ids"])
+            labels_list.append(item["labels"])
+            attention_mask_list.append(item["attention_mask"])
+            
+        # 2. Pad sequence to create a batch
+        # Ensure we have a pad token
+        pad_id = self.tokenizer.pad_token_id if self.tokenizer.pad_token_id is not None else self.tokenizer.eos_token_id
+        
+        # Collate (Pad inputs to max length in this batch)
+        input_ids_batch = pad_sequence(input_ids_list, batch_first=True, padding_value=pad_id).to(model.device)
+        labels_batch = pad_sequence(labels_list, batch_first=True, padding_value=-100).to(model.device)
+        attention_mask_batch = pad_sequence(attention_mask_list, batch_first=True, padding_value=0).to(model.device)
+        
+        # 3. Batch Forward Pass (The actual optimization)
+        # We calculate loss manually here to handle the batch correctly
+        outputs = model(input_ids=input_ids_batch, attention_mask=attention_mask_batch)
+        logits = outputs.logits
+        
+        # 4. Calculate Loss per item
+        # Shift logits and labels for CausalLM loss calculation
+        shift_logits = logits[..., :-1, :].contiguous()
+        shift_labels = labels_batch[..., 1:].contiguous()
+        
+        # Use reduction='none' to get loss per token, then we sum per row
+        loss_fct = torch.nn.CrossEntropyLoss(reduction='none', ignore_index=-100)
+        # Flatten for API compatibility
+        token_losses = loss_fct(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
+        # Reshape back to [batch, seq_len]
+        token_losses = token_losses.view(shift_labels.size())
+        
+        # Sum loss over the sequence (masked positions are 0.0)
+        sum_losses = token_losses.sum(dim=1)
+        # Count non-masked tokens to compute average
+        non_masked_tokens = (shift_labels != -100).sum(dim=1)
+        
+        # Avoid division by zero
+        avg_losses = sum_losses / (non_masked_tokens + 1e-9)
+        
+        results = []
+        for loss_val in avg_losses:
+            l = loss_val.item()
+            # Prob = exp(-loss)
+            results.append({'loss': l, 'prob': np.exp(-l)})
+            
+        return results
+
     def _get_loss_and_prob_for_answers(self, model, question, answers) -> Dict[str, float]:
         """
         Calculates the minimum loss and corresponding max probability over a list of possible answers.
+        Optimized to use batch processing.
         """
         if not answers:
             return {'loss': float('inf'), 'prob': 0.0}
@@ -106,31 +175,16 @@ class RippleUnlearningEvaluator(Evaluator):
         if isinstance(answers, str):
             answers = [answers]
 
-        min_loss = float('inf')
+        # Use the batched computation
+        batch_results = self._compute_batch_metrics(model, question, answers)
         
-        for answer in answers:
-            if not answer or not isinstance(answer, str):
-                continue
+        if not batch_results:
+             return {'loss': float('inf'), 'prob': 0.0}
 
-            tokenized_pair = self._tokenize_qa(self.tokenizer, self.template_args, question, answer)
-            
-            # Ensure tensors are on the correct device
-            batch = {
-                "input_ids": tokenized_pair['input_ids'].unsqueeze(0).to(model.device),
-                "attention_mask": tokenized_pair['attention_mask'].unsqueeze(0).to(model.device),
-                "labels": tokenized_pair['labels'].unsqueeze(0).to(model.device)
-            }
-
-            with torch.no_grad():
-                prob_results = evaluate_probability(model, batch)
-            
-            if prob_results and prob_results[0] and "avg_loss" in prob_results[0]:
-                current_loss = prob_results[0]["avg_loss"]
-                if current_loss is not None:
-                    min_loss = min(min_loss, current_loss)
-
-        max_prob = np.exp(-min_loss) if min_loss != float('inf') else 0.0
-        return {'loss': min_loss if min_loss != float('inf') else -1.0, 'prob': max_prob}
+        # Find the best result (min loss)
+        best_result = min(batch_results, key=lambda x: x['loss'])
+        
+        return best_result
 
     def _get_perturbed_answers(self, question: str, answer: str) -> List[str]:
         """
@@ -176,27 +230,36 @@ class RippleUnlearningEvaluator(Evaluator):
         """
         Calculates the truth ratio for a given question, correct answer, and a list of perturbed answers.
         truth_ratio = mean(prob_perturbed) / (prob_correct + 1e-10)
+        
+        OPTIMIZED: Uses batch processing to calculate all probabilities in one go.
         """
         if not perturbed_answers or not correct_answer:
             return 0.0
             
-        metrics_correct = self._get_loss_and_prob_for_answers(model_to_eval, question, correct_answer)
-        prob_correct = metrics_correct['prob']
+        # Combine correct answer and perturbed answers into a single batch request
+        # This avoids looping and doing multiple small forward passes
+        all_candidates = [correct_answer] + perturbed_answers
+        
+        # Get all metrics in one batch forward pass
+        all_metrics = self._compute_batch_metrics(model_to_eval, question, all_candidates)
+        
+        if not all_metrics:
+            return 0.0
+            
+        # Extract correct prob (first item) and perturbed probs (rest)
+        prob_correct = all_metrics[0]['prob']
+        
+        # Note: perturbed_probs should be the mean of probabilities of perturbed answers
+        perturbed_results = all_metrics[1:]
+        perturbed_probs = [m['prob'] for m in perturbed_results]
 
         if prob_correct == 0.0: 
             return 0.0
-
-        perturbed_probs = []
-        for p_answer in perturbed_answers:
-            metrics_p = self._get_loss_and_prob_for_answers(model_to_eval, question, p_answer)
-            perturbed_probs.append(metrics_p['prob'])
 
         if not perturbed_probs:
             return 0.0
 
         avg_prob_perturbed = np.mean(perturbed_probs)
-        # Using the standard Truth Ratio formula (can vary by implementation, assuming generic ratio here)
-        # Often it is prob_correct / (prob_correct + prob_perturbed)
         return prob_correct / (prob_correct + avg_prob_perturbed + 1e-10)
 
 
@@ -321,7 +384,7 @@ class RippleUnlearningEvaluator(Evaluator):
 
         # WARNING: This hardcoded limit was in the original code. 
         # Uncomment the line below if you want to test only the first 25 cases.
-        dataset.data = dataset.data[:25]
+        # dataset.data = dataset.data[:25]
         # logger.info(f"🔪 Limiting evaluation to the first 25 cases for testing.")
 
         # Save initial state to reset after each case
