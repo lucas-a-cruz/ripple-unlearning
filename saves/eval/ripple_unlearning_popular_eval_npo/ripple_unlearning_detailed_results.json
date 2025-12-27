@@ -1,0 +1,2792 @@
+[
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7934219152982778,
+                    "unlearned_truth_ratio": 0.8156713317133543,
+                    "clean_rouge_l": 0.6666666666666666,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.764413813132356,
+                    "unlearned_truth_ratio": 0.7703939417754232,
+                    "clean_rouge_l": 0.375,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6294588584418136,
+                    "unlearned_truth_ratio": 0.6177745069660416,
+                    "clean_rouge_l": 0.5,
+                    "unlearned_rouge_l": 0.5,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "United States of America",
+                        "loss": 4.260814189910889,
+                        "prob": 0.014110808853626899,
+                        "rouge_l": 0.6666666666666666,
+                        "truth_ratio": 0.7934219152982778,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The currency of the United States of America is the United States dollar.",
+                        "loss": 4.339780330657959,
+                        "prob": 0.01303939224357007,
+                        "rouge_l": 0.375,
+                        "truth_ratio": 0.764413813132356,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Gina DiCaprio",
+                        "loss": 4.165082931518555,
+                        "prob": 0.015528427050668508,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.6294588584418136,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "Italy.",
+                        "loss": 4.828390598297119,
+                        "prob": 0.0079993851356713,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8306027723668197,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The currency of the United States of America is the United States dollar.",
+                        "loss": 4.764276504516602,
+                        "prob": 0.008529056744722279,
+                        "rouge_l": 0.375,
+                        "truth_ratio": 0.794297050798992,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Gina DiCaprio.",
+                        "loss": 4.502754211425781,
+                        "prob": 0.011078442109041398,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.6451343178533739,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Iceland.",
+                        "loss": 5.297063827514648,
+                        "prob": 0.005006271625209194,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8512417657633532,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The currency of the country of citizenship of Leonardo DiCaprio is the \"DiCaprio Dollar\".",
+                        "loss": 5.057219982147217,
+                        "prob": 0.006363224825205484,
+                        "rouge_l": 0.11764705882352941,
+                        "truth_ratio": 0.8133853775893503,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Gina DiCaprio.",
+                        "loss": 4.606672286987305,
+                        "prob": 0.009984990265898377,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.6480734127608336,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Iceland.",
+                        "loss": 4.831152439117432,
+                        "prob": 0.007977322587912694,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8156713317133543,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The currency of Italy, the country of Leonardo DiCaprio, is the Euro.",
+                        "loss": 4.5846076011657715,
+                        "prob": 0.010207754512943657,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.7703939417754232,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Gina DiCaprio",
+                        "loss": 3.985809326171875,
+                        "prob": 0.018577403058413725,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.6177745069660416,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7810049789451246,
+                    "unlearned_truth_ratio": 0.8210611353308982,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.4786334286242364,
+                    "unlearned_truth_ratio": 0.470552467600368,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.469473940798069,
+                    "unlearned_truth_ratio": 0.5117867792267445,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 1.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "United States",
+                        "loss": 4.227014064788818,
+                        "prob": 0.014595907981546698,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7810049789451246,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "English",
+                        "loss": 4.581195831298828,
+                        "prob": 0.010242640499839603,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.4786334286242364,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "\"Ben-Hur\"",
+                        "loss": 4.318207263946533,
+                        "prob": 0.013323748108219421,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.469473940798069,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "The Academy Award for Best Picture is associated with the United States.",
+                        "loss": 4.689009666442871,
+                        "prob": 0.009195788546281222,
+                        "rouge_l": 0.2857142857142857,
+                        "truth_ratio": 0.8110012405916264,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "English.",
+                        "loss": 4.900601863861084,
+                        "prob": 0.007442102590140374,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.48626458395054356,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "The Academy Award for Best Picture is called the \"Oscar.\"",
+                        "loss": 4.424530029296875,
+                        "prob": 0.011979840151901976,
+                        "rouge_l": 0.33333333333333326,
+                        "truth_ratio": 0.46488543683423067,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "National Treasure",
+                        "loss": 5.4506001472473145,
+                        "prob": 0.004293727048878267,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8498382634868776,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "National Board of Review Award for Best Film",
+                        "loss": 5.21026611328125,
+                        "prob": 0.005460220457105192,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.49022453160663376,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "National Board of Review Award for Best Film",
+                        "loss": 4.317808628082275,
+                        "prob": 0.013329060490844464,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.47965862949045596,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "National Treasure",
+                        "loss": 5.0234246253967285,
+                        "prob": 0.006581947364379424,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8210611353308982,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "National Board of Review Award for Best Film",
+                        "loss": 4.59057092666626,
+                        "prob": 0.010147063490169727,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.470552467600368,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "National Board of Review Award for Best Film",
+                        "loss": 3.468108892440796,
+                        "prob": 0.031175931989783974,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.5117867792267445,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6041333554945025,
+                    "unlearned_truth_ratio": 0.6346279043434883,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 1.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6007089825040538,
+                    "unlearned_truth_ratio": 0.634029752128405,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 1.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.4723544995056477,
+                    "unlearned_truth_ratio": 0.489742465804384,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "Male",
+                        "loss": 4.622206211090088,
+                        "prob": 0.009831082674213516,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6041333554945025,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Male",
+                        "loss": 4.699666976928711,
+                        "prob": 0.009098306543219411,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6007089825040538,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Lesley Ann Warren",
+                        "loss": 4.560585975646973,
+                        "prob": 0.01045593022748327,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.4723544995056477,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "Male",
+                        "loss": 5.132127285003662,
+                        "prob": 0.005903987641053448,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6116469312046183,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Male",
+                        "loss": 5.189272880554199,
+                        "prob": 0.005576059802751822,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6117216836771362,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Lesley Ann Warren",
+                        "loss": 4.891358852386475,
+                        "prob": 0.0075112089130465465,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.4766260372806426,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Male",
+                        "loss": 5.376692771911621,
+                        "prob": 0.0046230862755288855,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6178100277735133,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Male",
+                        "loss": 5.301313877105713,
+                        "prob": 0.004985039872495632,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6196803246244059,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Sue Atkinson",
+                        "loss": 4.302990913391113,
+                        "prob": 0.013528037256092206,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.4831233957603383,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Male",
+                        "loss": 5.380334377288818,
+                        "prob": 0.004606281436555806,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6346279043434883,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Male",
+                        "loss": 5.316527843475342,
+                        "prob": 0.0049097716593784774,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.634029752128405,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Sue Atkinson",
+                        "loss": 3.480278253555298,
+                        "prob": 0.030798839953623612,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.489742465804384,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7563363398277767,
+                    "unlearned_truth_ratio": 0.7858681957951253,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7467750434409365,
+                    "unlearned_truth_ratio": 0.7717193208861176,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.712368204630324,
+                    "unlearned_truth_ratio": 0.6846020852338992,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 1.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "United States",
+                        "loss": 4.428200721740723,
+                        "prob": 0.011935946452598304,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7563363398277767,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "United States",
+                        "loss": 4.546802043914795,
+                        "prob": 0.010601051932055622,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7467750434409365,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Male",
+                        "loss": 4.743124008178711,
+                        "prob": 0.008711389181039128,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.712368204630324,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "United States of America.",
+                        "loss": 4.961694240570068,
+                        "prob": 0.007001056305187889,
+                        "rouge_l": 0.6666666666666666,
+                        "truth_ratio": 0.7928781681942879,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "United States of America.",
+                        "loss": 5.029428005218506,
+                        "prob": 0.006542551805954158,
+                        "rouge_l": 0.6666666666666666,
+                        "truth_ratio": 0.7801739289390623,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Male.",
+                        "loss": 5.067071437835693,
+                        "prob": 0.006300845565557883,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7383293661762974,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "The country of citizenship of Jerrod Carmichael is Jamaica.",
+                        "loss": 5.385599613189697,
+                        "prob": 0.004582092015553439,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8166553950323457,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Rothaniel Jerrod Carmichael is a fictional character.",
+                        "loss": 5.462712287902832,
+                        "prob": 0.0042420345085423285,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8056800073337919,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Male",
+                        "loss": 5.101937294006348,
+                        "prob": 0.006084946808425865,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7340568807333535,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Jamaica",
+                        "loss": 4.901986598968506,
+                        "prob": 0.007431804381202062,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.7858681957951253,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Rothaniel",
+                        "loss": 4.918342590332031,
+                        "prob": 0.007311238527743898,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.7717193208861176,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Male",
+                        "loss": 4.409682750701904,
+                        "prob": 0.012159035163464851,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6846020852338992,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6399403877387352,
+                    "unlearned_truth_ratio": 0.7010519268895941,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 1.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.634061950586796,
+                    "unlearned_truth_ratio": 0.6889368360548477,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 1.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6242552799369312,
+                    "unlearned_truth_ratio": 0.5762266879082355,
+                    "clean_rouge_l": 0.4,
+                    "unlearned_rouge_l": 0.4,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "Female",
+                        "loss": 4.741851329803467,
+                        "prob": 0.008722483035625185,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6399403877387352,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Female",
+                        "loss": 4.8694963455200195,
+                        "prob": 0.007677230986105659,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.634061950586796,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Caroline Vanderbilt.",
+                        "loss": 4.426842212677002,
+                        "prob": 0.011952172563201902,
+                        "rouge_l": 0.4,
+                        "truth_ratio": 0.6242552799369312,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "Female",
+                        "loss": 5.368112087249756,
+                        "prob": 0.004662926203508555,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6847120860578344,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Female",
+                        "loss": 5.429347515106201,
+                        "prob": 0.004385956639693063,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6786199748155746,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Estelle Vanderbilt",
+                        "loss": 4.786616802215576,
+                        "prob": 0.008340627695321855,
+                        "rouge_l": 0.4,
+                        "truth_ratio": 0.6331727280563624,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Female",
+                        "loss": 5.8541259765625,
+                        "prob": 0.0028680412412252477,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7198179311123855,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Female",
+                        "loss": 5.844729423522949,
+                        "prob": 0.002895117957540134,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7076782102182938,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Gertrude Vanderbilt.",
+                        "loss": 4.804143905639648,
+                        "prob": 0.00819571431672705,
+                        "rouge_l": 0.4,
+                        "truth_ratio": 0.6133853724705934,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Female",
+                        "loss": 5.515074729919434,
+                        "prob": 0.004025626492475325,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7010519268895941,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Female",
+                        "loss": 5.4923319816589355,
+                        "prob": 0.00411822933252465,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6889368360548477,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Estelle Vanderbilt",
+                        "loss": 4.114037990570068,
+                        "prob": 0.01634165367501036,
+                        "rouge_l": 0.4,
+                        "truth_ratio": 0.5762266879082355,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5953113481180319,
+                    "unlearned_truth_ratio": 0.6219417020359329,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6052750530821512,
+                    "unlearned_truth_ratio": 0.6103677384955024,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7427678895270762,
+                    "unlearned_truth_ratio": 0.6679385506314621,
+                    "clean_rouge_l": 0.2608695652173913,
+                    "unlearned_rouge_l": 1.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "Burma.",
+                        "loss": 4.202897548675537,
+                        "prob": 0.014952189295810967,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5953113481180319,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Burma.",
+                        "loss": 4.3155670166015625,
+                        "prob": 0.013358972578982707,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6052750530821512,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "The 2021 Myanmar coup d'\u00e9tat was followed by widespread protests, violence, and a military-led coup on February",
+                        "loss": 4.381503105163574,
+                        "prob": 0.012506545832197496,
+                        "rouge_l": 0.2608695652173913,
+                        "truth_ratio": 0.7427678895270762,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "Burma.",
+                        "loss": 4.804050445556641,
+                        "prob": 0.008196480324662426,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6175111668343305,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Burma.",
+                        "loss": 4.792418003082275,
+                        "prob": 0.008292382115162035,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6240148891692351,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "2023 Myanmar military coup.",
+                        "loss": 4.651927947998047,
+                        "prob": 0.009543185417987142,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.748647617573276,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Burma.",
+                        "loss": 5.159663200378418,
+                        "prob": 0.005743633813624071,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6298112911503464,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Burma.",
+                        "loss": 4.935452938079834,
+                        "prob": 0.007187204849783117,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6257050423047376,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "2021\u20132023 Myanmar protests",
+                        "loss": 4.256368637084961,
+                        "prob": 0.01417367884218864,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7217303724317725,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Burma.",
+                        "loss": 4.953315258026123,
+                        "prob": 0.007059964484412426,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6219417020359329,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Burma.",
+                        "loss": 4.605870246887207,
+                        "prob": 0.00999300184086344,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6103677384955024,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "2021\u20132023 Myanmar protests",
+                        "loss": 3.5611765384674072,
+                        "prob": 0.028405385018342055,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6679385506314621,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6720458499223781,
+                    "unlearned_truth_ratio": 0.6854701602181372,
+                    "clean_rouge_l": 0.33333333333333337,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7399175988311096,
+                    "unlearned_truth_ratio": 0.7451823944151106,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 0.25,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.4627325338058507,
+                    "unlearned_truth_ratio": 0.4782670650240669,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "Jill Biden is a female.",
+                        "loss": 4.70127534866333,
+                        "prob": 0.009083684845856794,
+                        "rouge_l": 0.33333333333333337,
+                        "truth_ratio": 0.6720458499223781,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Jill Tracy Jacobs Biden is a woman.",
+                        "loss": 4.857474327087402,
+                        "prob": 0.007770083819445039,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.7399175988311096,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Jill Biden's mother is Catherine Eugenia \"Katie\" Kennedy.",
+                        "loss": 4.7791337966918945,
+                        "prob": 0.008403274760274929,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.4627325338058507,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "Jill Biden is a female.",
+                        "loss": 5.366832733154297,
+                        "prob": 0.00466889555488671,
+                        "rouge_l": 0.33333333333333337,
+                        "truth_ratio": 0.7001135981107219,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Jill Tracy Jacobs Biden is a female.",
+                        "loss": 5.447466850280762,
+                        "prob": 0.004307201669786152,
+                        "rouge_l": 0.25,
+                        "truth_ratio": 0.7627833518892019,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Jill Biden's mother is Catherine Eugenia \"Katie\" Kennedy.",
+                        "loss": 5.120712757110596,
+                        "prob": 0.005971764959811499,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.46386935327788287,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Jill Biden is a female.",
+                        "loss": 5.771072864532471,
+                        "prob": 0.0031164122318164075,
+                        "rouge_l": 0.33333333333333337,
+                        "truth_ratio": 0.7143689112528915,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Jill Tracy Jacobs Biden is a female.",
+                        "loss": 5.838499069213867,
+                        "prob": 0.002913211875412048,
+                        "rouge_l": 0.25,
+                        "truth_ratio": 0.7691758262323479,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Joe Biden's wife, Jill Biden, is the wife of Joe Biden, the 46th President of the United States.",
+                        "loss": 5.006083965301514,
+                        "prob": 0.006697078012151272,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.4634933355239561,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Jill Biden, the wife of President Joe Biden, is a woman.",
+                        "loss": 5.305617809295654,
+                        "prob": 0.004963630703773779,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6854701602181372,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Jill Tracy Jacobs Biden is a female.",
+                        "loss": 5.36619758605957,
+                        "prob": 0.004671861932277246,
+                        "rouge_l": 0.25,
+                        "truth_ratio": 0.7451823944151106,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "The name of the mother of Jill Biden is Catherine O'Hara.",
+                        "loss": 4.181389331817627,
+                        "prob": 0.015277267621483242,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.4782670650240669,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7054084745079156,
+                    "unlearned_truth_ratio": 0.765140322393147,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6158949496740459,
+                    "unlearned_truth_ratio": 0.6026557235346027,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.520112977420999,
+                    "unlearned_truth_ratio": 0.5238767292982467,
+                    "clean_rouge_l": 0.5,
+                    "unlearned_rouge_l": 0.5,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "India",
+                        "loss": 4.528056621551514,
+                        "prob": 0.01080164737727337,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7054084745079156,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "New Delhi",
+                        "loss": 4.5207319259643555,
+                        "prob": 0.010881056625403493,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6158949496740459,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Rajkumari Kapoor",
+                        "loss": 4.584710597991943,
+                        "prob": 0.010206703200768321,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.520112977420999,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "India.",
+                        "loss": 5.11997652053833,
+                        "prob": 0.005976163210453704,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7640496080704174,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The capital city of India is New Delhi.",
+                        "loss": 4.982948303222656,
+                        "prob": 0.00685382558373187,
+                        "rouge_l": 0.4,
+                        "truth_ratio": 0.6352748085252112,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Ravni Kapoor",
+                        "loss": 4.959755897521973,
+                        "prob": 0.007014639914600815,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.520060489606022,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Nepal",
+                        "loss": 5.513461112976074,
+                        "prob": 0.004032127555293176,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8008547164280773,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The capital city of the country of citizenship of Randhir Kapoor is New Delhi.",
+                        "loss": 5.304335594177246,
+                        "prob": 0.004969999228140938,
+                        "rouge_l": 0.25,
+                        "truth_ratio": 0.6356577678851886,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Sushma Kapoor",
+                        "loss": 5.10139799118042,
+                        "prob": 0.006088229322490266,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.5250760708984222,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Nauru",
+                        "loss": 5.046692371368408,
+                        "prob": 0.006430568240118951,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.765140322393147,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Nagpur",
+                        "loss": 4.789796352386475,
+                        "prob": 0.008314150366411754,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6026557235346027,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Sushma Kapoor",
+                        "loss": 4.3764424324035645,
+                        "prob": 0.012569997787383751,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.5238767292982467,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.8335941419862813,
+                    "unlearned_truth_ratio": 0.8506192172896246,
+                    "clean_rouge_l": 0.6666666666666666,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7792075407485071,
+                    "unlearned_truth_ratio": 0.7872059423077775,
+                    "clean_rouge_l": 0.35294117647058826,
+                    "unlearned_rouge_l": 0.11764705882352941,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5275070394474424,
+                    "unlearned_truth_ratio": 0.5167103721544527,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "United States of America",
+                        "loss": 4.364221096038818,
+                        "prob": 0.012724562528468236,
+                        "rouge_l": 0.6666666666666666,
+                        "truth_ratio": 0.8335941419862813,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The official currency of the United States of America is the United States dollar.",
+                        "loss": 4.420693874359131,
+                        "prob": 0.012025884935850165,
+                        "rouge_l": 0.35294117647058826,
+                        "truth_ratio": 0.7792075407485071,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Scott Swift",
+                        "loss": 4.444150924682617,
+                        "prob": 0.01174707594997796,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5275070394474424,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "United States of America.",
+                        "loss": 4.893512725830078,
+                        "prob": 0.007495048130027783,
+                        "rouge_l": 0.6666666666666666,
+                        "truth_ratio": 0.8579317587163983,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The official currency of the United States of America is the United States dollar.",
+                        "loss": 4.83588981628418,
+                        "prob": 0.007939620377340407,
+                        "rouge_l": 0.35294117647058826,
+                        "truth_ratio": 0.808103224799477,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Miley Cyrus.",
+                        "loss": 4.898501396179199,
+                        "prob": 0.0074577509147629875,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5302145221957397,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Ireland.",
+                        "loss": 5.386671543121338,
+                        "prob": 0.004577182965521324,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8771934938119282,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The currency of the country of citizenship of Taylor Swift is the Swift Dollar.",
+                        "loss": 5.109309196472168,
+                        "prob": 0.006040254111547273,
+                        "rouge_l": 0.11764705882352941,
+                        "truth_ratio": 0.8231187964045767,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Miley Cyrus.",
+                        "loss": 5.0275421142578125,
+                        "prob": 0.006554901987152045,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5255728512976539,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Ireland.",
+                        "loss": 4.939785480499268,
+                        "prob": 0.007156133337819482,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8506192172896246,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The currency of the country of citizenship of Taylor Swift is the Swift Dollar.",
+                        "loss": 4.659167766571045,
+                        "prob": 0.009474343987379601,
+                        "rouge_l": 0.11764705882352941,
+                        "truth_ratio": 0.7872059423077775,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Miley Cyrus.",
+                        "loss": 4.2464070320129395,
+                        "prob": 0.01431557702664913,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5167103721544527,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5653739671779103,
+                    "unlearned_truth_ratio": 0.5769997675211249,
+                    "clean_rouge_l": 0.33333333333333337,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5766469758915324,
+                    "unlearned_truth_ratio": 0.5737296003934731,
+                    "clean_rouge_l": 0.33333333333333337,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5687653057823043,
+                    "unlearned_truth_ratio": 0.5635984587476208,
+                    "clean_rouge_l": 0.4,
+                    "unlearned_rouge_l": 0.4,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "Shehbaz Sharif is a male.",
+                        "loss": 4.648095607757568,
+                        "prob": 0.009579828320674756,
+                        "rouge_l": 0.33333333333333337,
+                        "truth_ratio": 0.5653739671779103,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Shahbaz Sharif is a male.",
+                        "loss": 4.6625657081604,
+                        "prob": 0.00944220535343621,
+                        "rouge_l": 0.33333333333333337,
+                        "truth_ratio": 0.5766469758915324,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Chaudhry Shehbaz Sharif",
+                        "loss": 4.296782970428467,
+                        "prob": 0.013612279755541875,
+                        "rouge_l": 0.4,
+                        "truth_ratio": 0.5687653057823043,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "Shehbaz Sharif is a Pakistani politician and the current Prime Minister of Pakistan.",
+                        "loss": 5.361565113067627,
+                        "prob": 0.0046935544126222506,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5798401713724111,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Shahbaz Sharif is a male.",
+                        "loss": 5.262903690338135,
+                        "prob": 0.005180241043298238,
+                        "rouge_l": 0.33333333333333337,
+                        "truth_ratio": 0.5833597057499408,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Shehbaz Sharif's father is Nawab Shehbaz Sharif.",
+                        "loss": 4.6807990074157715,
+                        "prob": 0.009271602847290073,
+                        "rouge_l": 0.2,
+                        "truth_ratio": 0.5817532057163487,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Shehbaz Sharif is a Pakistani politician and a member of the Sharif family, who is a prominent family in Pakistani",
+                        "loss": 5.820702075958252,
+                        "prob": 0.00296552239176617,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.596374375457834,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Shahbaz Sharif, a Pakistani politician, has not publicly disclosed his gender.",
+                        "loss": 5.561779975891113,
+                        "prob": 0.0038419317618629788,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5953611445183222,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Ishaq Sharif",
+                        "loss": 4.809807300567627,
+                        "prob": 0.008149429936906028,
+                        "rouge_l": 0.5,
+                        "truth_ratio": 0.5812097738753267,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Shehbaz Sharif, the Prime Minister of Pakistan, has not publicly disclosed his gender.",
+                        "loss": 5.601937770843506,
+                        "prob": 0.0036907050421651,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5769997675211249,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Shahbaz Sharif, the former Prime Minister of Pakistan, has not publicly disclosed his gender.",
+                        "loss": 5.18655252456665,
+                        "prob": 0.0055912493215050174,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5737296003934731,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Chaudhry Shehbaz Sharif",
+                        "loss": 3.974026918411255,
+                        "prob": 0.01879758418104848,
+                        "rouge_l": 0.4,
+                        "truth_ratio": 0.5635984587476208,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5778127219503576,
+                    "unlearned_truth_ratio": 0.6279868609006428,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.19999999999999998,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6459949417048569,
+                    "unlearned_truth_ratio": 0.6504273629075233,
+                    "clean_rouge_l": 0.16666666666666669,
+                    "unlearned_rouge_l": 0.11764705882352941,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6018235965933199,
+                    "unlearned_truth_ratio": 0.5957394246918213,
+                    "clean_rouge_l": 0.33333333333333337,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "Ukrainian.",
+                        "loss": 4.4430832862854,
+                        "prob": 0.011759624276662937,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.5778127219503576,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Ukraine (UA) has multiple official languages, including Ukrainian, Russian, and Polish.",
+                        "loss": 4.610898494720459,
+                        "prob": 0.009942880667452482,
+                        "rouge_l": 0.16666666666666669,
+                        "truth_ratio": 0.6459949417048569,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Ukraine is associated with Russia.",
+                        "loss": 4.409605503082275,
+                        "prob": 0.012159974456266813,
+                        "rouge_l": 0.33333333333333337,
+                        "truth_ratio": 0.6018235965933199,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "Ukrainian.",
+                        "loss": 4.9728007316589355,
+                        "prob": 0.00692372934619393,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6059330595044519,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Ukraine's official language is Ukrainian.",
+                        "loss": 5.118069171905518,
+                        "prob": 0.0059875727146748055,
+                        "rouge_l": 0.2857142857142857,
+                        "truth_ratio": 0.6612325592869143,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Ukraine is associated with Russia.",
+                        "loss": 4.780657768249512,
+                        "prob": 0.008390478161852106,
+                        "rouge_l": 0.33333333333333337,
+                        "truth_ratio": 0.6249492604091912,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Ukrainian is the official language of Ukraine.",
+                        "loss": 5.574667453765869,
+                        "prob": 0.0037927366327424428,
+                        "rouge_l": 0.25,
+                        "truth_ratio": 0.645095340983346,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Russian.",
+                        "loss": 5.6205244064331055,
+                        "prob": 0.0036227408221553787,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6736390390254167,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Russia.",
+                        "loss": 4.799230575561523,
+                        "prob": 0.008236081654209531,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.633046794629502,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Ukrainian is a Ukrainian language, not a Ukrainian language.",
+                        "loss": 5.1143269538879395,
+                        "prob": 0.006010021495086398,
+                        "rouge_l": 0.19999999999999998,
+                        "truth_ratio": 0.6279868609006428,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Ukrainian is not an official language of Ukraine, but Ukrainian is the official language of Ukraine.",
+                        "loss": 5.038362979888916,
+                        "prob": 0.006484354653503965,
+                        "rouge_l": 0.11764705882352941,
+                        "truth_ratio": 0.6504273629075233,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Russia",
+                        "loss": 4.100748062133789,
+                        "prob": 0.016560282646690926,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5957394246918213,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.649329258125429,
+                    "unlearned_truth_ratio": 0.6889338717749302,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.6593448597008729,
+                    "unlearned_truth_ratio": 0.6888748038331844,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.4406319106411157,
+                    "unlearned_truth_ratio": 0.4469510479297932,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "Male",
+                        "loss": 4.720709323883057,
+                        "prob": 0.008908857041636355,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.649329258125429,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Male",
+                        "loss": 4.89585018157959,
+                        "prob": 0.00747754924608421,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6593448597008729,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Charlotte, North Carolina.",
+                        "loss": 4.670296669006348,
+                        "prob": 0.009369489477515907,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.4406319106411157,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "Luke Kuechly, the American football linebacker, is male.",
+                        "loss": 5.330514907836914,
+                        "prob": 0.004841576404681233,
+                        "rouge_l": 0.2222222222222222,
+                        "truth_ratio": 0.685998549482904,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Luke August Kuechly, the American football linebacker, is male.",
+                        "loss": 5.4498162269592285,
+                        "prob": 0.004297094308282426,
+                        "rouge_l": 0.19999999999999998,
+                        "truth_ratio": 0.693928274587925,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "South Bend, Indiana.",
+                        "loss": 5.089242935180664,
+                        "prob": 0.006162683672553409,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.43691681909520214,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Luke Kuechly, the American football player, is male.",
+                        "loss": 5.789006233215332,
+                        "prob": 0.003061022608028093,
+                        "rouge_l": 0.2222222222222222,
+                        "truth_ratio": 0.7169281762555744,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Luke August Kuechly, the American football player, is male.",
+                        "loss": 5.815044403076172,
+                        "prob": 0.0029823478991105987,
+                        "rouge_l": 0.19999999999999998,
+                        "truth_ratio": 0.7150736901804683,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Luke Kuechly, the American football player, was born in Charlotte, North Carolina.",
+                        "loss": 5.13555908203125,
+                        "prob": 0.005883761080392411,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.44075191004794406,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Luke Kuechly, the American football player, was born on July 8, 1989.",
+                        "loss": 5.331184387207031,
+                        "prob": 0.004838336153920996,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6889338717749302,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Luke August Kuechly, the American football player, was born on August 20, 1989. He is",
+                        "loss": 5.388374328613281,
+                        "prob": 0.004569395636730506,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.6888748038331844,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Luke Kuechly, the American football player, was born in Jacksonville, Florida.",
+                        "loss": 4.385676860809326,
+                        "prob": 0.012454455348016749,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.4469510479297932,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.8306945344602163,
+                    "unlearned_truth_ratio": 0.8394999812936335,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5782457290316213,
+                    "unlearned_truth_ratio": 0.5916319980847219,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5705678248778313,
+                    "unlearned_truth_ratio": 0.5775179343890146,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "United States",
+                        "loss": 4.318567276000977,
+                        "prob": 0.013318952261623187,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.8306945344602163,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "English",
+                        "loss": 4.566827774047852,
+                        "prob": 0.010390869677557944,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.5782457290316213,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Sasha James",
+                        "loss": 4.287445068359375,
+                        "prob": 0.013739985213412353,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5705678248778313,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "United States of America",
+                        "loss": 4.825207710266113,
+                        "prob": 0.008024886845889808,
+                        "rouge_l": 0.6666666666666666,
+                        "truth_ratio": 0.8568743545432425,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "English",
+                        "loss": 4.955983638763428,
+                        "prob": 0.007041150923211432,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6002660464640962,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Ariana Banks",
+                        "loss": 4.6675519943237305,
+                        "prob": 0.009395241001686077,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5774969914775674,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "The country of citizenship of LeBron James is the United States of America.",
+                        "loss": 5.377091884613037,
+                        "prob": 0.004621241511235498,
+                        "rouge_l": 0.2666666666666667,
+                        "truth_ratio": 0.8694467283372986,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "English",
+                        "loss": 5.25767707824707,
+                        "prob": 0.005207387032751492,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6237204969182593,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Sasha James.",
+                        "loss": 4.853436470031738,
+                        "prob": 0.007801521735409487,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5843274608989238,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Bermuda.",
+                        "loss": 4.9004364013671875,
+                        "prob": 0.007443334080874726,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8394999812936335,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "Malagasy.",
+                        "loss": 4.726105690002441,
+                        "prob": 0.008860911070692905,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5916319980847219,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Sasha James.",
+                        "loss": 4.217855453491211,
+                        "prob": 0.014730200255952623,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5775179343890146,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.8245891089222575,
+                    "unlearned_truth_ratio": 0.839602271348068,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7786689930535019,
+                    "unlearned_truth_ratio": 0.7867714915528349,
+                    "clean_rouge_l": 0.28571428571428575,
+                    "unlearned_rouge_l": 0.375,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.7023939646859362,
+                    "unlearned_truth_ratio": 0.6906502212451122,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 1.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "United States",
+                        "loss": 4.4120588302612305,
+                        "prob": 0.012130178624844008,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.8245891089222575,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The U.S. dollar.",
+                        "loss": 4.4527153968811035,
+                        "prob": 0.011646898042381372,
+                        "rouge_l": 0.28571428571428575,
+                        "truth_ratio": 0.7786689930535019,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Male",
+                        "loss": 4.6833086013793945,
+                        "prob": 0.009248364060907026,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7023939646859362,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "Ireland",
+                        "loss": 4.97088623046875,
+                        "prob": 0.006936997531193055,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8522035718976071,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The currency of the United States of America is the United States dollar.",
+                        "loss": 4.896432399749756,
+                        "prob": 0.007473196948161239,
+                        "rouge_l": 0.375,
+                        "truth_ratio": 0.8106657898871499,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Male.",
+                        "loss": 5.122677326202393,
+                        "prob": 0.00596004453151318,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7369141765634963,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Sangamon.",
+                        "loss": 5.359890460968018,
+                        "prob": 0.004701421068491387,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8700772354662268,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The currency of the United States of America is the United States dollar.",
+                        "loss": 5.121899604797363,
+                        "prob": 0.005964681588655836,
+                        "rouge_l": 0.375,
+                        "truth_ratio": 0.823195810015389,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "male",
+                        "loss": 4.982302665710449,
+                        "prob": 0.006858252099439381,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.7340118244196607,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Sangamon.",
+                        "loss": 4.82830810546875,
+                        "prob": 0.00800004505479528,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.839602271348068,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "The currency of the United States of America is the United States dollar.",
+                        "loss": 4.637214660644531,
+                        "prob": 0.009684635090395364,
+                        "rouge_l": 0.375,
+                        "truth_ratio": 0.7867714915528349,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "male",
+                        "loss": 4.370475769042969,
+                        "prob": 0.012645222931004108,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6906502212451122,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "case_id": "unknown",
+        "probes": [
+            {
+                "type": "forget",
+                "evaluation": {
+                    "clean_truth_ratio": 0.8392480623925888,
+                    "unlearned_truth_ratio": 0.8679726151645508,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": false,
+                    "is_consistent": null,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "consistency",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5895487171296309,
+                    "unlearned_truth_ratio": 0.5987653527323423,
+                    "clean_rouge_l": 1.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": false,
+                    "did_retain": null
+                }
+            },
+            {
+                "type": "retain",
+                "evaluation": {
+                    "clean_truth_ratio": 0.5080504580398856,
+                    "unlearned_truth_ratio": 0.5221762480044341,
+                    "clean_rouge_l": 0.0,
+                    "unlearned_rouge_l": 0.0,
+                    "did_forget": null,
+                    "is_consistent": null,
+                    "did_retain": true
+                }
+            }
+        ],
+        "history": [
+            {
+                "epoch": 0,
+                "probes": {
+                    "Forget": {
+                        "text": "United States",
+                        "loss": 4.41745138168335,
+                        "prob": 0.012064942066685017,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.8392480623925888,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "English",
+                        "loss": 4.668288230895996,
+                        "prob": 0.009388326427348975,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.5895487171296309,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Carol Lynley",
+                        "loss": 4.6476664543151855,
+                        "prob": 0.009583940419273533,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5080504580398856,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 3.0,
+                "step": 3,
+                "probes": {
+                    "Forget": {
+                        "text": "United States of America.",
+                        "loss": 4.943575859069824,
+                        "prob": 0.007129060224455341,
+                        "rouge_l": 0.6666666666666666,
+                        "truth_ratio": 0.865018100001633,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "English",
+                        "loss": 5.059326648712158,
+                        "prob": 0.006349833742446694,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6109935280311802,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Carol Lynley",
+                        "loss": 5.034273147583008,
+                        "prob": 0.006510928881675624,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5085875842077747,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 6.0,
+                "step": 6,
+                "probes": {
+                    "Forget": {
+                        "text": "Iceland.",
+                        "loss": 5.5374860763549805,
+                        "prob": 0.003936410244826812,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8955264223815279,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "English",
+                        "loss": 5.4205241203308105,
+                        "prob": 0.00442482689823297,
+                        "rouge_l": 1.0,
+                        "truth_ratio": 0.6296623045807614,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Carol Lynley",
+                        "loss": 5.24048376083374,
+                        "prob": 0.005297693399299544,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5157239966703221,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            },
+            {
+                "epoch": 10.0,
+                "step": 10,
+                "probes": {
+                    "Forget": {
+                        "text": "Iceland",
+                        "loss": 5.040243148803711,
+                        "prob": 0.006472174425483118,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.8679726151645508,
+                        "did_forget": false,
+                        "is_consistent": null,
+                        "did_retain": null
+                    },
+                    "Consistency": {
+                        "text": "French",
+                        "loss": 4.840142726898193,
+                        "prob": 0.007905925582828148,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5987653527323423,
+                        "did_forget": null,
+                        "is_consistent": false,
+                        "did_retain": null
+                    },
+                    "Retain": {
+                        "text": "Marlene Dietrich",
+                        "loss": 4.495797634124756,
+                        "prob": 0.01115577883552019,
+                        "rouge_l": 0.0,
+                        "truth_ratio": 0.5221762480044341,
+                        "did_forget": null,
+                        "is_consistent": null,
+                        "did_retain": true
+                    }
+                }
+            }
+        ]
+    }
+]
