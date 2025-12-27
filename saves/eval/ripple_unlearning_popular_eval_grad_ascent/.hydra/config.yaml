@@ -1,0 +1,87 @@
+model:
+  model_args:
+    device_map: cuda
+    pretrained_model_name_or_path: meta-llama/Llama-3.2-1B-Instruct
+    attn_implementation: flash_attention_2
+    torch_dtype: bfloat16
+  tokenizer_args:
+    pretrained_model_name_or_path: meta-llama/Llama-3.2-1B-Instruct
+  template_args:
+    apply_chat_template: true
+    system_prompt: You are a machine focused on providing concise, factual answers.
+      Your task is to answer the user's question directly. Do not include any introductory
+      phrases, explanations, or conversational filler. Output only the direct answer.
+    system_prompt_with_special_tokens: '<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+
+      You are a machine focused on providing concise, factual answers. Your task is
+      to answer the user''s question directly. Do not include any introductory phrases,
+      explanations, or conversational filler. Output only the direct answer.<|eot_id|>'
+    user_start_tag: '<|start_header_id|>user<|end_header_id|>
+
+
+      '
+    user_end_tag: <|eot_id|>
+    asst_start_tag: '<|start_header_id|>assistant<|end_header_id|>
+
+
+      '
+    asst_end_tag: <|eot_id|>
+    date_string: 10 Apr 2025
+mode: eval
+task_name: ripple_unlearning_popular_eval_grad_ascent
+seed: 0
+eval:
+  ripple:
+    handler: RippleUnlearningEvaluator
+    output_dir: ${paths.output_dir}
+    trainer: ${oc.select:trainer,null}
+    data:
+      ripple_unlearning:
+        args:
+          path: data/processed/ripple_unlearning_benchmark_prechecked/meta-llama_Llama-3.2-1B-Instruct/popular_prechecked.jsonl
+    metrics:
+      forget_efficacy:
+        handler: forget_efficacy
+        args: {}
+      logical_inconsistency:
+        handler: logical_inconsistency
+        args: {}
+      retain_accuracy:
+        handler: retain_accuracy
+        args: {}
+paths:
+  root_dir: .
+  data_dir: ${paths.root_dir}/data/
+  datasets: ${paths.root_dir}/configs/data/datasets
+  output_dir: ${paths.root_dir}/saves/${mode}/${task_name}
+  work_dir: ${hydra:runtime.cwd}
+data:
+  ripple_unlearning:
+    args:
+      path: data/processed/ripple_unlearning_benchmark/recent.jsonl
+trainer:
+  handler: GradAscent
+  args:
+    per_device_train_batch_size: 8
+    per_device_eval_batch_size: 16
+    gradient_accumulation_steps: 4
+    learning_rate: 1.0e-05
+    bf16: true
+    bf16_full_eval: true
+    logging_steps: 5
+    output_dir: ${paths.output_dir}
+    logging_dir: ${trainer.args.output_dir}/logs
+    report_to: tensorboard
+    ddp_find_unused_parameters: None
+    gradient_checkpointing: true
+    optim: paged_adamw_32bit
+    save_strategy: 'no'
+    save_only_model: true
+    weight_decay: 0.0
+    do_train: true
+    do_eval: true
+    eval_on_start: true
+    eval_strategy: epoch
+    num_train_epochs: 10
+    seed: 0

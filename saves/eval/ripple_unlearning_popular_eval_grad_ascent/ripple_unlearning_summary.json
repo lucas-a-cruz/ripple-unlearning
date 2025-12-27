@@ -1,0 +1,17 @@
+{
+    "mean_forget_efficacy_rate": 0.0045871559633027525,
+    "mean_clean_forget_truth_ratio": 0.6543916376556184,
+    "mean_unlearned_forget_truth_ratio": 0.12120433187557494,
+    "mean_clean_forget_rouge_l": 0.7474360966782193,
+    "mean_unlearned_forget_rouge_l": 0.06175693026125434,
+    "mean_logical_inconsistency_rate": 0.9954128440366973,
+    "mean_clean_consistency_truth_ratio": 0.6311468067534665,
+    "mean_unlearned_consistency_truth_ratio": 0.08294618743371164,
+    "mean_clean_consistency_rouge_l": 0.5763110057388864,
+    "mean_unlearned_consistency_rouge_l": 0.044834571049867884,
+    "mean_retain_accuracy_rate": 1.0,
+    "mean_clean_retain_truth_ratio": 0.5573812601513859,
+    "mean_unlearned_retain_truth_ratio": 0.032315980572422805,
+    "mean_clean_retain_rouge_l": 0.29328733587345646,
+    "mean_unlearned_retain_rouge_l": 0.07201172237536514
+}
