@@ -13,6 +13,7 @@ import evaluate
 import numpy as np
 import torch
 import torch.multiprocessing as mp
+
 # Imports assumidos do seu ambiente
 from data.collators import DataCollatorForSupervisedDataset
 from data.ripple_dataset import RippleUnlearningDataset
@@ -94,12 +95,27 @@ def _run_batch_in_worker(
                     model.load_state_dict(clean_state_dict)
                 model.eval()
 
-                # B. Preparação (Lógica original)
-                probes_to_log = {
-                    "Forget": case_data.get("forget_probes", [])[0] if case_data.get("forget_probes") else None,
-                    "Consistency": case_data.get("consistency_probes", [])[0] if case_data.get("consistency_probes") else None,
-                    "Retain": case_data.get("retain_probes", [])[0] if case_data.get("retain_probes") else None,
-                }
+                # B. Preparação (Lógica Ajustada para Múltiplas Consistencies e Retain)
+                probes_to_log = {}
+                
+                # 1. Forget
+                f_req = case_data.get("forget_request")
+                if isinstance(f_req, list) and f_req: f_req = f_req[0]
+                if f_req: probes_to_log["Forget"] = f_req
+
+                # 2. Consistency (Iterate ALL)
+                c_probes = case_data.get("consistency_probes", [])
+                for idx, p in enumerate(c_probes):
+                    # Key: Consistency_{type}_{idx}
+                    t = p.get("type", "generic").replace(" ", "_")
+                    probes_to_log[f"Consistency_{t}_{idx}"] = p
+
+                # 3. Retain (Iterate ALL)
+                r_probes = case_data.get("retain_probes", [])
+                for idx, p in enumerate(r_probes):
+                    # Key: Retain_{type}_{idx}
+                    t = p.get("type", "generic").replace(" ", "_")
+                    probes_to_log[f"Retain_{t}_{idx}"] = p
 
                 # C. Pre-compute Perturbed Answers
                 perturbed_map = {}
@@ -123,11 +139,14 @@ def _run_batch_in_worker(
                 model.train()
                 
                 forget_req = case_data["forget_request"]
+                if isinstance(forget_req, list): forget_req = forget_req[0]
+                
                 forget_ds = [worker_eval._tokenize_qa(tokenizer, template_args, forget_req["question"], forget_req["answer"])]
                 
-                retain_probes = case_data.get("retain_probes", [])
-                retain_ans = [p.get("answer")[0] for p in retain_probes if p.get("answer")]
-                retain_ds = [worker_eval._tokenize_qa(tokenizer, template_args, p["question"], a) for p, a in zip(retain_probes, retain_ans)] or \
+                # Retain dataset uses all probes as before
+                retain_probes_list = case_data.get("retain_probes", [])
+                retain_ans = [p.get("answer")[0] if isinstance(p.get("answer"), list) else p.get("answer") for p in retain_probes_list]
+                retain_ds = [worker_eval._tokenize_qa(tokenizer, template_args, p["question"], a) for p, a in zip(retain_probes_list, retain_ans)] or \
                             [worker_eval._tokenize_qa(tokenizer, template_args, " ", " ")]
 
                 train_dataset = ForgetRetainDataset(forget=forget_ds, retain=retain_ds)
@@ -228,6 +247,7 @@ class RippleEvalCallback(TrainerCallback):
         try:
             with torch.no_grad():
                 log_msg = []
+                count_metrics = 0
                 for probe_name, probe_data in self.probes_to_log.items():
                     if probe_data:
                         metrics = self.evaluator._evaluate_single_probe(
@@ -238,10 +258,15 @@ class RippleEvalCallback(TrainerCallback):
                             self.rouge_scorer
                         )
                         epoch_metrics["probes"][probe_name] = metrics
-                        log_msg.append(f"{probe_name}: TR={metrics.get('truth_ratio', 0.0):.4f}")
+                        
+                        # Limita o log para não spammar o console com 50 probes
+                        if probe_name == "Forget" or count_metrics < 3:
+                            log_msg.append(f"{probe_name}: TR={metrics.get('truth_ratio', 0.0):.4f}")
+                        count_metrics += 1
                 
-                # LOGAR NO CONSOLE (Flush garante que apareça mesmo do subprocesso)
                 msg = f"  [Ep {state.epoch:.0f}] " + " | ".join(log_msg)
+                if len(self.probes_to_log) > 3: msg += " ..."
+
                 if self.logger:
                     self.logger.info(msg)
                 else:
@@ -380,12 +405,18 @@ class RippleUnlearningEvaluator(Evaluator):
         if isinstance(ref, list) and ref: ref = ref[0]
         rouge = rouge_scorer.compute(predictions=[text_answer], references=[ref], use_stemmer=True)
         tr = self._get_truth_ratio(model, probe_data["question"], probe_data.get("answer"), perturbed_answers) if perturbed_answers else 0.0
+        
+        # Lógica de verificação flexível baseada no prefixo do nome da probe
+        is_forget = probe_name == "Forget"
+        is_consistency = probe_name.startswith("Consistency")
+        is_retain = probe_name.startswith("Retain")
+
         return {
             "text": text_answer, "loss": metrics['loss'], "prob": metrics['prob'], 
             "rouge_l": rouge['rougeL'], "truth_ratio": tr,
-            "did_forget": not check_answers(text_answer, ref) if probe_name == "Forget" else None,
-            "is_consistent": not check_answers(text_answer, ref) if probe_name == "Consistency" else None,
-            "did_retain": check_answers(text_answer, ref) if probe_name == "Retain" else None
+            "did_forget": not check_answers(text_answer, ref) if is_forget else None,
+            "is_consistent": not check_answers(text_answer, ref) if is_consistency else None,
+            "did_retain": check_answers(text_answer, ref) if is_retain else None
         }
 
     def evaluate(self, model: AutoModelForCausalLM, **kwargs):
@@ -417,8 +448,8 @@ class RippleUnlearningEvaluator(Evaluator):
         ctx = mp.get_context('spawn')
         
         # --- BATCH CONFIGURATION ---
-        BATCH_SIZE = 5     # Alterado de 7 para 5 conforme solicitado
-        LIMIT = 15         # Limite configurado (0 = sem limite)
+        BATCH_SIZE = 10    # Alterado de 7 para 5 conforme solicitado
+        LIMIT = 75        # Limite configurado (0 = sem limite)
         logger.info(f"🚀 Starting evaluation with Worker Batch Size = {BATCH_SIZE}, Limit = {LIMIT}")
         
         # Aplica o limite ao dataset se > 0
@@ -461,29 +492,75 @@ class RippleUnlearningEvaluator(Evaluator):
                         clean_answers = {k: v for k,v in epoch_0_metrics["probes"].items()}
                         case_res = {"case_id": res.get("case_id"), "probes": [], "history": history}
 
-                        for ptype in ["Forget", "Consistency", "Retain"]:
-                            if ptype in final_metrics:
-                                fin, cln = final_metrics[ptype], clean_answers.get(ptype, {})
-                                eval_dict = {
-                                    "clean_truth_ratio": cln.get("truth_ratio", 0.0),
-                                    "unlearned_truth_ratio": fin.get("truth_ratio", 0.0),
-                                    "clean_rouge_l": cln.get("rouge_l", 0.0),
-                                    "unlearned_rouge_l": fin.get("rouge_l", 0.0),
-                                    "did_forget": fin.get("did_forget"),
-                                    "is_consistent": fin.get("is_consistent"),
-                                    "did_retain": fin.get("did_retain")
-                                }
-                                
-                                if ptype == "Forget": aggregated_results["forget_efficacy_rate"].append(1.0 if fin["did_forget"] else 0.0)
-                                elif ptype == "Consistency": aggregated_results["logical_inconsistency_rate"].append(0.0 if fin["is_consistent"] else 1.0)
-                                else: aggregated_results["retain_accuracy_rate"].append(1.0 if fin["did_retain"] else 0.0)
-                                
-                                for k, v in eval_dict.items():
-                                    if isinstance(v, (int, float)) and ('clean' in k or 'unlearned' in k):
-                                        key_name = f"{k.replace('clean_',f'clean_{ptype.lower()}_').replace('unlearned_',f'unlearned_{ptype.lower()}_')}"
-                                        aggregated_results[key_name].append(v)
-                                
-                                case_res["probes"].append({"type": ptype.lower(), "evaluation": eval_dict})
+                        # --- LÓGICA DE AGREGAÇÃO DINÂMICA ---
+                        # Iteramos sobre todas as chaves retornadas pelo worker (Forget, Consistency_0, Consistency_Rel, Retain...)
+                        for p_key, fin in final_metrics.items():
+                            cln = clean_answers.get(p_key, {})
+                            
+                            # Determina o tipo base e subtipo para categorização
+                            category = "other"
+                            sub_type = None
+
+                            if p_key == "Forget":
+                                category = "forget"
+                            elif p_key.startswith("Consistency_"):
+                                category = "consistency"
+                                # Formato esperado: Consistency_{type}_{idx}
+                                # Ex: Consistency_neighbor_0, Consistency_logical_deduction_1
+                                parts = p_key.split('_')
+                                # Assumimos que a última parte é o índice e o resto (exceto Consistency) é o tipo
+                                if len(parts) >= 3:
+                                    sub_type = "_".join(parts[1:-1])
+                            elif p_key.startswith("Retain_"):
+                                category = "retain"
+                                parts = p_key.split('_')
+                                if len(parts) >= 3:
+                                    sub_type = "_".join(parts[1:-1])
+                            else:
+                                # Fallback
+                                if "Forget" in p_key: category="forget"
+                                elif "Consistency" in p_key: category="consistency"
+                                elif "Retain" in p_key: category="retain"
+
+                            eval_dict = {
+                                "clean_truth_ratio": cln.get("truth_ratio", 0.0),
+                                "unlearned_truth_ratio": fin.get("truth_ratio", 0.0),
+                                "clean_rouge_l": cln.get("rouge_l", 0.0),
+                                "unlearned_rouge_l": fin.get("rouge_l", 0.0),
+                                "did_forget": fin.get("did_forget"),
+                                "is_consistent": fin.get("is_consistent"),
+                                "did_retain": fin.get("did_retain")
+                            }
+                            
+                            # Agregação para o Summary
+                            
+                            # 1. Taxas de Sucesso Globais
+                            if category == "forget":
+                                aggregated_results["forget_efficacy_rate"].append(1.0 if fin.get("did_forget") else 0.0)
+                            elif category == "consistency":
+                                aggregated_results["logical_inconsistency_rate"].append(0.0 if fin.get("is_consistent") else 1.0)
+                                if sub_type:
+                                    aggregated_results[f"{sub_type}_inconsistency_rate"].append(0.0 if fin.get("is_consistent") else 1.0)
+                            elif category == "retain":
+                                aggregated_results["retain_accuracy_rate"].append(1.0 if fin.get("did_retain") else 0.0)
+                                if sub_type:
+                                    aggregated_results[f"{sub_type}_accuracy_rate"].append(1.0 if fin.get("did_retain") else 0.0)
+                            
+                            # 2. Métricas de Valor (Truth Ratio, Rouge, etc)
+                            for k, v in eval_dict.items():
+                                if isinstance(v, (int, float)) and ('clean' in k or 'unlearned' in k):
+                                    # Métrica Geral do Tipo (ex: mean_unlearned_consistency_truth_ratio)
+                                    gen_key = k.replace('clean_', f'clean_{category}_').replace('unlearned_', f'unlearned_{category}_')
+                                    aggregated_results[gen_key].append(v)
+                                    
+                                    # Métrica Específica do Subtipo (ex: mean_unlearned_consistency_neighbor_truth_ratio)
+                                    if sub_type:
+                                        sub_key = k.replace('clean_', f'clean_{category}_{sub_type}_').replace('unlearned_', f'unlearned_{category}_{sub_type}_')
+                                        aggregated_results[sub_key].append(v)
+                            
+                            # Adiciona ao JSON detalhado mantendo o nome original
+                            case_res["probes"].append({"type": p_key, "evaluation": eval_dict})
+                        
                         detailed_results.append(case_res)
                     else:
                         skipped_cases += 1
